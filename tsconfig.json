@@ -1,4 +1,6 @@
 {
+  "noImplicitAny": false,
+  "strict": false,
   "compilerOptions": {
     "target": "es5",
     "lib": [
