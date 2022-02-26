@@ -1,7 +1,7 @@
 import DeckGL from '../node_modules/@deck.gl/react';
 import {LineLayer, PathLayer} from '../node_modules/@deck.gl/layers';
 import {StaticMap} from 'react-map-gl';
-import {MapView, FirstPersonView} from '../node_modules/@deck.gl/core';
+import {MapView} from '../node_modules/@deck.gl/core';
 
 const INITIAL_VIEW_STATE = {
     longitude: 47.8896,
@@ -10,8 +10,6 @@ const INITIAL_VIEW_STATE = {
     pitch: 0,
     bearing: 0
 };
-
-//curl 'http://router.project-osrm.org/route/v1/driving/56.6418,47.889690;56.641890,47.879654;56.741888,47.889612?overview=false'
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoia3Jhc2lsbmlrb3YzMCIsImEiOiJja3owODh1OGwwMjE2MnBwcXlkNGpwZ281In0.Ep9Yn349-UgsCl8SPEroHQ';
 
@@ -24,7 +22,7 @@ const dataLine = [
 
 const dataPath = [
     {
-        path: [[56.6418, 47.8896], [57.0000, 48.0000], [56.0000, 47.0000]],
+        path: [[56.641854, 47.889654], [57.000000, 48.000000], [56.000078, 47.000078]],
         name: 'Test route',
         color: [255, 0, 0]
     }
@@ -55,7 +53,6 @@ const App = () => {
             <MapView id="map" width="100%" controller={true}>
                 <StaticMap mapboxApiAccessToken={MAPBOX_ACCESS_TOKEN} />
             </MapView>
-            <FirstPersonView width="50%" x="50%" fovy={50} />
         </DeckGL>
     )    
 
