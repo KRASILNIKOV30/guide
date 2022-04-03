@@ -1,8 +1,16 @@
+import { YMaps, Map } from 'react-yandex-maps';
+
 const App = () => {
     return (
-        <h1>
-            TUMS Dominators
-        </h1>
+        <YMaps>
+            <Map
+                defaultState = {{ 
+                    center: [55.75, 37.57], 
+                    zoom: 9,
+                    type: 'yandex#hybrid',  
+                }}
+            />
+        </YMaps>
     )
 }
 

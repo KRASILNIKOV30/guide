@@ -6,27 +6,9 @@
         <title>Guide</title>
         <script src="https://api-maps.yandex.ru/2.1/?apikey=69b35853-10e5-483a-928c-fb414a02a744&lang=ru_RU" type="text/javascript">
         </script>
-        <script type="text/javascript">
-            // Функция ymaps.ready() будет вызвана, когда
-            // загрузятся все компоненты API, а также когда будет готово DOM-дерево.
-            ymaps.ready(init);
-            function init(){
-                // Создание карты.
-                var myMap = new ymaps.Map("root", {
-                    // Координаты центра карты.
-                    // Порядок по умолчанию: «широта, долгота».
-                    // Чтобы не определять координаты центра карты вручную,
-                    // воспользуйтесь инструментом Определение координат.
-                    center: [55.76, 37.64],
-                    // Уровень масштабирования. Допустимые значения:
-                    // от 0 (весь мир) до 19.
-                    zoom: 7
-                });
-            }
-        </script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
-        <div id="root" style="width: 1200px; height: 800px"></div>
+        <div id="root"></div>
     </body>
 </html>
