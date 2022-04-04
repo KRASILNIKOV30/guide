@@ -1,4 +1,19 @@
-.map {
+.map
+{
     height: 100vh;
     width: 100vw;
+}
+
+.hide 
+{
+    width: 100vw;
+    height: 50px;
+    background-color: black;
+    position: absolute;
+    bottom: 0px;
+}
+
+h1 
+{
+    color: white;
 }

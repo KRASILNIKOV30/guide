@@ -3,6 +3,7 @@ import './App.css';
 
 const App = () => {
     return (
+        <div>
         <YMaps>
             <Map
                 defaultState = {{ 
@@ -15,6 +16,8 @@ const App = () => {
                 <GeolocationControl options={{ float: 'right' }} />
             </Map>
         </YMaps>
+        <div className='hide'><h1>Здесть ничего нет</h1></div>
+        </div>
     )
 }
 
