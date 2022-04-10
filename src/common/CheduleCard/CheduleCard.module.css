@@ -1,0 +1,47 @@
+.main_container {
+    width: 44px;
+    height: 63px;
+
+    background: var(--white);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.main_container_weekend {
+    background: var(--secondary_grey_color);
+}
+
+.day_text {
+    color: var(--main_text_color);
+    font-size: 14px;
+    line-height: 16px;  
+}
+
+.day_text_weekend {
+    color: var(--secondary_text_color);
+}
+
+.work_time_text {
+    color: var(--main_text_color);
+    font-size: 12px;
+    line-height: 14px;
+
+    margin-top: 3px;
+}
+
+.work_time_text_disabled {
+    display: none;
+}
+
+.time_text {
+    text-align: center;
+}

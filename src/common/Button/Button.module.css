@@ -1,0 +1,102 @@
+.button {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 4px;
+
+    font-family: 'Roboto';
+    background: none;
+}
+
+.main {
+    background-color: var(--main_button_color);
+
+    padding: 11px 23px;
+
+    color: var(--white);
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.main:active {
+    background-color: var(--main_button_pressed_color);
+}
+
+.secondary {
+    color: var(--secondary_button_color);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+
+    padding: 12px 25px;
+}
+
+.secondary:active {
+    color: var(--secondary_button_color_pressed);
+}
+
+.text_container_hide {
+    display: none;
+}
+
+.add {
+    background: center no-repeat url('./icons/add.svg');
+}
+
+.delete {
+    background: center no-repeat url('./icons/delete.svg');
+}
+
+.delete_outline {
+    background: center no-repeat url('./icons/delete_outline.svg');
+}
+
+.hint {
+    background: center no-repeat url('./icons/hint.svg');
+}
+
+.back {
+    background: center no-repeat url('./icons/back.svg');
+}
+
+.cancel {
+    background: center no-repeat url('./icons/cancel.svg');
+}
+
+.location {
+    background: center no-repeat url('./icons/location.svg');
+}
+
+.plus {
+    background: center no-repeat url('./icons/plus.svg');
+}
+
+.minus {
+    background: center no-repeat url('./icons/minus.svg');
+}
+
+.back_to_location {
+    background: center no-repeat url('./icons/back_to_location.svg');
+}
+
+.plus, .minus, .back_to_location {
+    background-color: var(--white);
+    border-radius: 20px;
+    
+    filter: drop-shadow(0px 2px 10px rgba(0, 0, 0, 0.18));
+}
+
+.plus:active, .minus:active, .back_to_location:active {
+    background-color: var(--primary_grey_color);
+}
+
+.plus:disabled, .minus:disabled {
+    background-color: var(--secondary_grey_color);
+}

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
 *,
 *::after,
 *::before {
@@ -9,4 +11,15 @@
 
 body {  
   font: 'Montserrat', sans-serif;
+
+  --main_text_color: #151515;
+  --secondary_text_color: #7C7C7C;
+  --danger_color: #FF2828;
+  --main_button_color: #3AB97C;
+  --main_button_pressed_color: #32A06B;
+  --primary_grey_color: #F5F5F5;
+  --secondary_grey_color: #E0E0E0;
+  --white: #FFFFFF;
+  --secondary_button_color: #287EFF;
+  --secondary_button_color_pressed: #2872E0;
 }
