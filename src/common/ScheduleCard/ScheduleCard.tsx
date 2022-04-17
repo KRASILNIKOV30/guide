@@ -1,18 +1,18 @@
-import styles from './CheduleCard.module.css';
+import styles from './ScheduleCard.module.css';
 
-interface CheduleCardProps {
+interface ScheduleCardProps {
     day: 'Пн' | 'Вт' | 'Ср' | 'Чт' | 'Пт' | 'Сб' | 'Вс',
     workDay: boolean,
     timeStart?: string,
     timeEnd?: string,
 }
 
-const CheduleCard = ({
+const ScheduleCard = ({
     day,
     workDay,
     timeStart = '-',
     timeEnd = '-'
-}: CheduleCardProps) => {
+}: ScheduleCardProps) => {
     return (
         <div className = {`${styles.main_container} ${!workDay && styles.main_container_weekend}`}>
             <div className = {`${styles.day_text} ${!workDay && styles.day_text_weekend}`}>
@@ -26,4 +26,4 @@ const CheduleCard = ({
     )
 }
 
-export default CheduleCard;
+export default ScheduleCard;

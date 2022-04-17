@@ -9,7 +9,7 @@
   box-sizing: border-box;
 }
 
-body {  
+:root {  
   font: 'Montserrat', sans-serif;
 
   --main_text_color: #151515;
