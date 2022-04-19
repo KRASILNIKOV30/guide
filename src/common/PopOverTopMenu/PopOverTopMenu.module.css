@@ -1,0 +1,27 @@
+.pop_over_top_menu {
+    background-color: var(--primary_grey_color);
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+}
+
+.pop_over_top {
+    position: relative;
+    height: 3.673vh;
+    width: 100vw;
+}
+
+.pop_over_top::after {
+    display: block;
+    content: "";
+    position: absolute;
+
+    width: 8.72%;
+    height: 9.677%;
+    height: 3px;
+    top: 45.16%;
+    left: 45.64%;
+
+    background-color: var(--secondary_grey_color);
+
+}
