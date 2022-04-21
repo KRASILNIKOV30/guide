@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import { YMaps, Map, GeolocationControl } from 'react-yandex-maps';
 import styles from './YandexMap.module.css';
 
@@ -21,4 +22,4 @@ const YandexMap = () => {
     )
 }
 
-export default YandexMap
+export default connect()(YandexMap)

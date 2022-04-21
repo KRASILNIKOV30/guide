@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import styles from './ScheduleCard.module.css';
 
 interface ScheduleCardProps {
@@ -26,4 +27,4 @@ const ScheduleCard = ({
     )
 }
 
-export default ScheduleCard;
+export default connect()(ScheduleCard);

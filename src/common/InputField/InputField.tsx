@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import Button from '../Button/Button';
 import styles from './InputField.module.css';
 
@@ -36,4 +37,4 @@ const InputField = ({
     )
 }
 
-export default InputField
+export default connect()(InputField)

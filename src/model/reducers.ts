@@ -1,9 +1,12 @@
 import { deepClone } from '../core/functions/deepClone';
-import { userData } from './types'
+import { userData, RoutePoint } from './types'
 
-function selectTourReducer(userData: userData, tourId: string): userData {
+function selectTourReducer(userData: userData, tourId: string, pointIds: Array<string>): userData {
     const newUserData = deepClone(userData) as userData;
     newUserData.selectedTourId = tourId;
+    const newRouteState: Array<RoutePoint> = [];
+    pointIds.forEach(id => newRouteState.push({placeId: id, passed: false}))
+    newUserData.routeState = newRouteState;
     return newUserData
 }
 
@@ -13,7 +16,7 @@ function startStopRouteReducer(userData: userData, started: boolean): userData {
     return newUserData
 }
 
-function completeToureReducer(userData: userData): userData {
+function completeTourReducer(userData: userData): userData {
     const newUserData = deepClone(userData) as userData;
     if(newUserData.selectedTourId !== undefined && !newUserData.completedTouresId.includes(newUserData.selectedTourId)) {
         newUserData.completedTouresId.push(newUserData.selectedTourId)
@@ -24,4 +27,10 @@ function completeToureReducer(userData: userData): userData {
     return newUserData
 }
 
-export { selectTourReducer }
+function passRoutePointReducer(userData: userData, number: number): userData {
+    const newUserData = deepClone(userData) as userData;
+    newUserData.routeState[number - 1].passed = true;
+    return newUserData;
+}
+
+export { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer }

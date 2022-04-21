@@ -1,5 +1,7 @@
 import { createStore } from 'redux';
-import { State } from './types'
+import { State, userData } from './types'
+import { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer } from './reducers';
+import { deepClone } from '../core/functions/deepClone';
 
 let initialState: State = {
     userData: {
@@ -64,13 +66,31 @@ let initialState: State = {
 };
 
 export type ActionType = {
-    type: string
+    type: string,
+    id?: string,
+    started?: boolean,
+    number?: number,
 }
 
 function mainReducer(state: State = initialState, action: ActionType): State {
+    switch (action.type) {
+        case 'SELECT_TOUR': 
+            if (action.id !== undefined) {
+                const pointIds: Array<string> = [];
+                state.tours.find(tour => tour.id === action.id)?.places.forEach(place => pointIds.push(place.id));
+                state.userData = selectTourReducer(state.userData, action.id, pointIds);
+            }; break;
+        case 'START_STOP_ROUTE': action.started !== undefined ? state.userData = startStopRouteReducer(state.userData, action.started): null; break;
+        case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
+        case 'PASS_ROUTE_POINT': action.number !== undefined ? state.userData = passRoutePointReducer(state.userData, action.number): null;
+    }
+    localStorage.setItem("savedUserData", JSON.stringify(state.userData))
     return state
 }
 
-let store = createStore(mainReducer, initialState)
+
+let store = createStore(mainReducer, 
+    localStorage.getItem("savedUserData") !== null ? { ...initialState, userData: deepClone(JSON.parse(localStorage.getItem("savedUserData")!)) as userData}
+    : initialState)
 
 export { store }

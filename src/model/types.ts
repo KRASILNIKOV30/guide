@@ -36,4 +36,4 @@ type Place = {
     coordinates: Position;
 }
 
-export type { State, userData }
+export type { State, userData, Tour, RoutePoint }
