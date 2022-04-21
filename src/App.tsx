@@ -5,8 +5,10 @@ import styles from './App.module.css';
 const App = () => {
     return (
         <div className={styles.main_container}>
+            {/*
             <YandexMap />
             <PopOverTopMenu state = 'halfOpened'/>
+            */}
         </div>  
     )
 }
