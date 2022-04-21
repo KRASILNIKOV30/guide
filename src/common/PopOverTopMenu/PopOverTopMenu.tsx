@@ -1,21 +1,24 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useDragAndDrop } from '../../core/hooks/useDragAndDrop';
 import styles from './PopOverTopMenu.module.css';
 
 interface PopOverTopMenuProps {
-    state: 'closed' | 'halfOpened' | 'fullyOpened',
+    state?: 'closed' | 'halfOpened' | 'fullyOpened',
 }
 
 const PopOverTopMenu = ({
     state
 }: PopOverTopMenuProps) => {
-   
-
+    if (!state) {
+        state = 'closed'
+    }
+    
+    const [currentState, setCurrentState] = useState(state)
     const popOverTopRef = useRef(null)
     const popOverTopMenuRef = useRef(null)
 
     let height = '';
-    switch (state) {
+    switch (currentState) {
         case 'closed': {
             height = '10vh'
             break;
@@ -29,10 +32,11 @@ const PopOverTopMenu = ({
         }
     }
 
-    /* useDragAndDrop({
+    useDragAndDrop({
         elementRef: popOverTopMenuRef,
-        activeElementRef: popOverTopRef
-    }) */
+        activeElementRef: popOverTopRef,
+        setState: setCurrentState
+    })
 
     return(
         <div
@@ -47,6 +51,7 @@ const PopOverTopMenu = ({
                 ref = {popOverTopRef}
             >
             </div>
+            <h1 className = {styles.header_text}>Туры от Гида</h1>
         </div>
     )
 }
