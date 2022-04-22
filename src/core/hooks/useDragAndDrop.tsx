@@ -28,10 +28,13 @@ export function useDragAndDrop({
         let newHeight = startObjectPositionY.current - e.clientY + startClientY.current;
         const heightProportion = newHeight / window.screen.availHeight * 100;
         if (heightProportion < 40) {
+            setState('halfOpened')
             setState('closed')
         } else if (heightProportion < 60) {
+            setState('closed')
             setState('halfOpened')
         } else {
+            setState('closed')
             setState('fullyOpened')
         }
         window.removeEventListener('mousemove', onMouseMove)
@@ -42,13 +45,14 @@ export function useDragAndDrop({
     const onMouseDown = useCallback((e: MouseEvent) => {
         console.log('onMouseDown')
         if (activeElementRef.current && elementRef.current) {
-            startObjectPositionY.current = elementRef.current?.getBoundingClientRect().top
+            startObjectPositionY.current = document.documentElement.scrollHeight - elementRef.current?.getBoundingClientRect().top
+            console.log(startObjectPositionY.current)
             isStartHeightDeclared.current = true;
             window.addEventListener('mouseup', onMouseUp);
             window.addEventListener('mousemove', onMouseMove);
             startClientY.current = e.clientY;
         }    
-    }, [activeElementRef])
+    }, [activeElementRef, elementRef])
     
     useEffect(() => {
         if (elementRef.current && isStartHeightDeclared.current) {
