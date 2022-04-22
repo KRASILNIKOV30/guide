@@ -5,26 +5,19 @@ type State = {
     //menuStretching: "none" | "half" | "full";
     //menuState: "initial" | "townSelect" | "routeView" | "placeView" | "routeGo";
     userData: userData;
-    towns: Array<Town>;
+    tours: Array<Tour>;
 }
 
 type userData = {
-    selectedTownId?: string;
     selectedTourId?: string;
     routeState: Array<RoutePoint>
-    completedToures: Array<string>;
+    completedTouresId: Array<string>;
     started: boolean;
 }
 
 type RoutePoint = {
     placeId: string;
     passed: boolean;
-}
-
-type Town = {
-    id: string;
-    name: string;
-    tours: Array<Tour>;
 }
 
 type Tour = {
@@ -43,4 +36,4 @@ type Place = {
     coordinates: Position;
 }
 
-export type { State }
+export type { State, userData, Tour, RoutePoint }

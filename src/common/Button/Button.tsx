@@ -41,5 +41,4 @@ const Button = ({
     )
 }
 
-export default Button
-//export default connect()(Button)
+export default connect()(Button)
