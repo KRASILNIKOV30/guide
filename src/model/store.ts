@@ -80,9 +80,13 @@ function mainReducer(state: State = initialState, action: ActionType): State {
                 state.tours.find(tour => tour.id === action.id)?.places.forEach(place => pointIds.push(place.id));
                 state.userData = selectTourReducer(state.userData, action.id, pointIds);
             }; break;
-        case 'START_STOP_ROUTE': action.started !== undefined ? state.userData = startStopRouteReducer(state.userData, action.started): null; break;
+        case 'START_STOP_ROUTE': if (action.started !== undefined) {
+            state.userData = startStopRouteReducer(state.userData, action.started)
+        } break;
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
-        case 'PASS_ROUTE_POINT': action.number !== undefined ? state.userData = passRoutePointReducer(state.userData, action.number): null;
+        case 'PASS_ROUTE_POINT': if (action.number !== undefined) {
+            state.userData = passRoutePointReducer(state.userData, action.number)
+        };
     }
     localStorage.setItem("savedUserData", JSON.stringify(state.userData))
     return state

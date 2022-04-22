@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { connect } from 'react-redux';
 import { useDragAndDrop } from '../../core/hooks/useDragAndDrop';
 import styles from './PopOverTopMenu.module.css';
 
@@ -51,4 +52,4 @@ const PopOverTopMenu = ({
     )
 }
 
-export {PopOverTopMenu}
+export default connect()(PopOverTopMenu);

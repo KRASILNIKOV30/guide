@@ -1,6 +1,6 @@
 import YandexMap from './common/YandexMap/YandexMap';
-import { PopOverTopMenu } from './common/PopOverTopMenu/PopOverTopMenu';
 import styles from './App.module.css';
+import { connect } from 'react-redux';
 
 const App = () => {
     return (
@@ -13,4 +13,4 @@ const App = () => {
     )
 }
 
-export { App }
+export default connect()(App)
