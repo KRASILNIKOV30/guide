@@ -28,7 +28,8 @@ export function useDragAndDrop({
         let newHeight = startObjectPositionY.current - e.clientY + startClientY.current;
         const heightProportion = newHeight / window.screen.availHeight * 100;
         if (heightProportion < 40) {
-            setState('halfOpened')
+            setElementHeight(100);
+            /* setState('halfOpened') */
             setState('closed')
         } else if (heightProportion < 60) {
             setState('closed')
