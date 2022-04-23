@@ -5,10 +5,7 @@ import { connect } from 'react-redux';
 const App = () => {
     return (
         <div className={styles.main_container}>
-            {/*
             <YandexMap />
-            <PopOverTopMenu state = 'halfOpened'/>
-            */}
         </div>  
     )
 }
