@@ -28,8 +28,7 @@ export function useDragAndDrop({
         let newHeight = startObjectPositionY.current - e.clientY + startClientY.current;
         const heightProportion = newHeight / window.screen.availHeight * 100;
         if (heightProportion < 40) {
-            setElementHeight(100);
-            /* setState('halfOpened') */
+            setState('halfOpened')
             setState('closed')
         } else if (heightProportion < 60) {
             setState('closed')
@@ -38,8 +37,8 @@ export function useDragAndDrop({
             setState('closed')
             setState('fullyOpened')
         }
-        window.removeEventListener('mousemove', onMouseMove)
-        window.removeEventListener('mouseup', onMouseUp)
+        window.removeEventListener('pointermove', onMouseMove)
+        window.removeEventListener('pointerup', onMouseUp)
         isStartHeightDeclared.current = false;
     }, [onMouseMove])
 
@@ -49,8 +48,8 @@ export function useDragAndDrop({
             startObjectPositionY.current = document.documentElement.scrollHeight - elementRef.current?.getBoundingClientRect().top
             console.log(startObjectPositionY.current)
             isStartHeightDeclared.current = true;
-            window.addEventListener('mouseup', onMouseUp);
-            window.addEventListener('mousemove', onMouseMove);
+            window.addEventListener('pointerup', onMouseUp);
+            window.addEventListener('pointermove', onMouseMove);
             startClientY.current = e.clientY;
         }    
     }, [activeElementRef, elementRef])
@@ -64,12 +63,12 @@ export function useDragAndDrop({
     useEffect(() => {
         let activeElementRefValue: HTMLDivElement;
         if (activeElementRef.current && elementRef.current) {
-            activeElementRef.current.addEventListener('mousedown', onMouseDown)
+            activeElementRef.current.addEventListener('pointerdown', onMouseDown)
             activeElementRefValue = activeElementRef.current;
         } 
         return () => {
             if (activeElementRefValue) {
-                activeElementRefValue.removeEventListener('mousedown', onMouseDown)
+                activeElementRefValue.removeEventListener('pointerdown', onMouseDown)
             }
         }
     }, [onMouseDown, elementRef, activeElementRef])
