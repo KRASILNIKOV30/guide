@@ -43,7 +43,7 @@ const YandexMap = () => {
                         </div>
                         <Button 
                             viewStyle='back_to_location'
-                            onClick={() => {}}
+                            onClick={() => mapRef.current.setCenter([x, y], 15, { duration: 250 })}
                         />
                     </div>
                 </Map>
