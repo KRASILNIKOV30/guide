@@ -1,16 +1,12 @@
-import { Ref, useCallback, useRef, useState } from 'react';
+import { useRef } from 'react';
 import { connect } from 'react-redux';
-import { YMaps, Map, Button } from 'react-yandex-maps';
-import { useLocation } from '../../core/hooks/useLocation';
+import { YMaps, Map } from 'react-yandex-maps';
 import styles from './YandexMap.module.css';
+import Button from '../Button/Button';
+import { useLocation } from '../../core/hooks/useLocation';
 
-const YandexMap = () => {
-    const [zoomLevel, setZoomLevel] = useState(13);
-    
+const YandexMap = () => {   
     const mapRef = useRef<any>(null);
-    const setMapRef = useCallback((instance: Ref<any>) => {
-        mapRef.current = instance;
-    }, []);
 
     const { x, y, error } = useLocation();
     if (error) {
@@ -32,21 +28,24 @@ const YandexMap = () => {
                         controls: []
                     }}
                     className = {styles.map_container}
-                    instanceRef = {setMapRef}
+                    instanceRef = {(ref) => {mapRef.current = ref;}}
                 >
-                    <Button 
-                        data={{
-                            title: 'Plus',
-                            conent: 'Plus'
-                        }}
-                        options={{
-                            selectOnClick: false
-                        }}
-                        onClick = {() => {
-                            setZoomLevel(zoomLevel + 0.5);
-                            mapRef.current.setZoom(zoomLevel, { duration: 250 })
-                        }}
-                    /> 
+                    <div className={styles.button_container}>
+                        <div className={styles.zoom_container}>
+                            <Button
+                                viewStyle='plus'
+                                onClick={() => mapRef.current.setZoom(mapRef.current.getZoom() + 1, { duration: 250 })}
+                            />
+                            <Button
+                                viewStyle='minus'
+                                onClick={() => mapRef.current.setZoom(mapRef.current.getZoom() - 1, { duration: 250 })}
+                            />
+                        </div>
+                        <Button 
+                            viewStyle='back_to_location'
+                            onClick={() => {}}
+                        />
+                    </div>
                 </Map>
             </YMaps> 
         </div>
