@@ -1,6 +1,7 @@
 import { Ref, useCallback, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { YMaps, Map, Button, ZoomControl } from 'react-yandex-maps';
+import { YMaps, Map, Button } from 'react-yandex-maps';
+import { useLocation } from '../../core/hooks/useLocation';
 import styles from './YandexMap.module.css';
 
 const YandexMap = () => {
@@ -10,6 +11,12 @@ const YandexMap = () => {
     const setMapRef = useCallback((instance: Ref<any>) => {
         mapRef.current = instance;
     }, []);
+
+    const { x, y, error } = useLocation();
+    if (error) {
+        console.log(error)
+    }
+    console.log('x = ', x, ' y = ', y);
 
     return (
         <div className={styles.map_container}>

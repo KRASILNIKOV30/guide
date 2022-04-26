@@ -70,6 +70,8 @@ export type ActionType = {
     id?: string,
     started?: boolean,
     number?: number,
+    /*x?: number,
+    y?: number*/
 }
 
 function mainReducer(state: State = initialState, action: ActionType): State {
@@ -86,7 +88,10 @@ function mainReducer(state: State = initialState, action: ActionType): State {
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
         case 'PASS_ROUTE_POINT': if (action.number !== undefined) {
             state.userData = passRoutePointReducer(state.userData, action.number)
-        };
+        }; /*break;
+        case 'CHANGE_CURRENT_POSITION': if(action.x !== undefined && action.y !== undefined) {
+            state.userData = changeCurrentPositionReducer(state.userData, {x: action.x, y: action.y})
+        }*/
     }
     localStorage.setItem("savedUserData", JSON.stringify(state.userData))
     return state

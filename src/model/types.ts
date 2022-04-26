@@ -13,6 +13,7 @@ type userData = {
     routeState: Array<RoutePoint>
     completedTouresId: Array<string>;
     started: boolean;
+    //currentLocation?: Position;
 }
 
 type RoutePoint = {

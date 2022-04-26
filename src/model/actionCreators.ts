@@ -25,4 +25,12 @@ function passRoutePoint(number: number) {
     }
 }
 
+/*function changeCurrentPosition(x: number, y: number) {
+    return {
+        type: 'CHANGE_CURRENT_POSITION',
+        x,
+        y
+    }
+}*/
+
 export { selectTour, startStopRoute, completeTour, passRoutePoint }
