@@ -1,9 +1,10 @@
 import { useRef } from 'react';
 import { connect } from 'react-redux';
-import { YMaps, Map } from 'react-yandex-maps';
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
 import styles from './YandexMap.module.css';
 import Button from '../Button/Button';
 import { useLocation } from '../../core/hooks/useLocation';
+import userLocation from './images/userLocation.svg'
 
 const YandexMap = () => {   
     const mapRef = useRef<any>(null);
@@ -12,7 +13,6 @@ const YandexMap = () => {
     if (error) {
         console.log(error)
     }
-    console.log('x = ', x, ' y = ', y);
 
     return (
         <div className={styles.map_container}>
@@ -46,6 +46,13 @@ const YandexMap = () => {
                             onClick={() => mapRef.current.setCenter([x, y], 15, { duration: 250 })}
                         />
                     </div>
+                    {
+                        (x !== undefined && y !== undefined) && <Placemark geometry={[x, y]} options={{
+                            iconLayout: 'default#image',
+                            iconImageHref: userLocation,
+                            iconImageSize: [18, 18]
+                        }} />
+                    }     
                 </Map>
             </YMaps> 
         </div>
