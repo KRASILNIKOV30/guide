@@ -1,56 +1,78 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+    import React, { useCallback, useEffect, useRef, useState } from "react";
 
 interface useDragAndDropProps {
     elementRef: React.RefObject<HTMLDivElement>,
     activeElementRef: React.RefObject<HTMLDivElement>,
     setState: React.Dispatch<React.SetStateAction<"closed" | "halfOpened" | "fullyOpened">>
+    maxHeight: number
+    maxAvgHeight: number
+    minAvgHeight: number
+    minHeight: number
 }
 
 export function useDragAndDrop({
     elementRef,
     activeElementRef,
-    setState
+    setState,
+    maxHeight,
+    maxAvgHeight,
+    minAvgHeight,
+    minHeight
 }: useDragAndDropProps) {
     const startObjectPositionY = useRef<number>(0);
     let isStartHeightDeclared = useRef(false);
 
     const [elementHeight, setElementHeight] = useState(startObjectPositionY.current)
+    const currentHeightRef = useRef(0)
     const startClientY = useRef(0); 
 
-    const onMouseMove = useCallback((e: MouseEvent) => {
-        console.log('onMouseMove')
-        let newHeight = startObjectPositionY.current - e.clientY + startClientY.current;
+    const onTouchMove = useCallback((e: TouchEvent) => {
+        console.log('onTouchMove')
+        let newHeight = startObjectPositionY.current - e.touches[0].clientY + startClientY.current;
+        const heightProportion = newHeight / window.screen.availHeight * 100;
+        if (heightProportion > maxHeight) {
+            newHeight = document.documentElement.scrollHeight * maxHeight / 100
+        }
+        if (heightProportion < minHeight) {
+            newHeight = document.documentElement.scrollHeight * minHeight / 100
+        } 
+        
         setElementHeight(newHeight)
+        currentHeightRef.current = newHeight
     }, [setElementHeight])
     
-    const onMouseUp = useCallback((e: MouseEvent) => {
-        console.log('onMouseUp')
-        let newHeight = startObjectPositionY.current - e.clientY + startClientY.current;
-        const heightProportion = newHeight / window.screen.availHeight * 100;
-        if (heightProportion < 40) {
+    const onTouchEnd = useCallback((e: TouchEvent) => {
+        console.log('onTouchEnd')
+        if (elementRef.current) {
+            elementRef.current.style.transition = '.5s'
+        }
+        //let newHeight = startObjectPositionY.current - e.touches[0].clientY + startClientY.current;
+        const heightProportion = currentHeightRef.current / window.screen.availHeight * 100;
+        if (heightProportion < minAvgHeight) {
             setState('halfOpened')
             setState('closed')
-        } else if (heightProportion < 60) {
+        } else if (heightProportion < maxAvgHeight) {
             setState('closed')
             setState('halfOpened')
         } else {
             setState('closed')
             setState('fullyOpened')
         }
-        window.removeEventListener('pointermove', onMouseMove)
-        window.removeEventListener('pointerup', onMouseUp)
+        window.removeEventListener('touchmove', onTouchMove)
+        window.removeEventListener('touchend', onTouchEnd)
         isStartHeightDeclared.current = false;
-    }, [onMouseMove])
+    }, [onTouchMove])
 
-    const onMouseDown = useCallback((e: MouseEvent) => {
-        console.log('onMouseDown')
+    const onTouchStart = useCallback((e: TouchEvent) => {
+        e.preventDefault()
+        console.log('onTouchStart')
         if (activeElementRef.current && elementRef.current) {
+            elementRef.current.style.transition = '0s'
             startObjectPositionY.current = document.documentElement.scrollHeight - elementRef.current?.getBoundingClientRect().top
-            console.log(startObjectPositionY.current)
             isStartHeightDeclared.current = true;
-            window.addEventListener('pointerup', onMouseUp);
-            window.addEventListener('pointermove', onMouseMove);
-            startClientY.current = e.clientY;
+            window.addEventListener('touchend', onTouchEnd);
+            window.addEventListener('touchmove', onTouchMove);
+            startClientY.current = e.touches[0].    clientY;
         }    
     }, [activeElementRef, elementRef])
     
@@ -63,13 +85,13 @@ export function useDragAndDrop({
     useEffect(() => {
         let activeElementRefValue: HTMLDivElement;
         if (activeElementRef.current && elementRef.current) {
-            activeElementRef.current.addEventListener('pointerdown', onMouseDown)
+            activeElementRef.current.addEventListener('touchstart', onTouchStart)
             activeElementRefValue = activeElementRef.current;
         } 
         return () => {
             if (activeElementRefValue) {
-                activeElementRefValue.removeEventListener('pointerdown', onMouseDown)
+                activeElementRefValue.removeEventListener('touchstart', onTouchStart)
             }
         }
-    }, [onMouseDown, elementRef, activeElementRef])
+    }, [onTouchStart, elementRef, activeElementRef])
 }

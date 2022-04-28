@@ -10,6 +10,11 @@ interface PopOverTopMenuProps {
 const PopOverTopMenu = ({
     state
 }: PopOverTopMenuProps) => {
+    const maxHeight = 100;
+    const maxAvgHeight = 60;
+    const avgHeight = 50;
+    const minAvgHeight = 40;
+    const minHeight = 10;
     if (!state) {
         state = 'closed'
     }
@@ -21,22 +26,26 @@ const PopOverTopMenu = ({
     let height = '';
     switch (currentState) {
         case 'closed': {
-            height = '10vh'
+            height = `${minHeight}vh`
             break;
         }
         case 'halfOpened': {
-            height = '50vh'
+            height = `${avgHeight}vh`
             break
         }
         case 'fullyOpened': {
-            height = '100vh'
+            height = `${maxHeight}vh`
         }
     }
 
     useDragAndDrop({
         elementRef: popOverTopMenuRef,
         activeElementRef: popOverTopRef,
-        setState: setCurrentState
+        setState: setCurrentState,
+        maxHeight,
+        maxAvgHeight,
+        minAvgHeight,
+        minHeight
     })
 
     return(
