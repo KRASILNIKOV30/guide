@@ -1,0 +1,3 @@
+const PlacePanel = () => {}
+
+export {PlacePanel}
