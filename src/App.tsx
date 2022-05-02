@@ -6,14 +6,10 @@ import PopOverTopMenu from './common/PopOverTopMenu/PopOverTopMenu';
 const App = () => {
     return (
         <div className={styles.main_container}>
-<<<<<<< HEAD
             
             <YandexMap />
             <PopOverTopMenu state = 'halfOpened'/>
            
-=======
-            <YandexMap />
->>>>>>> Map-Buttons
         </div>  
     )
 }
