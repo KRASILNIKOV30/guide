@@ -1,12 +1,11 @@
 import { createStore } from 'redux';
-import { State, userData } from './types'
+import { State } from './types'
 import { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer } from './reducers';
-import { deepClone } from '../core/functions/deepClone';
 
 let initialState: State = {
     userData: {
-        selectedTourId: undefined,
-        routeState: [],
+        selectedTourId: '1',
+        routeState: [{placeId: '1', passed: false}, {placeId: '2', passed: false}, {placeId: '3', passed: false}],
         completedTouresId: [],
         started: false
     },
@@ -22,28 +21,28 @@ let initialState: State = {
                     name: 'Дом Макса',
                     img: undefined,
                     description: 'Боооольшой',
-                    coordinates: {x: 13, y: 23}
+                    coordinates: {x: 56.631929, y: 47.882962}
                 },
                 {
                     id: '2',
                     name: 'Дом Богдана',
                     img: undefined,
                     description: 'Не видел, но там есть ноутбук для проги',
-                    coordinates: {x: 68, y: 32}
+                    coordinates: {x: 56.634416, y: 47.899685}
                 },
                 {
                     id: '3',
                     name: 'Дом Тахира',
                     img: undefined,
                     description: 'ТАМ КОШКИ 2 КОТ И КОШКА',
-                    coordinates: {x: 42, y: 6}
+                    coordinates: {x: 56.633800, y: 47.930336}
                 },
                 {
                     id: '4',
                     name: 'Дом Кати',
                     img: undefined,
                     description: 'офигенский, 100 проц',
-                    coordinates: {x: 1, y: -99}
+                    coordinates: {x: 56.645720, y: 47.980040}
                 }
             ]
         },
@@ -88,18 +87,13 @@ function mainReducer(state: State = initialState, action: ActionType): State {
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
         case 'PASS_ROUTE_POINT': if (action.number !== undefined) {
             state.userData = passRoutePointReducer(state.userData, action.number)
-        }; /*break;
-        case 'CHANGE_CURRENT_POSITION': if(action.x !== undefined && action.y !== undefined) {
-            state.userData = changeCurrentPositionReducer(state.userData, {x: action.x, y: action.y})
-        }*/
+        };
     }
     localStorage.setItem("savedUserData", JSON.stringify(state.userData))
     return state
 }
 
 
-let store = createStore(mainReducer, 
-    localStorage.getItem("savedUserData") !== null ? { ...initialState, userData: deepClone(JSON.parse(localStorage.getItem("savedUserData")!)) as userData}
-    : initialState)
+let store = createStore(mainReducer, initialState)
 
 export { store }

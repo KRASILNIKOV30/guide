@@ -1,18 +1,45 @@
-import { useRef } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { connect } from 'react-redux';
-import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import { YMaps, Map, Placemark, withYMaps } from 'react-yandex-maps';
 import styles from './YandexMap.module.css';
 import Button from '../Button/Button';
 import { useLocation } from '../../core/hooks/useLocation';
 import userLocation from './images/userLocation.svg'
+import { State } from '../../model/types';
 
-const YandexMap = () => {   
+type PointInfo = {
+    coordinates: Array<number>;
+    passed: boolean;
+}
+
+interface YandexMapProps {
+    routeState: Array<PointInfo>
+    started: boolean;
+}
+
+const YandexMap = ({ routeState, started }: YandexMapProps) => {   
     const mapRef = useRef<any>(null);
 
     const { x, y, error } = useLocation();
-    if (error) {
-        console.log(error)
+
+    const CreateRoute = ({ ymaps, route }: any) => {
+        const pointsCoordsArray: Array<Array<number>> = [];
+        useEffect(() => {
+            route.forEach((point: any) => pointsCoordsArray.push(point.coordinates))
+            console.log('in ueh')
+            ymaps.route(pointsCoordsArray, {multiRoute: true, routingMode: "pedestrian"}).then((route: any) => {
+                route.options.set("mapStateAutoApply", true);
+                mapRef.current.geoObjects.add(route);
+            })
+            return () => {}
+        }, [ymaps, ...route]);
+        return ( <> </> )
     }
+
+    const ConnectedCreateRoute = useMemo(() => {
+        return withYMaps(CreateRoute, true, ['route'])
+    }, [routeState])
+    
 
     return (
         <div className={styles.map_container}>
@@ -52,11 +79,33 @@ const YandexMap = () => {
                             iconImageHref: userLocation,
                             iconImageSize: [18, 18]
                         }} />
-                    }     
+                    }
+                    {
+                        started && <ConnectedCreateRoute route = {routeState} />
+                    }
+                    
                 </Map>
             </YMaps> 
         </div>
     )
 }
 
-export default connect()(YandexMap)
+//useMemo
+
+function mapStateToProps(state: State) {
+    const routePoints: Array<PointInfo> = [];
+    const activeToureIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId);
+    state.userData.routeState.forEach(point => {
+        const placeIndex = state.tours[activeToureIndex].places.findIndex(place => place.id === point.placeId)
+        routePoints.push({
+            coordinates: [state.tours[activeToureIndex].places[placeIndex].coordinates.x, state.tours[activeToureIndex].places[placeIndex].coordinates.y],
+            passed: point.passed
+        })
+    })
+    return {
+        routeState: routePoints,
+        started: state.userData.started
+    }
+}
+
+export default connect(mapStateToProps)(YandexMap)

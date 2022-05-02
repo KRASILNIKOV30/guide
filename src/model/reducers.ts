@@ -1,5 +1,4 @@
 import { deepClone } from '../core/functions/deepClone';
-import { Position } from '../core/types/types';
 import { userData, RoutePoint } from './types'
 
 function selectTourReducer(userData: userData, tourId: string, pointIds: Array<string>): userData {
@@ -33,11 +32,5 @@ function passRoutePointReducer(userData: userData, number: number): userData {
     newUserData.routeState[number - 1].passed = true;
     return newUserData;
 }
-
-/*function changeCurrentPositionReducer(userData: userData, newPosition: Position): userData {
-    const newUserData = deepClone(userData) as userData;
-    newUserData.currentLocation = newPosition;
-    return newUserData;
-}*/
 
 export { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer }
