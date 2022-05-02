@@ -1,10 +1,10 @@
 import { useEffect, useCallback } from 'react';
 
-    const useClickOutside = (
-        elementRef: React.RefObject<HTMLElement|null>, 
-        onOutsideClick: () => void,
-        activeArea?: React.RefObject<HTMLElement|null> 
-    ) => {
+const useClickOutside = (
+    elementRef: React.RefObject<HTMLElement|null>, 
+    onOutsideClick: () => void,
+    activeArea?: React.RefObject<HTMLElement|null> 
+) => {
     const onMouseDown = useCallback((e: MouseEvent) => {
         if (!e.shiftKey && !e.ctrlKey) {
             if (activeArea && activeArea.current) {
