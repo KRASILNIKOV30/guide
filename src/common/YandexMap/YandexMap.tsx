@@ -27,9 +27,15 @@ const YandexMap = ({ routeState, started }: YandexMapProps) => {
         useEffect(() => {
             route.forEach((point: any) => pointsCoordsArray.push(point.coordinates))
             console.log('in ueh')
-            ymaps.route(pointsCoordsArray, {multiRoute: true, routingMode: "pedestrian"}).then((route: any) => {
-                route.options.set("mapStateAutoApply", true);
-                mapRef.current.geoObjects.add(route);
+            ymaps.route(
+                pointsCoordsArray,
+                {
+                    multiRoute: true,
+                    routingMode: "pedestrian"
+                }
+            ).then((route: any) => {
+            route.options.set("mapStateAutoApply", true);
+            mapRef.current.geoObjects.add(route);
             })
             return () => {}
         }, [ymaps, ...route]);
@@ -53,6 +59,9 @@ const YandexMap = ({ routeState, started }: YandexMapProps) => {
                         center: [56.64, 47.89], 
                         zoom: 13,
                         controls: []
+                    }}
+                    options = {{
+                        yandexMapDisablePoiInteractivity: true
                     }}
                     className = {styles.map_container}
                     instanceRef = {(ref) => {mapRef.current = ref;}}

@@ -1,14 +1,17 @@
-.pop_over_top_menu {
+.pop_over_menu {
     background-color: var(--primary_grey_color);
     width: 100vw;
     position: fixed;
     bottom: 0;
+    z-index: 2;
 }
 
 .pop_over_top {
     position: relative;
     height: 3.673vh;
     width: 100vw;
+
+    background-color: var(--primary_grey_color);
 }
 
 .pop_over_top::after {
@@ -22,12 +25,7 @@
     top: 45.16%;
     left: 45.64%;
 
-    background-color: var(--secondary_grey_color);
-}
+    border-radius: 10px;
 
-.header_text {
-    color: var(--main_text_color);
-    font: normal 500 20px Roboto;
-    
-    margin: 0.3vh 0 0 5.13vw;
+    background-color: var(--secondary_grey_color);
 }

@@ -27,7 +27,6 @@ export function useDragAndDrop({
     const startClientY = useRef(0); 
 
     const onTouchMove = useCallback((e: TouchEvent) => {
-        console.log('onTouchMove')
         let newHeight = startObjectPositionY.current - e.touches[0].clientY + startClientY.current;
         const heightProportion = newHeight / window.screen.availHeight * 100;
         if (heightProportion > maxHeight) {
@@ -42,7 +41,6 @@ export function useDragAndDrop({
     }, [setElementHeight])
     
     const onTouchEnd = useCallback((e: TouchEvent) => {
-        console.log('onTouchEnd')
         if (elementRef.current) {
             elementRef.current.style.transition = '.5s'
         }
@@ -65,7 +63,6 @@ export function useDragAndDrop({
 
     const onTouchStart = useCallback((e: TouchEvent) => {
         e.preventDefault()
-        console.log('onTouchStart')
         if (activeElementRef.current && elementRef.current) {
             elementRef.current.style.transition = '0s'
             startObjectPositionY.current = document.documentElement.scrollHeight - elementRef.current?.getBoundingClientRect().top

@@ -12,14 +12,17 @@
 :root {  
   font: 'Montserrat', sans-serif;
 
-  --main_text_color: #151515;
-  --secondary_text_color: #7C7C7C;
-  --danger_color: #FF2828;
-  --main_button_color: #3AB97C;
-  --main_button_pressed_color: #32A06B;
-  --primary_grey_color: #F5F5F5;
-  --secondary_grey_color: #E0E0E0;
   --white: #FFFFFF;
+  --primary_grey_color: #F5F5F5;
+  --secondary_text_color: #7C7C7C;
+  --tertiary_grey_color: #3D3D3D;
+  --main_text_color: #151515;
+
+  --tour_background_color: #E1EFF2;
   --secondary_button_color: #287EFF;
   --secondary_button_color_pressed: #2872E0;
+  --main_button_color: #3AB97C;
+  --main_button_pressed_color: #32A06B;
+  --danger_color: #FF2828;
+  --gradient_color: linear-gradient(90deg, #D66950 10.26%, #819928 88.62%);
 }

@@ -34,7 +34,7 @@ const Button = ({
             className = {`${styles.button} ${buttonStyle}`}
             onClick = {onClick}
         >
-            <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? styles.text_container: styles.text_container_hide}>
+            <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? viewStyle === 'main' ? styles.text_container_gradient : styles.text_container : styles.text_container_hide}>
                 {text}
             </div>
         </button>
