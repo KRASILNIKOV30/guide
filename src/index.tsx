@@ -3,13 +3,18 @@ import { Provider } from 'react-redux';
 
 import './index.css';
 import { store } from './model/store';
-import App from './App';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TourSelect from './routes/tourSelect/TourSelect';
 
 const rootElement = document.getElementById('root')
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<TourSelect />} />
+            </Routes>
+        </BrowserRouter>
     </Provider>,
     rootElement
 )

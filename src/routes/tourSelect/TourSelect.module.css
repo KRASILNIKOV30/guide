@@ -1,0 +1,85 @@
+.tour_select {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    width: inherit;
+    height: 52px;
+
+    background-color: goldenrod;
+}
+
+.bot {
+    width: inherit;
+    height: 133px;
+    
+    background-color: goldenrod;
+}
+
+.header_container {
+    width: inherit;
+    height: 97px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.header_top {
+    width: inherit;
+    height: 75%;
+
+    display: flex;
+    justify-content: space-between;
+    padding: 29px 26px 0 31px;
+}
+
+.header_bot {
+    width: inherit;
+
+    display: flex;
+
+    padding: 0 31px;
+}
+
+.placemark_image {
+    width: 20px;
+    height: 20px;
+    background: center no-repeat url('./images/placemark.svg');
+}
+
+.town_name {
+    display: flex;
+    align-items: center;
+
+    font: var(--main_text);
+    color: var(--secondary_text_color);
+    line-height: 19px;
+}
+
+.header_text {
+    font: var(--max_text);
+    background: linear-gradient(90deg, #D66950 10.26%, #819928 88.62%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.tour_info_container {
+    width: inherit;
+    height: 121px;
+}
+
+.tour_images_container {
+    width: inherit;
+    height: 390px;
+}
+
+.slider_container {
+    width: inherit;
+    height: 54px;
+}

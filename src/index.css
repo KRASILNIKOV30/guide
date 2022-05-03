@@ -25,4 +25,15 @@
   --main_button_pressed_color: #32A06B;
   --danger_color: #FF2828;
   --gradient_color: linear-gradient(90deg, #D66950 10.26%, #819928 88.62%);
+
+  --main_text: normal 400 14px/16px 'Roboto';
+  --button_text: normal 600 16px/18px 'Roboto';
+  --route_timer_text: normal 400 25px/29px 'Roboto';
+  --place_name_text: normal 500 20px/23px 'Roboto';
+  --min_text: normal 400 12px/14px 'Roboto';
+  --main_bold_text: normal 700 14px/16px 'Roboto';
+  --max_text: normal 700 35px/41px 'Roboto';
+  --sb_18_text: normal 600 18px/21px 'Roboto';
+  --reg_16_text: normal 400 16px/19px 'Roboto';
+  --tour_name_text: normal 700 26px/30px 'Roboto';
 }
