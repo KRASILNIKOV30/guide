@@ -1,0 +1,66 @@
+.place_panel {
+    width: 85.64vw;
+    height: 6.635vh;
+    position: relative;
+
+    display: flex;
+}
+
+.place_info {
+    height: 100%;
+    width: 46.67vw;
+    margin-left: 3.077vw;
+}
+
+.name {
+    color: var(--main_text_color);
+    font: normal 600 18px Roboto 
+}
+
+.address {
+    color: var(--secondary_text_color);
+    font: normal 400 16px Roboto
+}
+
+.number__default, .number__disabled {
+    width: 4.6154vw;
+    height: 2.1327vh;
+    border-radius: 10px;
+    padding-top: 0.14218vh;
+    margin-right: 3.077vw;
+
+    color: var(--primary_grey_color);
+    align-self: center;
+    display: flex;
+    justify-content: space-around;
+
+    font: normal 700 14px Roboto
+}
+
+.number__disabled {
+    background-color: var(--secondary_text_color);
+}
+
+.number__default {
+    background-color: var(--secondary_button_color);
+}
+
+.checkbox__default, .checkbox__active, .checkbox__none {
+    width: 18px;
+    height: 18px;
+    align-self: center;
+    margin-left: 5.8974vw;
+}
+
+.checkbox__active, .checkbox__default {
+    border: 1px solid var(--secondary_text_color);
+    box-sizing: border-box;
+    border-radius: 3px;
+}
+
+.checkbox__active {
+    background-color: var(--secondary_text_color);
+    background-image: url();
+    background-repeat: no-repeat;
+    background-position: center center;
+}
