@@ -1,11 +1,12 @@
+import { useEffect, useRef, useState } from 'react'
+import { useCheckBoxTouch } from '../../core/hooks/useCheckBoxTouch'
 import styles from './PlacePanel.module.css'
 
 interface PlacePanelProps {
     name: string,
     address: string,
     imageSrc: string,
-    state: "default" | "active" | "deleted",
-    checkboxState: "default" | "active" | "none",
+    state: "default" | "active" | "finished" | "deleted",
     number: number
 }
 
@@ -14,19 +15,45 @@ const PlacePanel = ({
     address,
     imageSrc,
     state,
-    checkboxState,
     number
 }: PlacePanelProps) => {
-    let numberClassnames = `${checkboxState === 'active' ? styles.number__disabled : styles.number__default}`
+    let checkBoxRef = useRef(null)
+    const [currentState, setCurrentState] = useState(state)
+
+    useCheckBoxTouch({
+        checkBoxRef,
+        state: currentState,
+        setState: setCurrentState
+    })
+
+    let numberClassname = () => {
+        if (currentState === 'finished') {
+            return styles.number__disabled
+        } else if (currentState === 'deleted') {
+            return styles.number__deleted 
+        } else {
+            return styles.number__default
+        }
+    }
     let checkboxClassname = () => {
-        switch(checkboxState) {
-            case "active":
+        switch(currentState) {
+            case "finished":
                 return styles.checkbox__active;
-            case "default":
+            case "active":
                 return styles.checkbox__default;
-            case "none":
+            case "default":
+                return styles.checkbox__none;
+            case "deleted":
                 return styles.checkbox__none;
         }
+    }
+    let imgClassname = () => {
+        if (currentState === 'active') {
+            return styles.img_active
+        } else if (currentState === 'deleted') {
+            return ''
+        }
+        return styles.img_default    
     }
 
     return (
@@ -34,23 +61,25 @@ const PlacePanel = ({
             className = {styles.place_panel}
         >
             <div 
-                className={numberClassnames}
-                
+                className={numberClassname()} 
             >
-                {number}
+                {state === 'deleted' ? '' : number}
             </div>
-            <img src={imageSrc} alt='Дом Бабочка'/>
+            <div className={imgClassname()}></div>
+            <img
+                className={state === 'deleted' ? styles.img_deleted : styles.main_img} 
+                src={imageSrc} 
+                alt='Дом Бабочка'
+            />
             <div className={styles.place_info}>
                 <h3 className={styles.name}>{name}</h3>
                 <h4 className={styles.address}>{address}</h4>
             </div>
             <div 
                 className={checkboxClassname()}
-                
+                ref = {checkBoxRef}
             >
-
             </div>
-
         </div>
     )
 }
