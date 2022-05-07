@@ -1,4 +1,4 @@
-    import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 interface useDragAndDropProps {
     elementRef: React.RefObject<HTMLDivElement>,
@@ -69,7 +69,7 @@ export function useDragAndDrop({
             isStartHeightDeclared.current = true;
             window.addEventListener('touchend', onTouchEnd);
             window.addEventListener('touchmove', onTouchMove);
-            startClientY.current = e.touches[0].    clientY;
+            startClientY.current = e.touches[0].clientY;
         }    
     }, [activeElementRef, elementRef])
     

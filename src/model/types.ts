@@ -9,7 +9,7 @@ type State = {
 }
 
 type userData = {
-    selectedTourId?: string;
+    selectedTourId: string;
     routeState: Array<RoutePoint>
     completedTouresId: Array<string>;
     started: boolean;
@@ -23,7 +23,7 @@ type RoutePoint = {
 type Tour = {
     id: string;
     name: string;
-    img?: string;
+    img: string;
     description: string;
     places: Array<Place>;
 }

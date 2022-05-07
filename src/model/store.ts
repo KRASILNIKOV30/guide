@@ -1,11 +1,14 @@
 import { createStore } from 'redux';
 import { State } from './types'
 import { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer } from './reducers';
+import tour1 from './images/1/image.svg';
+import tour2 from './images/2/image.svg';
+import tour3 from './images/3/image.svg';
 
 let initialState: State = {
     userData: {
-        selectedTourId: '1',
-        routeState: [{placeId: '1', passed: false}, {placeId: '2', passed: false}, {placeId: '3', passed: false}],
+        selectedTourId: '',
+        routeState: [],
         completedTouresId: [],
         started: false
     },
@@ -13,50 +16,72 @@ let initialState: State = {
         {
             id: '1',
             name: 'Йошкар-Ола за 1 день',
-            img: undefined,
-            description: 'В этом туре вы можете пройти по интереснейшим местам Йошка-Олы всего за один день',
+            img: tour1,
+            description: 'Постмотрите самые важные места Йошки всего за 1 день.',
             places: [
                 {
                     id: '1',
-                    name: 'Дом Макса',
+                    name: 'Место',
                     img: undefined,
-                    description: 'Боооольшой',
-                    coordinates: {x: 56.631929, y: 47.882962}
-                },
-                {
-                    id: '2',
-                    name: 'Дом Богдана',
-                    img: undefined,
-                    description: 'Не видел, но там есть ноутбук для проги',
-                    coordinates: {x: 56.634416, y: 47.899685}
-                },
-                {
-                    id: '3',
-                    name: 'Дом Тахира',
-                    img: undefined,
-                    description: 'ТАМ КОШКИ 2 КОТ И КОШКА',
-                    coordinates: {x: 56.633800, y: 47.930336}
-                },
-                {
-                    id: '4',
-                    name: 'Дом Кати',
-                    img: undefined,
-                    description: 'офигенский, 100 проц',
-                    coordinates: {x: 56.645720, y: 47.980040}
+                    description: 'Описание.',
+                    coordinates: {x: 0, y: 0}
                 }
             ]
         },
         {
             id: '2',
             name: 'Лучшие места для фото',
-            img: undefined,
-            description: 'Зачекинтесь на этих кульных спотах для своего инстика и получите много классов!',
+            img: tour2,
+            description: 'Привет! Это подборка самых фотогеиничных мест нашего города.',
             places: [
                 {
                     id: '1',
-                    name: 'Зеркало',
+                    name: 'Дом Бабочка',
                     img: undefined,
-                    description: 'Вы прекрасны, вам не нужен красивый фон чтобы показать это всему миру.',
+                    description: 'Получаются кадры как с обложек “Molchat Doma”',
+                    coordinates: {x: 56.631929, y: 47.882962}
+                },
+                {
+                    id: '2',
+                    name: 'Дом Флакон (Кока-Кола)',
+                    img: undefined,
+                    description: 'Один из флагманов йошкар-олинских фото-мест.',
+                    coordinates: {x: 56.634416, y: 47.899685}
+                },
+                {
+                    id: '3',
+                    name: 'iSpring',
+                    img: undefined,
+                    description: 'Ну красота какая ну ты посмотри.',
+                    coordinates: {x: 56.633800, y: 47.930336}
+                },
+                {
+                    id: '4',
+                    name: 'Набережная улица',
+                    img: undefined,
+                    description: 'Дух Царевокошайска спрятан где-то здесь!',
+                    coordinates: {x: 56.645720, y: 47.980040}
+                },
+                {
+                    id: '5',
+                    name: 'Вараксинский мост',
+                    img: undefined,
+                    description: 'Не самое романтичное место, но самый романтичый вид на Йошкар-Олу, с которого можно увидеть всю многоликость нашего города.',
+                    coordinates: {x: 56.645720, y: 47.980040}
+                }
+            ]
+        },
+        {
+            id: '3',
+            name: 'Гастрономический тур',
+            img: tour3,
+            description: 'Вот и тур по самым вкусным заведниям Красного Города.',
+            places: [
+                {
+                    id: '1',
+                    name: 'Место',
+                    img: undefined,
+                    description: 'Описание.',
                     coordinates: {x: 0, y: 0}
                 }
             ]
@@ -89,11 +114,13 @@ function mainReducer(state: State = initialState, action: ActionType): State {
             state.userData = passRoutePointReducer(state.userData, action.number)
         };
     }
-    localStorage.setItem("savedUserData", JSON.stringify(state.userData))
+    //localStorage.setItem("savedUserData", JSON.stringify(state.userData))
     return state
 }
 
 
 let store = createStore(mainReducer, initialState)
+
+export type AppDispatch = typeof store.dispatch
 
 export { store }

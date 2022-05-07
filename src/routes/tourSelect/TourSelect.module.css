@@ -10,7 +10,7 @@
     width: inherit;
     height: 52px;
 
-    background-color: goldenrod;
+    background-color: #daa520;
 }
 
 .bot {
@@ -22,7 +22,7 @@
 
 .header_container {
     width: inherit;
-    height: 97px;
+    height: 98px;
 
     display: flex;
     flex-direction: column;
@@ -71,12 +71,57 @@
 
 .tour_info_container {
     width: inherit;
-    height: 121px;
+    height: 120px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding: 0 0 19px 2px;
+}
+
+.tour_name {
+    font: var(--tour_name_text);
+    color: var(--main_text_color);
+    text-align: center;
+
+    width: 327px;
+}
+
+.tour_info {
+    font: var(--main_text);
+    color: var(--secondary_text_color);
+    text-align: center;
+
+    width: 250px;
+    margin-top: 8px;
 }
 
 .tour_images_container {
-    width: inherit;
+    width: 10000px;
     height: 390px;
+
+    display: flex;
+    flex-flow: row nowrap;
+
+    overflow: hidden;
+
+   padding-left: 45px;
+}
+
+.tour_image {
+    width: 270px;
+    height: 390px;
+
+    border-radius: 10px;
+
+    padding: 324px 82px 18px 82px;
+    margin: 0 15px;
+}
+
+.tour_image_active {
+    box-shadow: 0px 20px 40px 10px rgba(196, 202, 172, 0.6);
 }
 
 .slider_container {
