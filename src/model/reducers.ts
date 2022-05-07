@@ -5,7 +5,7 @@ function selectTourReducer(userData: userData, tourId: string, pointIds: Array<s
     const newUserData = deepClone(userData) as userData;
     newUserData.selectedTourId = tourId;
     const newRouteState: Array<RoutePoint> = [];
-    pointIds.forEach(id => newRouteState.push({placeId: id, passed: false}))
+    pointIds.forEach(id => newRouteState.push({placeId: id, state: 'default'}))
     newUserData.routeState = newRouteState;
     return newUserData
 }
@@ -29,7 +29,7 @@ function completeTourReducer(userData: userData): userData {
 
 function passRoutePointReducer(userData: userData, number: number): userData {
     const newUserData = deepClone(userData) as userData;
-    newUserData.routeState[number - 1].passed = true;
+    newUserData.routeState[number - 1].state = 'finished';
     return newUserData;
 }
 

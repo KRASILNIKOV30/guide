@@ -4,11 +4,37 @@ import { selectTourReducer, startStopRouteReducer, completeTourReducer, passRout
 import tour1 from './images/1/image.svg';
 import tour2 from './images/2/image.svg';
 import tour3 from './images/3/image.svg';
+import butterfly from './images/places/butterfly.svg'
+import flacon from './images/places/flacon.svg'
+import ispring from './images/places/ispring.svg'
+import old_wharf from './images/places/old_wharf.svg'
+import varaksin_bridge from './images/places/varaksin_bridge.svg'
 
 let initialState: State = {
     userData: {
-        selectedTourId: '',
-        routeState: [],
+        selectedTourId: '2',
+        routeState: [
+            {
+                placeId: '1',
+                state: 'finished'
+            },
+            {
+                placeId: '2',
+                state: 'active'
+            },
+            {
+                placeId: '3',
+                state: 'default'
+            },
+            {
+                placeId: '4',
+                state: 'default'
+            },
+            {
+                placeId: '5',
+                state: 'default'
+            },
+        ],
         completedTouresId: [],
         started: false
     },
@@ -22,9 +48,10 @@ let initialState: State = {
                 {
                     id: '1',
                     name: 'Место',
-                    img: undefined,
+                    img: '',
                     description: 'Описание.',
-                    coordinates: {x: 0, y: 0}
+                    coordinates: {x: 0, y: 0},
+                    address: ''
                 }
             ]
         },
@@ -37,37 +64,42 @@ let initialState: State = {
                 {
                     id: '1',
                     name: 'Дом Бабочка',
-                    img: undefined,
+                    img: butterfly,
                     description: 'Получаются кадры как с обложек “Molchat Doma”',
-                    coordinates: {x: 56.631929, y: 47.882962}
+                    coordinates: {x: 56.631929, y: 47.882962},
+                    address: 'Ленинский проспект, 16'
                 },
                 {
                     id: '2',
-                    name: 'Дом Флакон (Кока-Кола)',
-                    img: undefined,
+                    name: 'Дом Флакон',
+                    img: flacon,
                     description: 'Один из флагманов йошкар-олинских фото-мест.',
-                    coordinates: {x: 56.634416, y: 47.899685}
+                    coordinates: {x: 56.634416, y: 47.899685},
+                    address: 'Эшкинина, 2'
                 },
                 {
                     id: '3',
                     name: 'iSpring',
-                    img: undefined,
+                    img: ispring,
                     description: 'Ну красота какая ну ты посмотри.',
-                    coordinates: {x: 56.633800, y: 47.930336}
+                    coordinates: {x: 56.633800, y: 47.930336},
+                    address: 'Вознесенская, 110'
                 },
                 {
                     id: '4',
                     name: 'Набережная улица',
-                    img: undefined,
+                    img: old_wharf,
                     description: 'Дух Царевокошайска спрятан где-то здесь!',
-                    coordinates: {x: 56.645720, y: 47.980040}
+                    coordinates: {x: 56.645720, y: 47.980040},
+                    address: 'Набережная, 1',
                 },
                 {
                     id: '5',
                     name: 'Вараксинский мост',
-                    img: undefined,
+                    img: varaksin_bridge,
                     description: 'Не самое романтичное место, но самый романтичый вид на Йошкар-Олу, с которого можно увидеть всю многоликость нашего города.',
-                    coordinates: {x: 56.645720, y: 47.980040}
+                    coordinates: {x: 56.645720, y: 47.980040},
+                    address: 'Водопроводная'
                 }
             ]
         },
@@ -80,9 +112,10 @@ let initialState: State = {
                 {
                     id: '1',
                     name: 'Место',
-                    img: undefined,
+                    img: '',
                     description: 'Описание.',
-                    coordinates: {x: 0, y: 0}
+                    coordinates: {x: 0, y: 0},
+                    address: ''
                 }
             ]
         }

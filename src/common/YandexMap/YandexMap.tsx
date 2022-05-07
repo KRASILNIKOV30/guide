@@ -9,7 +9,7 @@ import { State } from '../../model/types';
 
 type PointInfo = {
     coordinates: Array<number>;
-    passed: boolean;
+    state: "default" | "active" | "finished" | "deleted";
 }
 
 interface YandexMapProps {
@@ -108,7 +108,7 @@ function mapStateToProps(state: State) {
         const placeIndex = state.tours[activeToureIndex].places.findIndex(place => place.id === point.placeId)
         routePoints.push({
             coordinates: [state.tours[activeToureIndex].places[placeIndex].coordinates.x, state.tours[activeToureIndex].places[placeIndex].coordinates.y],
-            passed: point.passed
+            state: point.state
         })
     })
     return {

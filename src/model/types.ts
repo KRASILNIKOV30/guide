@@ -17,7 +17,7 @@ type userData = {
 
 type RoutePoint = {
     placeId: string;
-    passed: boolean;
+    state: "default" | "active" | "finished" | "deleted";
 }
 
 type Tour = {
@@ -31,9 +31,10 @@ type Tour = {
 type Place = {
     id: string;
     name: string;
-    img?: string;
+    img: string;
     description: string;
     coordinates: Position;
+    address: string;
 }
 
-export type { State, userData, Tour, RoutePoint }
+export type { State, userData, Tour, RoutePoint, Place }

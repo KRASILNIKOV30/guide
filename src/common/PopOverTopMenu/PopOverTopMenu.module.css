@@ -29,3 +29,9 @@
 
     background-color: var(--secondary_grey_color);
 }
+
+.place {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
