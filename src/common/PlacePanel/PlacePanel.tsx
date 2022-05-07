@@ -65,6 +65,7 @@ const PlacePanel = ({
             >
                 {state === 'deleted' ? '' : number}
             </div>
+            {currentState === 'active' && <div className={styles.blackout}></div>}
             <div className={imgClassname()}></div>
             <img
                 className={state === 'deleted' ? styles.img_deleted : styles.main_img} 

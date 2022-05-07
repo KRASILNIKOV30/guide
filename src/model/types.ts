@@ -34,6 +34,7 @@ type Place = {
     img?: string;
     description: string;
     coordinates: Position;
+    state: 'active' | 'default' | 'finished' | 'deleted'
 }
 
 export type { State, userData, Tour, RoutePoint }

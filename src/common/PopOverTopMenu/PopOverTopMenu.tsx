@@ -19,7 +19,7 @@ const PopOverTopMenu = ({
     if (!state) {
         state = 'closed'
     }
-    
+
     const [currentState, setCurrentState] = useState(state)
     const popOverTopRef = useRef(null)
     const popOverTopMenuRef = useRef(null)
