@@ -3,7 +3,8 @@ import styles from './Button.module.css';
 
 interface ButtonProps {
     viewStyle: 'main' | 'secondary' | 'add' | 'delete' | 'delete_outline'
-            | 'hint' | 'back' | 'cancel' | 'location' | 'plus' | 'minus' | 'back_to_location',
+            | 'hint' | 'back' | 'cancel' | 'location' | 'plus' | 'minus' | 'back_to_location'
+            | 'info',
     text?: string,
     onClick: () => void
 }
@@ -23,6 +24,7 @@ const Button = ({
         case 'hint': {buttonStyle = styles.hint; break}
         case 'back': {buttonStyle = styles.back; break}
         case 'cancel': {buttonStyle = styles.cancel; break}
+        case 'info': {buttonStyle = styles.info; break}
         case 'location': {buttonStyle = styles.location; break}
         case 'plus': {buttonStyle = styles.plus; break}
         case 'minus': {buttonStyle = styles.minus; break}
@@ -34,7 +36,7 @@ const Button = ({
             className = {`${styles.button} ${buttonStyle}`}
             onClick = {onClick}
         >
-            <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? styles.text_container: styles.text_container_hide}>
+            <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? viewStyle === 'main' ? styles.text_container_gradient : styles.text_container : styles.text_container_hide}>
                 {text}
             </div>
         </button>

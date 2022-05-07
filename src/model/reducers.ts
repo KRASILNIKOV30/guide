@@ -21,7 +21,7 @@ function completeTourReducer(userData: userData): userData {
     if(newUserData.selectedTourId !== undefined && !newUserData.completedTouresId.includes(newUserData.selectedTourId)) {
         newUserData.completedTouresId.push(newUserData.selectedTourId)
     }
-    newUserData.selectedTourId = undefined;
+    newUserData.selectedTourId = '';
     newUserData.routeState = [];
     newUserData.started = false;
     return newUserData

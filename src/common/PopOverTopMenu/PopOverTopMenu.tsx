@@ -12,7 +12,7 @@ const PopOverTopMenu = ({
     state
 }: PopOverTopMenuProps) => {
     const maxHeight = 100;
-    const maxAvgHeight = 60;
+    const maxAvgHeight = 80;
     const avgHeight = 50;
     const minAvgHeight = 40;
     const minHeight = 20;
@@ -52,7 +52,7 @@ const PopOverTopMenu = ({
     return(
         <div
             ref = {popOverTopMenuRef}
-            className = {styles.pop_over_top_menu}
+            className = {styles.pop_over_menu}
             style = {{
                 'height': `${height}`
             }}
