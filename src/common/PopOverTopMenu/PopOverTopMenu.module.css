@@ -31,7 +31,10 @@
 }
 
 .place {
-    margin-top: 20px;
     display: flex;
     justify-content: center;
+}
+
+.draggable_element {
+    margin-top: 20px;
 }

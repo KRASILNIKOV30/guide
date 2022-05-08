@@ -6,7 +6,7 @@ interface PlacePanelProps {
     name: string,
     address: string,
     imageSrc: string,
-    state: "default" | "active" | "finished" | "deleted",
+    state: "default" | "active" | "finished" | "deleted" | "tourPreview",
     number: number
 }
 
@@ -45,6 +45,8 @@ const PlacePanel = ({
                 return styles.checkbox__none;
             case "deleted":
                 return styles.checkbox__none;
+            case "tourPreview":
+                return styles.checkbox__none;
         }
     }
     let imgClassname = () => {
@@ -60,11 +62,12 @@ const PlacePanel = ({
         <div
             className = {styles.place_panel}
         >
+            { state !== "tourPreview" && 
             <div 
                 className={numberClassname()} 
             >
                 {state === 'deleted' ? '' : number}
-            </div>
+            </div>}
             {currentState === 'active' && <div className={styles.blackout}></div>}
             <div className={imgClassname()}></div>
             <img

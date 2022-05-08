@@ -2,8 +2,8 @@ import { useCallback, useEffect } from "react"
 
 interface useCheckBoxTouchProps {
     checkBoxRef: React.RefObject<HTMLDivElement>,
-    state: "default" | "active" | "finished" | "deleted",
-    setState: React.Dispatch<React.SetStateAction<"default" | "active" | "finished" | "deleted">>
+    state: "default" | "active" | "finished" | "deleted" | "tourPreview",
+    setState: React.Dispatch<React.SetStateAction<"default" | "active" | "finished" | "deleted" | "tourPreview">>
 } 
 
 const useCheckBoxTouch = ({

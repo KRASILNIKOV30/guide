@@ -7,7 +7,7 @@ const App = () => {
     return (
         <div className={styles.main_container}>
             <YandexMap />
-            <PopOverTopMenu state = 'halfOpened'/>
+            <PopOverTopMenu state="editable"/>
         </div>  
     )
 }
