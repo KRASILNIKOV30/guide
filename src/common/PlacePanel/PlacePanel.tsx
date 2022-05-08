@@ -6,7 +6,7 @@ interface PlacePanelProps {
     name: string,
     address: string,
     imageSrc: string,
-    state: "default" | "active" | "finished" | "deleted",
+    state: "default" | "active" | "finished" | "deleted" | "tourPreview",
     number: number
 }
 
@@ -60,11 +60,12 @@ const PlacePanel = ({
         <div
             className = {styles.place_panel}
         >
+            { currentState !== "tourPreview" && 
             <div 
                 className={numberClassname()} 
             >
                 {state === 'deleted' ? '' : number}
-            </div>
+            </div>}
             {currentState === 'active' && <div className={styles.blackout}></div>}
             <div className={imgClassname()}></div>
             <img
