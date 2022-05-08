@@ -18,10 +18,9 @@ function completeTour() {
     }
 }
 
-function passRoutePoint(number: number) {
+function passRoutePoint() {
     return {
-        type: 'PASS_ROUTE_POINT',
-        number
+        type: 'PASS_ROUTE_POINT'
     }
 }
 

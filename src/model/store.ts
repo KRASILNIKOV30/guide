@@ -4,11 +4,11 @@ import { selectTourReducer, startStopRouteReducer, completeTourReducer, passRout
 import tour1 from './images/1/image.svg';
 import tour2 from './images/2/image.svg';
 import tour3 from './images/3/image.svg';
-import butterfly from './images/places/butterfly.svg'
-import flacon from './images/places/flacon.svg'
-import ispring from './images/places/ispring.svg'
-import old_wharf from './images/places/old_wharf.svg'
-import varaksin_bridge from './images/places/varaksin_bridge.svg'
+import tour2place1 from './images/2/1/image.svg'
+import tour2place2 from './images/2/2/image.svg'
+import tour2place3 from './images/2/3/image.svg'
+import tour2place4 from './images/2/4/image.svg'
+import tour2place5 from './images/2/5/image.svg'
 
 let initialState: State = {
     userData: {
@@ -42,13 +42,13 @@ let initialState: State = {
         {
             id: '1',
             name: 'Йошкар-Ола за 1 день',
-            img: tour1,
+            image: tour1,
             description: 'Постмотрите самые важные места Йошки всего за 1 день.',
             places: [
                 {
                     id: '1',
                     name: 'Место',
-                    img: '',
+                    image: '',
                     description: 'Описание.',
                     coordinates: {x: 0, y: 0},
                     address: ''
@@ -58,13 +58,13 @@ let initialState: State = {
         {
             id: '2',
             name: 'Лучшие места для фото',
-            img: tour2,
+            image: tour2,
             description: 'Привет! Это подборка самых фотогеиничных мест нашего города.',
             places: [
                 {
                     id: '1',
                     name: 'Дом Бабочка',
-                    img: butterfly,
+                    image: tour2place1,
                     description: 'Получаются кадры как с обложек “Molchat Doma”',
                     coordinates: {x: 56.631929, y: 47.882962},
                     address: 'Ленинский проспект, 16'
@@ -72,7 +72,7 @@ let initialState: State = {
                 {
                     id: '2',
                     name: 'Дом Флакон',
-                    img: flacon,
+                    image: tour2place2,
                     description: 'Один из флагманов йошкар-олинских фото-мест.',
                     coordinates: {x: 56.634416, y: 47.899685},
                     address: 'Эшкинина, 2'
@@ -80,7 +80,7 @@ let initialState: State = {
                 {
                     id: '3',
                     name: 'iSpring',
-                    img: ispring,
+                    image: tour2place3,
                     description: 'Ну красота какая ну ты посмотри.',
                     coordinates: {x: 56.633800, y: 47.930336},
                     address: 'Вознесенская, 110'
@@ -88,7 +88,7 @@ let initialState: State = {
                 {
                     id: '4',
                     name: 'Набережная улица',
-                    img: old_wharf,
+                    image: tour2place4,
                     description: 'Дух Царевокошайска спрятан где-то здесь!',
                     coordinates: {x: 56.645720, y: 47.980040},
                     address: 'Набережная, 1',
@@ -96,7 +96,7 @@ let initialState: State = {
                 {
                     id: '5',
                     name: 'Вараксинский мост',
-                    img: varaksin_bridge,
+                    image: tour2place5,
                     description: 'Не самое романтичное место, но самый романтичый вид на Йошкар-Олу, с которого можно увидеть всю многоликость нашего города.',
                     coordinates: {x: 56.645720, y: 47.980040},
                     address: 'Водопроводная'
@@ -106,13 +106,13 @@ let initialState: State = {
         {
             id: '3',
             name: 'Гастрономический тур',
-            img: tour3,
+            image: tour3,
             description: 'Вот и тур по самым вкусным заведниям Красного Города.',
             places: [
                 {
                     id: '1',
                     name: 'Место',
-                    img: '',
+                    image: '',
                     description: 'Описание.',
                     coordinates: {x: 0, y: 0},
                     address: ''
@@ -126,9 +126,6 @@ export type ActionType = {
     type: string,
     id?: string,
     started?: boolean,
-    number?: number,
-    /*x?: number,
-    y?: number*/
 }
 
 function mainReducer(state: State = initialState, action: ActionType): State {
@@ -143,11 +140,10 @@ function mainReducer(state: State = initialState, action: ActionType): State {
             state.userData = startStopRouteReducer(state.userData, action.started)
         } break;
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
-        case 'PASS_ROUTE_POINT': if (action.number !== undefined) {
-            state.userData = passRoutePointReducer(state.userData, action.number)
-        };
+        case 'PASS_ROUTE_POINT':  state.userData = passRoutePointReducer(state.userData);
     }
     //localStorage.setItem("savedUserData", JSON.stringify(state.userData))
+    console.log(state.userData.selectedTourId)
     return state
 }
 

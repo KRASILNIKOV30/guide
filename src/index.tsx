@@ -5,6 +5,7 @@ import './index.css';
 import { store } from './model/store';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TourSelect from './routes/tourSelect/TourSelect';
+import PreviewTour from './routes/previewTour/PreviewTour';
 
 const rootElement = document.getElementById('root')
 
@@ -13,11 +14,9 @@ ReactDOM.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<TourSelect />} />
-                <Route path="" element={<TourSelect />} />
+                <Route path="previewtour" element={<PreviewTour />} />
             </Routes>
         </BrowserRouter>
     </Provider>,
     rootElement
 )
-
-//--openssl-legacy-provider 

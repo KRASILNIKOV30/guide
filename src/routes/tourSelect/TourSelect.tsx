@@ -99,7 +99,7 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
 
 const mapStateToProps = (state: State) => {
     const tourInfo: Array<TourInfo> = [];
-    state.tours.forEach(tour => tourInfo.push({id: tour.id, name: tour.name, description: tour.description, image: tour.img}))
+    state.tours.forEach(tour => tourInfo.push({id: tour.id, name: tour.name, description: tour.description, image: tour.image}))
     
     return {
         tours: tourInfo

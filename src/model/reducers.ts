@@ -27,9 +27,13 @@ function completeTourReducer(userData: userData): userData {
     return newUserData
 }
 
-function passRoutePointReducer(userData: userData, number: number): userData {
+function passRoutePointReducer(userData: userData): userData {
     const newUserData = deepClone(userData) as userData;
-    newUserData.routeState[number - 1].state = 'finished';
+    const indexActive = newUserData.routeState.findIndex(point => point.state === 'active');
+    newUserData.routeState[indexActive].state = 'finished';
+    if (indexActive !== newUserData.routeState.length - 1) {
+        newUserData.routeState[indexActive + 1].state = 'active';
+    }
     return newUserData;
 }
 

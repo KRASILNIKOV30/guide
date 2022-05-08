@@ -17,13 +17,13 @@ type userData = {
 
 type RoutePoint = {
     placeId: string;
-    state: "default" | "active" | "finished" | "deleted";
+    state: "default" | "active" | "finished";
 }
 
 type Tour = {
     id: string;
     name: string;
-    img: string;
+    image: string;
     description: string;
     places: Array<Place>;
 }
@@ -31,7 +31,7 @@ type Tour = {
 type Place = {
     id: string;
     name: string;
-    img: string;
+    image: string;
     description: string;
     coordinates: Position;
     address: string;

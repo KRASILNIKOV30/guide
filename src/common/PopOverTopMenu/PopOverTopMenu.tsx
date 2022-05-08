@@ -61,7 +61,7 @@ const PopOverTopMenu = ({
             <PlacePanel
                 name = {place.name}
                 address={place.address}
-                imageSrc={place.img}
+                imageSrc={place.image}
                 state={routeState.find(placeState => placeState.placeId === place.id)!.state}
                 number={index + 1}
             />
