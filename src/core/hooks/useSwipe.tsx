@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 
 interface useSwipeProps {
-    elementRef: React.RefObject<HTMLDivElement>
+    elementRef: React.RefObject<HTMLElement>
     swipedRight: () => void
     swipedLeft: () => void
 }
@@ -15,7 +15,6 @@ function useSwipe({ elementRef, swipedRight, swipedLeft }: useSwipeProps) {
     }, [])
 
     const onTouchEnd = useCallback((e: TouchEvent) => {
-        console.log('onTouchEnd, start = ', startClientX, 'current = ', currentClientX)
         if (currentClientX.current > startClientX.current - 20 && currentClientX.current  !== 0) {
             swipedLeft();
             currentClientX.current = 0;
@@ -27,11 +26,9 @@ function useSwipe({ elementRef, swipedRight, swipedLeft }: useSwipeProps) {
 
         window.removeEventListener('touchend', onTouchEnd);
         window.removeEventListener('touchmove', onTouchMove)
-        console.log('swipe ended')
     }, [swipedRight, swipedLeft, onTouchMove, currentClientX])
 
     const onTouchStart = useCallback((e: TouchEvent) => {
-        console.log('swipe started')
         if (elementRef.current) {
             window.addEventListener('touchend', onTouchEnd);
             window.addEventListener('touchmove', onTouchMove);
@@ -40,7 +37,7 @@ function useSwipe({ elementRef, swipedRight, swipedLeft }: useSwipeProps) {
     }, [elementRef, onTouchEnd, onTouchMove])
     
     useEffect(() => {
-        let elementRefValue: HTMLDivElement;
+        let elementRefValue: HTMLElement;
         if (elementRef.current) {
             elementRef.current.addEventListener('touchstart', onTouchStart, {passive: false});
             elementRefValue = elementRef.current;

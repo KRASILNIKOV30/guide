@@ -45,6 +45,8 @@ const PlacePanel = ({
                 return styles.checkbox__none;
             case "deleted":
                 return styles.checkbox__none;
+            case "tourPreview":
+                return styles.checkbox__none;
         }
     }
     let imgClassname = () => {
@@ -60,7 +62,7 @@ const PlacePanel = ({
         <div
             className = {styles.place_panel}
         >
-            { currentState !== "tourPreview" && 
+            { state !== "tourPreview" && 
             <div 
                 className={numberClassname()} 
             >

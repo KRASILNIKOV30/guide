@@ -21,15 +21,17 @@ const useCheckBoxTouch = ({
     }, [state, setState])
 
     useEffect(() => {
+        let checkBoxRefValue: HTMLDivElement 
         if (checkBoxRef.current) {
             checkBoxRef.current.addEventListener('touchstart', onTouch, {passive: false})
+            checkBoxRefValue = checkBoxRef.current
         }
         return () => {
-            if (checkBoxRef.current) {
-                checkBoxRef.current.removeEventListener('touchstart', onTouch)
+            if (checkBoxRefValue) {
+                checkBoxRefValue.removeEventListener('touchstart', onTouch)
             }
         }
-    }, [checkBoxRef, state, setState])
+    }, [checkBoxRef, state, setState, onTouch])
 }
 
 export {useCheckBoxTouch}

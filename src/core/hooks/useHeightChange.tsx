@@ -1,24 +1,22 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 
-interface useDragAndDropProps {
+interface useHeightChangeProps {
     elementRef: React.RefObject<HTMLDivElement>,
     activeElementRef: React.RefObject<HTMLDivElement>,
-    setState: React.Dispatch<React.SetStateAction<"closed" | "halfOpened" | "fullyOpened">>
+    setState: React.Dispatch<React.SetStateAction<"closed" | "opened">>
+    avgHeight: number
     maxHeight: number
-    maxAvgHeight: number
-    minAvgHeight: number
     minHeight: number
 }
 
-export function useDragAndDrop({
+export function useHeightChange({
     elementRef,
     activeElementRef,
     setState,
     maxHeight,
-    maxAvgHeight,
-    minAvgHeight,
-    minHeight
-}: useDragAndDropProps) {
+    minHeight,
+    avgHeight
+}: useHeightChangeProps) {
     const startObjectPositionY = useRef<number>(0);
     let isStartHeightDeclared = useRef(false);
 
@@ -38,27 +36,24 @@ export function useDragAndDrop({
         
         setElementHeight(newHeight)
         currentHeightRef.current = newHeight
-    }, [setElementHeight])
+    }, [setElementHeight, minHeight, maxHeight])
     
     const onTouchEnd = useCallback((e: TouchEvent) => {
         if (elementRef.current) {
             elementRef.current.style.transition = '.5s'
         }
         const heightProportion = currentHeightRef.current / window.screen.availHeight * 100;
-        if (heightProportion < minAvgHeight) {
-            setState('halfOpened')
+        if (heightProportion < avgHeight) {
+            setState('opened')
             setState('closed')
-        } else if (heightProportion < maxAvgHeight) {
-            setState('closed')
-            setState('halfOpened')
         } else {
             setState('closed')
-            setState('fullyOpened')
+            setState('opened')
         }
         window.removeEventListener('touchmove', onTouchMove)
         window.removeEventListener('touchend', onTouchEnd)
         isStartHeightDeclared.current = false;
-    }, [onTouchMove])
+    }, [onTouchMove, setState, avgHeight, elementRef])
 
     const onTouchStart = useCallback((e: TouchEvent) => {
         e.preventDefault()
@@ -70,7 +65,7 @@ export function useDragAndDrop({
             window.addEventListener('touchmove', onTouchMove);
             startClientY.current = e.touches[0].clientY;
         }    
-    }, [activeElementRef, elementRef])
+    }, [activeElementRef, elementRef, onTouchEnd, onTouchMove])
     
     useEffect(() => {
         if (elementRef.current && isStartHeightDeclared.current) {
