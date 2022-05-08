@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
 import { PlacePanel } from '../PlacePanel/PlacePanel';
@@ -7,6 +7,7 @@ import { AppDispatch, store } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import { useSwipe } from '../../core/hooks/useSwipe';
 
 interface PopOverTopMenuProps {
     style?: 'closed' | 'opened',
@@ -22,6 +23,12 @@ const PopOverTopMenu = ({
     state
 }: PopOverTopMenuProps) => {
     const [currentPlaces, setCurrentPlaces] = useState(places)
+    const elementRef = useRef(null)
+    useSwipe({
+        elementRef,
+        swipedLeft: () => {console.log()},
+        swipedRight: () => {console.log('swipedRight')},
+    })
 
     const maxHeight = () => {
         switch (state) {
@@ -84,7 +91,7 @@ const PopOverTopMenu = ({
     }
 
     const placeList = currentPlaces.map((place, index) => 
-        <li key={place.id} className = {styles.place}>
+        <li ref={elementRef} key={place.id} className = {styles.place}>
             <Draggable
                 key={place.id} 
                 draggableId={place.id} 
@@ -154,7 +161,6 @@ const PopOverTopMenu = ({
 }
 
 const mapStateToProps = (style: State) => {
-    console.log('mapStateToProps')
     const currentTourIndex = style.tours.findIndex(tour => tour.id === style.userData.selectedTourId)
     const placesInfo = style.tours[currentTourIndex].places;
     const routeStateInfo = style.userData.routeState

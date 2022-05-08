@@ -36,7 +36,7 @@ export function useHeightChange({
         
         setElementHeight(newHeight)
         currentHeightRef.current = newHeight
-    }, [setElementHeight])
+    }, [setElementHeight, minHeight, maxHeight])
     
     const onTouchEnd = useCallback((e: TouchEvent) => {
         if (elementRef.current) {
@@ -53,7 +53,7 @@ export function useHeightChange({
         window.removeEventListener('touchmove', onTouchMove)
         window.removeEventListener('touchend', onTouchEnd)
         isStartHeightDeclared.current = false;
-    }, [onTouchMove])
+    }, [onTouchMove, setState, avgHeight, elementRef])
 
     const onTouchStart = useCallback((e: TouchEvent) => {
         e.preventDefault()
@@ -65,7 +65,7 @@ export function useHeightChange({
             window.addEventListener('touchmove', onTouchMove);
             startClientY.current = e.touches[0].clientY;
         }    
-    }, [activeElementRef, elementRef])
+    }, [activeElementRef, elementRef, onTouchEnd, onTouchMove])
     
     useEffect(() => {
         if (elementRef.current && isStartHeightDeclared.current) {

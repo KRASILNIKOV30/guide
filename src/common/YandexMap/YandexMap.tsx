@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { connect } from 'react-redux';
 import { YMaps, Map, Placemark, withYMaps } from 'react-yandex-maps';
 import styles from './YandexMap.module.css';
