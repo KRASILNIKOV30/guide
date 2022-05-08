@@ -99,7 +99,7 @@
 }
 
 .tour_images_container {
-    width: 10000px;
+    width: inherit;
     height: 390px;
 
     display: flex;
@@ -107,7 +107,8 @@
 
     overflow: hidden;
 
-   padding-left: 45px;
+    padding-left: 45px;
+    transition: .5s;
 }
 
 .tour_image {
@@ -118,13 +119,36 @@
 
     padding: 324px 82px 18px 82px;
     margin: 0 15px;
+
+    transition: .8s;
+    box-shadow: none;
 }
 
 .tour_image_active {
+    transition: .8s;
     box-shadow: 0px 20px 40px 10px rgba(196, 202, 172, 0.6);
 }
 
 .slider_container {
     width: inherit;
     height: 54px;
+
+    display: flex;
+    justify-content: center;
+
+    padding-top: 18px;
+}
+
+.tour_point {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+
+    background: #CCCCCC;
+
+    margin-right: 5px;
+}
+
+.tour_point_active {
+    background: linear-gradient(90deg, #D66950 10.26%, #819928 88.62%);
 }

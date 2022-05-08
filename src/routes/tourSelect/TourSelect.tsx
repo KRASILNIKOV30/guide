@@ -22,7 +22,6 @@ interface ToolBarProps {
 const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
     const [focusedTourIndex, setFocusedTourIndex] = useState(0);
 
-    const selectedTour = useRef(tours[focusedTourIndex]);
     const silderRef = useRef<HTMLDivElement>(null);
 
     useSwipe({
@@ -42,7 +41,7 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
     return (
         <div className={styles.tour_select}>
             <div className={styles.top}></div>
-
+            
             <div className={styles.header_container}>
                 <div className={styles.header_top}>
                     <h1 className={styles.header_text}> Туры от Гида </h1>
@@ -51,18 +50,21 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                 <div className={styles.header_bot}>
                     <div className={styles.placemark_image}></div>
                     <div className={styles.town_name}> Йошкар-Ола </div>
-                </div>
+                </div>                       
             </div>
 
             <div className={styles.tour_info_container}>
-                <h2 className={styles.tour_name}>{selectedTour.current.name}</h2>
-                <h3 className={styles.tour_info}>{selectedTour.current.description}</h3>
+                <h2 className={styles.tour_name}>{tours[focusedTourIndex].name}</h2>
+                <h3 className={styles.tour_info}>{tours[focusedTourIndex].description}</h3>
             </div>
 
             <div
                 className={styles.tour_images_container}
                 ref = {silderRef}
-                style = {{"marginLeft": `${focusedTourIndex * -300}px`}}
+                style = {{
+                    "transform": `translate(${focusedTourIndex * -300}px, 0)`,
+                    "width": `${390 + focusedTourIndex * 300}px`
+                }}
             >
                 {
                     tours.map((tour) => 
@@ -70,15 +72,24 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                             className={`${styles.tour_image} ${(tours.findIndex(tourI => tourI.id === tour.id) === focusedTourIndex) && styles.tour_image_active}`}
                             style = {{"background": `center no-repeat url(${tour.image})`}}
                             key = {tour.id}
-                        > 
-                            <Button text="Вперёд!" viewStyle="main" onClick={() => {}} />
+                        >
+                            <Button text="Вперёд!" viewStyle="main" onClick={() => {
+                                selectTour(tours[focusedTourIndex].id);
+                            }} />
                         </div>
                     )
                 }
             </div>
 
             <div className={styles.slider_container}>
-                
+                {
+                    tours.map((tour) => 
+                        <div
+                            className={`${styles.tour_point} ${(tours.findIndex(tourI => tourI.id === tour.id) === focusedTourIndex) && styles.tour_point_active}`}
+                            key = {tour.id}
+                        > </div>
+                    )
+                }
             </div>
 
             <div className={styles.bot}></div>

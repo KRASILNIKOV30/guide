@@ -13,6 +13,7 @@ ReactDOM.render(
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<TourSelect />} />
+                <Route path="" element={<TourSelect />} />
             </Routes>
         </BrowserRouter>
     </Provider>,
