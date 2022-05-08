@@ -11,15 +11,14 @@ const rootElement = document.getElementById('root')
 
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<TourSelect />} />
+                <Route path="" element={<TourSelect />} />
+            </Routes>
+        </BrowserRouter>
     </Provider>,
     rootElement
 )
 
 //--openssl-legacy-provider 
-{/* <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<TourSelect />} />
-
-            </Routes>
-        </BrowserRouter> */}

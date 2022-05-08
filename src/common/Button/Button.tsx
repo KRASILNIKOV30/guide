@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import styles from './Button.module.css';
+import { Link } from 'react-router-dom'
 
 interface ButtonProps {
     viewStyle: 'main' | 'secondary' | 'add' | 'delete' | 'delete_outline'
@@ -37,7 +38,7 @@ const Button = ({
             onClick = {onClick}
         >
             <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? viewStyle === 'main' ? styles.text_container_gradient : styles.text_container : styles.text_container_hide}>
-                {text}
+                <Link to="/previewtour">{text}</Link>
             </div>
         </button>
     )
