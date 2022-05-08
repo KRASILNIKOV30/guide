@@ -7,12 +7,14 @@ interface ButtonProps {
             | 'hint' | 'back' | 'cancel' | 'location' | 'plus' | 'minus' | 'back_to_location'
             | 'info',
     text?: string,
+    to?: string,
     onClick: () => void
 }
 
 const Button = ({
     viewStyle,
     text = '',
+    to,
     onClick
 }: ButtonProps) => {
     let buttonStyle = '';
@@ -38,7 +40,9 @@ const Button = ({
             onClick = {onClick}
         >
             <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? viewStyle === 'main' ? styles.text_container_gradient : styles.text_container : styles.text_container_hide}>
-                <Link to="/previewtour">{text}</Link>
+                {
+                    to !== undefined ? <Link to={to}>{text}</Link> : <>{text}</>
+                }
             </div>
         </button>
     )

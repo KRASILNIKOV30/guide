@@ -15,20 +15,23 @@ function useSwipe({ elementRef, swipedRight, swipedLeft }: useSwipeProps) {
     }, [])
 
     const onTouchEnd = useCallback((e: TouchEvent) => {
-        if (currentClientX.current > startClientX.current - 20) {
+        console.log('onTouchEnd, start = ', startClientX, 'current = ', currentClientX)
+        if (currentClientX.current > startClientX.current - 20 && currentClientX.current  !== 0) {
             swipedLeft();
+            currentClientX.current = 0;
         }
-        else if (currentClientX.current < startClientX.current - 20) {
+        else if (currentClientX.current < startClientX.current - 20 && currentClientX.current  !== 0) {
             swipedRight();
+            currentClientX.current = 0;
         }
 
         window.removeEventListener('touchend', onTouchEnd);
         window.removeEventListener('touchmove', onTouchMove)
-
+        console.log('swipe ended')
     }, [swipedRight, swipedLeft, onTouchMove, currentClientX])
 
     const onTouchStart = useCallback((e: TouchEvent) => {
-        e.preventDefault();
+        console.log('swipe started')
         if (elementRef.current) {
             window.addEventListener('touchend', onTouchEnd);
             window.addEventListener('touchmove', onTouchMove);

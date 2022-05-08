@@ -29,11 +29,13 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
         swipedRight: () => {
             if (tours.length > focusedTourIndex + 1 && silderRef.current) {
                 setFocusedTourIndex(focusedTourIndex + 1);
+                console.log('newFocusedTourIndex = ', focusedTourIndex + 1)
             }
         },
         swipedLeft: () => {
             if (focusedTourIndex > 0 && silderRef.current) {
                 setFocusedTourIndex(focusedTourIndex - 1);
+                console.log('newFocusedTourIndex = ', focusedTourIndex - 1)
             }
         }
     })
@@ -73,8 +75,9 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                             style = {{"background": `center no-repeat url(${tour.image})`}}
                             key = {tour.id}
                         >
-                            <Button text="Вперёд!" viewStyle="main" onClick={() => {
+                            <Button text="Вперёд!" viewStyle="main" to="/previewtour" onClick={() => {
                                 selectTour(tours[focusedTourIndex].id);
+                                console.log('in button: ', tours[focusedTourIndex].id, "\n when focused index is", focusedTourIndex)
                             }} />
                         </div>
                     )
