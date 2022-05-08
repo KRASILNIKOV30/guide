@@ -5,7 +5,6 @@ import './index.css';
 import { store } from './model/store';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TourSelect from './routes/tourSelect/TourSelect';
-import App from './App';
 
 const rootElement = document.getElementById('root')
 
