@@ -7,10 +7,24 @@
 }
 
 .header {
-    width: 100vw;
-    height: 67vh;
+    width: inherit;
+    height: 100vh;
 
-    background: center no-repeat;
+
+}
+
+.backgroundImage {
+    width: inherit;
+    height: inherit;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    filter: blur(20px);
+
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .top {

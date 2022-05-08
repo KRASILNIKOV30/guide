@@ -143,7 +143,6 @@ function mainReducer(state: State = initialState, action: ActionType): State {
         case 'PASS_ROUTE_POINT':  state.userData = passRoutePointReducer(state.userData);
     }
     //localStorage.setItem("savedUserData", JSON.stringify(state.userData))
-    console.log(state.userData.selectedTourId)
     return state
 }
 

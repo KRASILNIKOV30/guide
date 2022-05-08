@@ -12,11 +12,11 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
         <div className={styles.preview_tour_container}>
             <div className={styles.top}></div>
 
-            <div 
-                className = {styles.header}
-                style = {{"background": `center no-repeat url(${tour.image})`}}
-            >
-
+            <div className={styles.header}>
+                <div 
+                    className = {styles.backgroundImage}
+                    style = {{"backgroundImage": `url(${tour.image})`}}
+                > </div>
             </div>
 
             <div className={styles.bot}></div>
