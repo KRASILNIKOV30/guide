@@ -6,10 +6,13 @@
     z-index: 2;
 
     border-radius: 10px 10px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .pop_over_top {
-    position: relative;
+    position: fixed;
     height: 3.673vh;
     width: 100vw;
 
@@ -39,6 +42,47 @@
     justify-content: center;
 }
 
+.place_list {
+    margin-top: 20px;
+}
+
+.delete_button {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    right: 0;
+    bottom: 10px;
+    z-index: -2;
+}
+
 .draggable_element {
     margin-top: 20px;
+}
+
+.deleted_place_list {
+    justify-self: end;
+}
+
+.deleted_place_list_header {
+    color: var(--main-text-color);
+    font: normal 700 14px Roboto;
+    margin: 30px 0 0 22px;
+}
+
+.main_button_top {
+    width: 100%;
+    position: relative;
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
+}
+
+.main_button_bottom {
+    width: 100%;
+    position: relative;
+    bottom: 18px;
+    display: flex;
+    justify-content: center;
+    z-index: 2;
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useCheckBoxTouch } from '../../core/hooks/useCheckBoxTouch'
 import styles from './PlacePanel.module.css'
 
@@ -19,6 +19,8 @@ const PlacePanel = ({
 }: PlacePanelProps) => {
     let checkBoxRef = useRef(null)
     const [currentState, setCurrentState] = useState(state)
+    const swipeElementRef = useRef<HTMLDivElement>(null)
+
 
     useCheckBoxTouch({
         checkBoxRef,
@@ -61,6 +63,7 @@ const PlacePanel = ({
     return (
         <div
             className = {styles.place_panel}
+            ref={swipeElementRef}
         >
             { state !== "tourPreview" && 
             <div 
@@ -70,11 +73,11 @@ const PlacePanel = ({
             </div>}
             {currentState === 'active' && <div className={styles.blackout}></div>}
             <div className={imgClassname()}></div>
-            <img
+            <div
                 className={state === 'deleted' ? styles.img_deleted : styles.main_img} 
-                src={imageSrc} 
-                alt='Дом Бабочка'
-            />
+                style = {{'background': `url(${imageSrc}) no-repeat center center / cover`}}  
+            >   
+            </div>
             <div className={styles.place_info}>
                 <h3 className={styles.name}>{name}</h3>
                 <h4 className={styles.address}>{address}</h4>

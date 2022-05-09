@@ -7,7 +7,10 @@ import { AppDispatch } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { useSwipe } from '../../core/hooks/useSwipe';
+import trashbin from './img/trashbin.svg'
+import trashbin_focused from './img/trashbin_focused.svg'
+import Button from '../Button/Button';
+
 
 interface PopOverTopMenuProps {
     style?: 'closed' | 'opened',
@@ -24,12 +27,10 @@ const PopOverTopMenu = ({
 }: PopOverTopMenuProps) => {
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
-    const elementRef = useRef(null)
-    useSwipe({
-        elementRef,
-        swipedLeft: () => {console.log()},
-        swipedRight: () => {console.log('swipedRight')},
-    })
+    const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
+    const popOverTopRef = useRef(null)
+    const [dragging, setDragging] = useState(false)
+
 
     const maxHeight = () => {
         switch (state) {
@@ -57,7 +58,6 @@ const PopOverTopMenu = ({
     }
 
     const [currentStyle, setCurrentStyle] = useState(style)
-    const popOverTopRef = useRef(null)
     const popOverTopMenuRef = useRef(null)
 
     let height = '';
@@ -92,12 +92,13 @@ const PopOverTopMenu = ({
     }
 
     const placeList = currentPlaces.map((place, index) => 
-        <li ref={elementRef} key={place.id} className = {styles.place}>
+        <li key={place.id} className = {styles.place}>
             <Draggable
                 key={place.id} 
                 draggableId={place.id} 
                 index={index}
-                isDragDisabled={state !== 'editable'} 
+                isDragDisabled={state !== 'editable' || currentStyle === 'closed' || currentPlaces.length === 1}
+                disableInteractiveElementBlocking
             >
                 {(provided, snapshot) => (
                     <div
@@ -105,7 +106,7 @@ const PopOverTopMenu = ({
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                    >
+                    >                        
                         <PlacePanel
                             name = {place.name}
                             address={place.address}
@@ -119,32 +120,107 @@ const PopOverTopMenu = ({
         </li> 
     )
 
+    const deletedPlaceList = deletedPlaces.map((place, index) => 
+        <li key={place.id} className = {styles.place}>
+            <Draggable
+                key={place.id} 
+                draggableId={place.id} 
+                index={index}
+                isDragDisabled={state !== 'editable' || currentStyle === 'closed'}
+                disableInteractiveElementBlocking
+            >
+                {(provided, snapshot) => (
+                    <div
+                        className={styles.draggable_element}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >                        
+                        <PlacePanel
+                            name = {place.name}
+                            address={place.address}
+                            imageSrc={place.image}
+                            state='deleted'
+                            number={index + 1}
+                        />     
+                    </div>
+                )}
+            </Draggable>
+        </li> 
+    )
+
     const onDragEnd = (result: any) => {
+        console.log(result)
         if (!result.destination) {
             return;
         }
+        const destination = result.destination.droppableId;
+        const source = result.source.droppableId;
         const array = Array.from(currentPlaces);
-        const [removed] = array.splice(result.source.index, 1)
-        array.splice(result.destination.index, 0, removed)
+        const deletedArray = Array.from(deletedPlaces);
+
+        if (source === 'droppableActive') {
+            if (destination === 'droppableActive') {
+                const [removed] = array.splice(result.source.index, 1)
+                array.splice(result.destination.index, 0, removed)    
+            } else if (destination === 'droppableDeleted') {
+                const [removed] = array.splice(result.source.index, 1)
+                deletedArray.push(removed)    
+            }
+        } else if (source === 'droppableDeletedPlaces') {
+            if (destination === 'droppableActive') {
+                const [removed] = deletedArray.splice(result.source.index, 1)
+                array.push(removed)
+            } else if (destination === 'droppableDeletedPlaces') {
+                const [removed] = deletedArray.splice(result.source.index, 1)
+                deletedArray.splice(result.destination.index, 0, removed)
+            }
+        }
+        
         setCurrentPlaces(array)
+        setDeletedPlaces(deletedArray)
+        setDragging(false)
     }
 
+    const getTrashBinImage = (isDraggingOver: boolean) => {
+        if (!dragging) {
+            return ''
+        }
+        return isDraggingOver ? trashbin_focused : trashbin
+    }
+
+    const onDragStart = (result: any) => {
+        setDragging(result.source.droppableId === 'droppableActive')
+    } 
+
     return(
-        <DragDropContext onDragEnd={onDragEnd}>
+        <div>
+            <div 
+                className={styles.main_button_top}
+                style={{'transform': `translateY(${-maxHeight()-13}px)`}}
+            >
+                <Button
+                    viewStyle='secondary'
+                    text='Начать'
+                    onClick={() => {}}
+                />
+            </div>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <div
                     ref = {popOverTopMenuRef}
                     className = {styles.pop_over_menu}
                     style = {{
                         'height': `${height}`
                     }}
-                >
-                    <div
-                        className = {styles.pop_over_top}
-                        ref = {popOverTopRef}
-                    >
-                    </div>
-                    
-                        <Droppable droppableId='droppable' >
+                >   
+                    <div>
+                        <div
+                            className = {styles.pop_over_top}
+                            ref = {popOverTopRef}
+                        >
+                        </div>
+                        
+                        <Droppable droppableId='droppableActive' >
                             {(provided, snapshot) => (
                                 <ul 
                                     className={styles.place_list}
@@ -156,8 +232,45 @@ const PopOverTopMenu = ({
                                 </ul>
                             )}
                         </Droppable>
-                </div>
-        </DragDropContext>
+                        <Droppable droppableId='droppableDeleted'>
+                            {(provided, snapshot) => (
+                                <div
+                                    className={styles.delete_button}
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                    style={{'background': `url(${getTrashBinImage(snapshot.isDraggingOver)}) no-repeat center center`}}
+                                >
+                                    {provided.placeholder}
+                                </div>
+                            )}
+                        </Droppable>
+                        
+                        {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
+                        <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>
+                            {(provided, snapshot) => (
+                                <ul
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                    className={styles.deleted_place_list}
+                                >
+                                    {deletedPlaceList}
+                                    {provided.placeholder}
+                                </ul>
+                            )}        
+                        </Droppable>
+                    </div>  
+                    {!dragging && state === 'editable' && <div
+                        className={styles.main_button_bottom}
+                    >
+                        <Button 
+                            viewStyle='secondary'
+                            onClick={() => {}}
+                            text='Начать'
+                        />
+                    </div>}  
+                </div>    
+            </DragDropContext>
+        </div>
     )
 }
 
