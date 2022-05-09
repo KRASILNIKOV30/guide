@@ -74,7 +74,6 @@ export function useHeightChange({
     }, [elementHeight, setElementHeight, elementRef])
 
     useEffect(() => {
-        console.log(document.documentElement.clientHeight)
         let activeElementRefValue: HTMLDivElement;
         if (activeElementRef.current && elementRef.current) {
             activeElementRef.current.addEventListener('touchstart', onTouchStart)
