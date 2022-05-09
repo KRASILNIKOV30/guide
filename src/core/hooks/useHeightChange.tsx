@@ -59,7 +59,7 @@ export function useHeightChange({
         e.preventDefault()
         if (activeElementRef.current && elementRef.current) {
             elementRef.current.style.transition = '0s'
-            startObjectPositionY.current = document.documentElement.scrollHeight - elementRef.current?.getBoundingClientRect().top
+            startObjectPositionY.current = document.documentElement.clientHeight - elementRef.current?.getBoundingClientRect().top
             isStartHeightDeclared.current = true;
             window.addEventListener('touchend', onTouchEnd);
             window.addEventListener('touchmove', onTouchMove);
@@ -74,6 +74,7 @@ export function useHeightChange({
     }, [elementHeight, setElementHeight, elementRef])
 
     useEffect(() => {
+        console.log(document.documentElement.clientHeight)
         let activeElementRefValue: HTMLDivElement;
         if (activeElementRef.current && elementRef.current) {
             activeElementRef.current.addEventListener('touchstart', onTouchStart)
