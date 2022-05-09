@@ -28,7 +28,7 @@ function useSwipe({ elementRef, swipedRight, swipedLeft }: useSwipeProps) {
         window.removeEventListener('touchmove', onTouchMove)
     }, [swipedRight, swipedLeft, onTouchMove, currentClientX])
 
-    const onTouchStart = useCallback((e: TouchEvent) => {
+    const onTouchStart = useCallback((e: TouchEvent) => {        
         if (elementRef.current) {
             window.addEventListener('touchend', onTouchEnd);
             window.addEventListener('touchmove', onTouchMove);
@@ -37,8 +37,10 @@ function useSwipe({ elementRef, swipedRight, swipedLeft }: useSwipeProps) {
     }, [elementRef, onTouchEnd, onTouchMove])
     
     useEffect(() => {
+        
         let elementRefValue: HTMLElement;
         if (elementRef.current) {
+            
             elementRef.current.addEventListener('touchstart', onTouchStart, {passive: false});
             elementRefValue = elementRef.current;
         }

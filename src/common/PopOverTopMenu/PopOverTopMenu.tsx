@@ -7,7 +7,6 @@ import { AppDispatch } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
-import { useSwipe } from '../../core/hooks/useSwipe';
 
 interface PopOverTopMenuProps {
     style?: 'closed' | 'opened',
@@ -23,12 +22,8 @@ const PopOverTopMenu = ({
     state
 }: PopOverTopMenuProps) => {
     const [currentPlaces, setCurrentPlaces] = useState(places)
-    const elementRef = useRef(null)
-    useSwipe({
-        elementRef,
-        swipedLeft: () => {console.log()},
-        swipedRight: () => {console.log('swipedRight')},
-    })
+    const popOverTopRef = useRef(null)
+
 
     const maxHeight = () => {
         switch (state) {
@@ -56,7 +51,6 @@ const PopOverTopMenu = ({
     }
 
     const [currentStyle, setCurrentStyle] = useState(style)
-    const popOverTopRef = useRef(null)
     const popOverTopMenuRef = useRef(null)
 
     let height = '';
@@ -91,12 +85,13 @@ const PopOverTopMenu = ({
     }
 
     const placeList = currentPlaces.map((place, index) => 
-        <li ref={elementRef} key={place.id} className = {styles.place}>
+        <li key={place.id} className = {styles.place}>
             <Draggable
                 key={place.id} 
                 draggableId={place.id} 
                 index={index}
-                isDragDisabled={state !== 'editable'} 
+                isDragDisabled={state !== 'editable'}
+                disableInteractiveElementBlocking
             >
                 {(provided, snapshot) => (
                     <div
@@ -104,7 +99,7 @@ const PopOverTopMenu = ({
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
-                    >
+                    >                        
                         <PlacePanel
                             name = {place.name}
                             address={place.address}
@@ -119,6 +114,7 @@ const PopOverTopMenu = ({
     )
 
     const onDragEnd = (result: any) => {
+        console.log(result)
         if (!result.destination) {
             return;
         }
@@ -143,7 +139,7 @@ const PopOverTopMenu = ({
                     >
                     </div>
                     
-                        <Droppable droppableId='droppable' >
+                        <Droppable droppableId='droppableActive' >
                             {(provided, snapshot) => (
                                 <ul 
                                     className={styles.place_list}
@@ -151,6 +147,17 @@ const PopOverTopMenu = ({
                                     ref={provided.innerRef}
                                 >
                                     {placeList}
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
+                        <Droppable droppableId='droppableDeleted'>
+                            {(provided, snapshot) => (
+                                <ul
+                                    className={styles.deleted_place_list}
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                >
                                     {provided.placeholder}
                                 </ul>
                             )}

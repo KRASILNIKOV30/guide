@@ -35,6 +35,12 @@
     justify-content: center;
 }
 
+.deleted_place_list {
+    width: 100%;
+    min-height: 100px;
+    background-color: green;
+}
+
 .draggable_element {
     margin-top: 20px;
 }
