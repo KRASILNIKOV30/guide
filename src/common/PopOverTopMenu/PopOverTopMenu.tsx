@@ -57,6 +57,7 @@ const PopOverTopMenu = ({
     switch (currentStyle) {
         case 'closed': {
             height = `${minHeight()}vh`
+            console.log(minHeight())
             break;
         }
         case 'opened': {

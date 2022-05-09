@@ -20,7 +20,7 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
                 > 
                 </div>
             </div>
-            <PopOverTopMenu state='editable'/>
+            <PopOverTopMenu state='preview'/>
             <div className={styles.bot}></div>
         </div>
     )
