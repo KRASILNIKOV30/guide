@@ -28,10 +28,10 @@ export function useHeightChange({
         let newHeight = startObjectPositionY.current - e.touches[0].clientY + startClientY.current;
         const heightProportion = newHeight / window.screen.availHeight * 100;
         if (heightProportion > maxHeight) {
-            newHeight = document.documentElement.scrollHeight * maxHeight / 100
+            newHeight = document.documentElement.clientHeight * maxHeight / 100
         }
         if (heightProportion < minHeight) {
-            newHeight = document.documentElement.scrollHeight * minHeight / 100
+            newHeight = document.documentElement.clientHeight * minHeight / 100
         } 
         
         setElementHeight(newHeight)
