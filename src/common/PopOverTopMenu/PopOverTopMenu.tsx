@@ -9,6 +9,7 @@ import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import trashbin from './img/trashbin.svg'
 import trashbin_focused from './img/trashbin_focused.svg'
+import Button from '../Button/Button';
 
 
 interface PopOverTopMenuProps {
@@ -192,20 +193,32 @@ const PopOverTopMenu = ({
     } 
 
     return(
-        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
+        <div>
+            <div 
+                className={styles.main_button_top}
+                style={{'transform': `translateY(${-maxHeight()-13}px)`}}
+            >
+                <Button
+                    viewStyle='secondary'
+                    text='Начать'
+                    onClick={() => {}}
+                />
+            </div>
+            <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <div
                     ref = {popOverTopMenuRef}
                     className = {styles.pop_over_menu}
                     style = {{
                         'height': `${height}`
                     }}
-                >
-                    <div
-                        className = {styles.pop_over_top}
-                        ref = {popOverTopRef}
-                    >
-                    </div>
-                    
+                >   
+                    <div>
+                        <div
+                            className = {styles.pop_over_top}
+                            ref = {popOverTopRef}
+                        >
+                        </div>
+                        
                         <Droppable droppableId='droppableActive' >
                             {(provided, snapshot) => (
                                 <ul 
@@ -230,23 +243,33 @@ const PopOverTopMenu = ({
                                 </div>
                             )}
                         </Droppable>
-                        <div>
-                            {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
-                            <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>
-                                {(provided, snapshot) => (
-                                    <ul
-                                        {...provided.droppableProps}
-                                        ref={provided.innerRef}
-                                        className={styles.deleted_place_list}
-                                    >
-                                        {deletedPlaceList}
-                                        {provided.placeholder}
-                                    </ul>
-                                )}        
-                            </Droppable>
-                        </div>
-                </div>
-        </DragDropContext>
+                        
+                        {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
+                        <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>
+                            {(provided, snapshot) => (
+                                <ul
+                                    {...provided.droppableProps}
+                                    ref={provided.innerRef}
+                                    className={styles.deleted_place_list}
+                                >
+                                    {deletedPlaceList}
+                                    {provided.placeholder}
+                                </ul>
+                            )}        
+                        </Droppable>
+                    </div>  
+                    {!dragging && state === 'editable' && <div
+                        className={styles.main_button_bottom}
+                    >
+                        <Button 
+                            viewStyle='secondary'
+                            onClick={() => {}}
+                            text='Начать'
+                        />
+                    </div>}  
+                </div>    
+            </DragDropContext>
+        </div>
     )
 }
 
