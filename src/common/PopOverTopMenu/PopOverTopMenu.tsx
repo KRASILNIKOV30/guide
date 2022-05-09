@@ -28,22 +28,22 @@ const PopOverTopMenu = ({
     const maxHeight = () => {
         switch (state) {
             case 'preview':
-                return 91.2;
+                return 97.27;
             case 'editable':
-                return 83.4;
+                return 86.5;
             case 'active':
-                return 93.6;
+                return 86.5;
         };
     }    
     const avgHeight = 60;
     const minHeight = () => {
         switch (state) {
             case 'preview':
-                return 45;
+                return 37.94;
             case 'editable':
-                return 32.6;
+                return 22;
             case 'active':
-                return 32.8;
+                return 22;
         }
     };
     if (!style) {
