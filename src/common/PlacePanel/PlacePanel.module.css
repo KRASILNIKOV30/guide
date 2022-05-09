@@ -76,7 +76,7 @@
     background-position: center center;
 }
 
-.img_default, .img_active, .img_deleted {
+.img_default, .img_active {
     height: 56px;
     width: 56px;
     border-radius: 4px;
@@ -96,7 +96,7 @@
     filter: grayscale(100%)
 }
 
-.main_img {
+.main_img, .img_deleted {
     position: relative;
     height: 56px;
     width: 56px;

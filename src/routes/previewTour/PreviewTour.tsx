@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import PopOverTopMenu from '../../common/PopOverTopMenu/PopOverTopMenu';
 import { State, Tour } from '../../model/types';
 import styles from './PreviewTour.module.css';
 
@@ -16,9 +17,10 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
                 <div 
                     className = {styles.backgroundImage}
                     style = {{"backgroundImage": `url(${tour.image})`}}
-                > </div>
+                > 
+                </div>
             </div>
-
+            <PopOverTopMenu state='editable'/>
             <div className={styles.bot}></div>
         </div>
     )
