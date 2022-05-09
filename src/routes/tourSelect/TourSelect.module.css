@@ -4,21 +4,6 @@
 
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-}
-
-.top {
-    width: inherit;
-    height: 52px;
-
-    background-color: #daa520;
-}
-
-.bot {
-    width: inherit;
-    height: 133px;
-    
-    background-color: goldenrod;
 }
 
 .header_container {
@@ -36,7 +21,7 @@
 
     display: flex;
     justify-content: space-between;
-    padding: 29px 26px 0 31px;
+    padding: 30px 27px 0 30px;
 }
 
 .header_bot {
@@ -44,7 +29,7 @@
 
     display: flex;
 
-    padding: 0 31px;
+    padding: 0 30px;
 }
 
 .placemark_image {
@@ -72,14 +57,12 @@
 
 .tour_info_container {
     width: inherit;
-    height: 120px;
+    height: 100px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-
-    padding: 0 0 19px 2px;
 }
 
 .tour_name {
@@ -101,10 +84,11 @@
 
 .tour_images_container {
     width: inherit;
-    height: 390px;
+    height: 64.5%;
 
     display: flex;
     flex-flow: row nowrap;
+    align-items: center;
 
     overflow: hidden;
 
@@ -113,8 +97,8 @@
 }
 
 .tour_image {
-    width: 270px;
-    height: 390px;
+    width: 69vw;
+    height: 59.4vh;
 
     border-radius: 10px;
 
@@ -123,6 +107,10 @@
 
     transition: .8s;
     box-shadow: none;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .tour_image_active {
@@ -132,12 +120,10 @@
 
 .slider_container {
     width: inherit;
-    height: 54px;
+    height: 8px;
 
     display: flex;
     justify-content: center;
-
-    padding-top: 18px;
 }
 
 .tour_point {
@@ -147,7 +133,7 @@
 
     background: #CCCCCC;
 
-    margin-right: 5px;
+    margin: 0 2.5px;
 }
 
 .tour_point_active {

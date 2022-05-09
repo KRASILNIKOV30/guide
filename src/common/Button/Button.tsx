@@ -5,17 +5,19 @@ import { Link } from 'react-router-dom'
 interface ButtonProps {
     viewStyle: 'main' | 'secondary' | 'add' | 'delete' | 'delete_outline'
             | 'hint' | 'back' | 'cancel' | 'location' | 'plus' | 'minus' | 'back_to_location'
-            | 'info',
+            | 'info' | 'info_white',
     text?: string,
     to?: string,
-    onClick: () => void
+    onClick: () => void,
+    className?: string
 }
 
 const Button = ({
     viewStyle,
     text = '',
     to,
-    onClick
+    onClick,
+    className = ''
 }: ButtonProps) => {
     let buttonStyle = '';
     switch(viewStyle) {
@@ -28,6 +30,7 @@ const Button = ({
         case 'back': {buttonStyle = styles.back; break}
         case 'cancel': {buttonStyle = styles.cancel; break}
         case 'info': {buttonStyle = styles.info; break}
+        case 'info_white': {buttonStyle = styles.info_white; break}
         case 'location': {buttonStyle = styles.location; break}
         case 'plus': {buttonStyle = styles.plus; break}
         case 'minus': {buttonStyle = styles.minus; break}
@@ -36,7 +39,7 @@ const Button = ({
     return (
         <button 
             type = 'button'
-            className = {`${styles.button} ${buttonStyle}`}
+            className = {`${styles.button} ${buttonStyle} ${className}`}
             onClick = {onClick}
         >
             <div className = {(viewStyle === 'main' || viewStyle === 'secondary') ? viewStyle === 'main' ? styles.text_container_gradient : styles.text_container : styles.text_container_hide}>

@@ -12,7 +12,7 @@ import tour2place5 from './images/2/5/image.svg'
 
 let initialState: State = {
     userData: {
-        selectedTourId: '2',
+        selectedTourId: '1',
         routeState: [
             {
                 placeId: '1',

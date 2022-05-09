@@ -80,6 +80,10 @@
     background: center no-repeat url('./icons/info.svg');
 }
 
+.info_white {
+    background: center no-repeat url('./icons/info_white.svg');
+}
+
 .location {
     background: center no-repeat url('./icons/location.svg');
 }

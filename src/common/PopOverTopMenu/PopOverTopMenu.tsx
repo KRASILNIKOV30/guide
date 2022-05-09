@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
 import { PlacePanel } from '../PlacePanel/PlacePanel';
-import { AppDispatch, store } from '../../model/store';
+import { AppDispatch } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
@@ -22,6 +22,7 @@ const PopOverTopMenu = ({
     routeState,
     state
 }: PopOverTopMenuProps) => {
+
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const elementRef = useRef(null)
     useSwipe({
