@@ -4,10 +4,13 @@
     position: fixed;
     bottom: 0;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .pop_over_top {
-    position: relative;
+    position: fixed;
     height: 3.673vh;
     width: 100vw;
 
@@ -35,12 +38,29 @@
     justify-content: center;
 }
 
-.deleted_place_list {
-    width: 100%;
-    min-height: 100px;
-    background-color: green;
+.place_list {
+    margin-top: 20px;
+}
+
+.delete_button {
+    width: 70px;
+    height: 70px;
+    position: fixed;
+    right: 0;
+    bottom: 10px;
+    z-index: -2;
 }
 
 .draggable_element {
     margin-top: 20px;
+}
+
+.deleted_place_list {
+    justify-self: end;
+}
+
+.deleted_place_list_header {
+    color: var(--main-text-color);
+    font: normal 700 14px Roboto;
+    margin-left: 22px;
 }

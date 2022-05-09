@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react'
 import { useCheckBoxTouch } from '../../core/hooks/useCheckBoxTouch'
-import { useSwipe } from '../../core/hooks/useSwipe'
 import styles from './PlacePanel.module.css'
 
 interface PlacePanelProps {
@@ -21,17 +20,7 @@ const PlacePanel = ({
     let checkBoxRef = useRef(null)
     const [currentState, setCurrentState] = useState(state)
     const swipeElementRef = useRef<HTMLDivElement>(null)
-    const [deleted, setDeleted] = useState(0)
 
-    const swipedRight = () => {
-        setDeleted(1)
-    }
-
-    useSwipe({
-        elementRef: swipeElementRef,
-        swipedRight: () => swipedRight(),
-        swipedLeft: () => {}
-    })
 
     useCheckBoxTouch({
         checkBoxRef,
@@ -75,7 +64,6 @@ const PlacePanel = ({
         <div
             className = {styles.place_panel}
             ref={swipeElementRef}
-            style={{'transform': `translate(${deleted * -50}px, 0)`}}
         >
             { state !== "tourPreview" && 
             <div 

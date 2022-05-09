@@ -7,6 +7,9 @@ import { AppDispatch } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
+import trashbin from './img/trashbin.svg'
+import trashbin_focused from './img/trashbin_focused.svg'
+
 
 interface PopOverTopMenuProps {
     style?: 'closed' | 'opened',
@@ -22,7 +25,9 @@ const PopOverTopMenu = ({
     state
 }: PopOverTopMenuProps) => {
     const [currentPlaces, setCurrentPlaces] = useState(places)
+    const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
+    const [dragging, setDragging] = useState(false)
 
 
     const maxHeight = () => {
@@ -57,7 +62,6 @@ const PopOverTopMenu = ({
     switch (currentStyle) {
         case 'closed': {
             height = `${minHeight()}vh`
-            console.log(minHeight())
             break;
         }
         case 'opened': {
@@ -91,7 +95,7 @@ const PopOverTopMenu = ({
                 key={place.id} 
                 draggableId={place.id} 
                 index={index}
-                isDragDisabled={state !== 'editable'}
+                isDragDisabled={state !== 'editable' || currentStyle === 'closed' || currentPlaces.length === 1}
                 disableInteractiveElementBlocking
             >
                 {(provided, snapshot) => (
@@ -114,19 +118,81 @@ const PopOverTopMenu = ({
         </li> 
     )
 
+    const deletedPlaceList = deletedPlaces.map((place, index) => 
+        <li key={place.id} className = {styles.place}>
+            <Draggable
+                key={place.id} 
+                draggableId={place.id} 
+                index={index}
+                isDragDisabled={state !== 'editable' || currentStyle === 'closed'}
+                disableInteractiveElementBlocking
+            >
+                {(provided, snapshot) => (
+                    <div
+                        className={styles.draggable_element}
+                        ref={provided.innerRef}
+                        {...provided.draggableProps}
+                        {...provided.dragHandleProps}
+                    >                        
+                        <PlacePanel
+                            name = {place.name}
+                            address={place.address}
+                            imageSrc={place.image}
+                            state='deleted'
+                            number={index + 1}
+                        />     
+                    </div>
+                )}
+            </Draggable>
+        </li> 
+    )
+
     const onDragEnd = (result: any) => {
         console.log(result)
         if (!result.destination) {
             return;
         }
+        const destination = result.destination.droppableId;
+        const source = result.source.droppableId;
         const array = Array.from(currentPlaces);
-        const [removed] = array.splice(result.source.index, 1)
-        array.splice(result.destination.index, 0, removed)
+        const deletedArray = Array.from(deletedPlaces);
+
+        if (source === 'droppableActive') {
+            if (destination === 'droppableActive') {
+                const [removed] = array.splice(result.source.index, 1)
+                array.splice(result.destination.index, 0, removed)    
+            } else if (destination === 'droppableDeleted') {
+                const [removed] = array.splice(result.source.index, 1)
+                deletedArray.push(removed)    
+            }
+        } else if (source === 'droppableDeletedPlaces') {
+            if (destination === 'droppableActive') {
+                const [removed] = deletedArray.splice(result.source.index, 1)
+                array.push(removed)
+            } else if (destination === 'droppableDeletedPlaces') {
+                const [removed] = deletedArray.splice(result.source.index, 1)
+                deletedArray.splice(result.destination.index, 0, removed)
+            }
+        }
+        
         setCurrentPlaces(array)
+        setDeletedPlaces(deletedArray)
+        setDragging(false)
     }
 
+    const getTrashBinImage = (isDraggingOver: boolean) => {
+        if (!dragging) {
+            return ''
+        }
+        return isDraggingOver ? trashbin_focused : trashbin
+    }
+
+    const onDragStart = (result: any) => {
+        setDragging(result.source.droppableId === 'droppableActive')
+    } 
+
     return(
-        <DragDropContext onDragEnd={onDragEnd}>
+        <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <div
                     ref = {popOverTopMenuRef}
                     className = {styles.pop_over_menu}
@@ -154,15 +220,31 @@ const PopOverTopMenu = ({
                         </Droppable>
                         <Droppable droppableId='droppableDeleted'>
                             {(provided, snapshot) => (
-                                <ul
-                                    className={styles.deleted_place_list}
+                                <div
+                                    className={styles.delete_button}
                                     {...provided.droppableProps}
                                     ref={provided.innerRef}
+                                    style={{'background': `url(${getTrashBinImage(snapshot.isDraggingOver)}) no-repeat center center`}}
                                 >
                                     {provided.placeholder}
-                                </ul>
+                                </div>
                             )}
                         </Droppable>
+                        <div>
+                            {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
+                            <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>
+                                {(provided, snapshot) => (
+                                    <ul
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        className={styles.deleted_place_list}
+                                    >
+                                        {deletedPlaceList}
+                                        {provided.placeholder}
+                                    </ul>
+                                )}        
+                            </Droppable>
+                        </div>
                 </div>
         </DragDropContext>
     )
