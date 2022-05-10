@@ -9,6 +9,7 @@ import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import trashbin from './img/trashbin.svg'
 import trashbin_focused from './img/trashbin_focused.svg'
+import human from './img/human.svg'
 import Button from '../Button/Button';
 
 
@@ -25,6 +26,7 @@ const PopOverTopMenu = ({
     routeState,
     state
 }: PopOverTopMenuProps) => {
+
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
@@ -195,16 +197,17 @@ const PopOverTopMenu = ({
 
     return(
         <div>
-            <div 
+            {state === 'editable' && <div 
                 className={styles.main_button_top}
                 style={{'transform': `translateY(${-minHeightInPx-13}px)`}}
             >
                 <Button
-                    viewStyle='secondary'
+                    viewStyle='with_image'
+                    image={human}
                     text='Начать'
                     onClick={() => {}}
                 />
-            </div>
+            </div>}
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
                 <div
                     ref = {popOverTopMenuRef}
@@ -259,11 +262,12 @@ const PopOverTopMenu = ({
                             )}        
                         </Droppable>
                     </div>  
-                    {!dragging && state === 'editable' && <div
+                    {!dragging && state === 'editable' && currentStyle==='opened' && <div
                         className={styles.main_button_bottom}
                     >
                         <Button 
-                            viewStyle='secondary'
+                            viewStyle='with_image'
+                            image={human}
                             onClick={() => {}}
                             text='Начать'
                         />

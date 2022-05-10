@@ -4,6 +4,8 @@
     position: fixed;
     bottom: 0;
     z-index: 2;
+
+    border-radius: 10px 10px 0px 0px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -15,6 +17,8 @@
     width: 100vw;
 
     background-color: var(--primary_grey_color);
+
+    border-radius: 10px 10px 0px 0px;
 }
 
 .pop_over_top::after {
@@ -39,7 +43,7 @@
 }
 
 .place_list {
-    margin-top: 20px;
+    margin-top: 29px;
 }
 
 .delete_button {
@@ -67,6 +71,7 @@
 
 .main_button_top {
     width: 100%;
+    padding: 0 123px 0 123px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -75,6 +80,7 @@
 
 .main_button_bottom {
     width: 100%;
+    padding: 0 20px 0 20px;
     position: relative;
     bottom: 18px;
     display: flex;

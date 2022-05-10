@@ -40,7 +40,6 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
 
     return (
         <div className={styles.tour_select}>
-            <div className={styles.top}></div>
             
             <div className={styles.header_container}>
                 <div className={styles.header_top}>
@@ -70,7 +69,7 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                     tours.map((tour) => 
                         <div 
                             className={`${styles.tour_image} ${(tours.findIndex(tourI => tourI.id === tour.id) === focusedTourIndex) && styles.tour_image_active}`}
-                            style = {{"background": `center no-repeat url(${tour.image})`}}
+                            style = {{"backgroundImage": `url(${tour.image})`}}
                             key = {tour.id}
                         >
                             <Button text="Вперёд!" viewStyle="main" to="/previewtour" onClick={() => {
@@ -91,8 +90,6 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                     )
                 }
             </div>
-
-            <div className={styles.bot}></div>
         </div>
     )
 }

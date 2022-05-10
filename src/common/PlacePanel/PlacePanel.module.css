@@ -1,5 +1,5 @@
 .place_panel {
-    width: 85.64vw;
+    width: 90vw;
     height: 56px;
     position: relative;
     display: flex;
@@ -9,6 +9,10 @@
     height: 100%;
     width: 46.67vw;
     margin-left: 3.077vw;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;;
 }
 
 .name {
