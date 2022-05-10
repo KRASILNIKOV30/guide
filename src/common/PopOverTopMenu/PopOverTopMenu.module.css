@@ -68,7 +68,6 @@
 .main_button_top {
     width: 100%;
     position: relative;
-    margin-bottom: 60px;
     display: flex;
     justify-content: center;
     z-index: 2;

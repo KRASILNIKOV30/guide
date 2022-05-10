@@ -55,6 +55,7 @@ const PopOverTopMenu = ({
     if (!style) {
         style = 'closed'
     }
+    const minHeightInPx = document.documentElement.clientHeight * minHeight() / 100
 
     const [currentStyle, setCurrentStyle] = useState(style)
     const popOverTopMenuRef = useRef(null)
@@ -196,7 +197,7 @@ const PopOverTopMenu = ({
         <div>
             <div 
                 className={styles.main_button_top}
-                style={{'transform': `translateY(${-maxHeight()-13}px)`}}
+                style={{'transform': `translateY(${-minHeightInPx-13}px)`}}
             >
                 <Button
                     viewStyle='secondary'
