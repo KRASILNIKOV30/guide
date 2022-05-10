@@ -1,5 +1,8 @@
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
+import { connect } from 'react-redux'
 import { useCheckBoxTouch } from '../../core/hooks/useCheckBoxTouch'
+import { passRoutePoint } from '../../model/actionCreators'
+import { AppDispatch } from '../../model/store'
 import styles from './PlacePanel.module.css'
 
 interface PlacePanelProps {
@@ -7,7 +10,8 @@ interface PlacePanelProps {
     address: string,
     imageSrc: string,
     state: "default" | "active" | "finished" | "deleted" | "tourPreview",
-    number: number
+    number: number,
+    onClickFunction: Function
 }
 
 const PlacePanel = ({
@@ -15,30 +19,31 @@ const PlacePanel = ({
     address,
     imageSrc,
     state,
-    number
+    number,
+    onClickFunction
 }: PlacePanelProps) => {
+    
     let checkBoxRef = useRef(null)
-    const [currentState, setCurrentState] = useState(state)
     const swipeElementRef = useRef<HTMLDivElement>(null)
-
 
     useCheckBoxTouch({
         checkBoxRef,
-        state: currentState,
-        setState: setCurrentState
+        state: state,
+        onClickFunction,
+        changeModelFunction: passRoutePoint
     })
 
     let numberClassname = () => {
-        if (currentState === 'finished') {
+        if (state === 'finished') {
             return styles.number__disabled
-        } else if (currentState === 'deleted') {
+        } else if (state === 'deleted') {
             return styles.number__deleted 
         } else {
             return styles.number__default
         }
     }
     let checkboxClassname = () => {
-        switch(currentState) {
+        switch(state) {
             case "finished":
                 return styles.checkbox__active;
             case "active":
@@ -52,9 +57,9 @@ const PlacePanel = ({
         }
     }
     let imgClassname = () => {
-        if (currentState === 'active') {
+        if (state === 'active') {
             return styles.img_active
-        } else if (currentState === 'deleted') {
+        } else if (state === 'deleted') {
             return ''
         }
         return styles.img_default    
@@ -71,7 +76,7 @@ const PlacePanel = ({
             >
                 {state === 'deleted' ? '' : number}
             </div>}
-            {currentState === 'active' && <div className={styles.blackout}></div>}
+            {state === 'active' && <div className={styles.blackout}></div>}
             <div className={imgClassname()}></div>
             <div
                 className={state === 'deleted' ? styles.img_deleted : styles.main_img} 
@@ -91,4 +96,10 @@ const PlacePanel = ({
     )
 }
 
-export {PlacePanel}
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        passRoutePoint: () => dispatch(passRoutePoint())
+    }
+}
+
+export default connect(mapDispatchToProps)(PlacePanel)

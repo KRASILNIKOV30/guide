@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
-import { PlacePanel } from '../PlacePanel/PlacePanel';
+import PlacePanel from '../PlacePanel/PlacePanel';
 import { AppDispatch } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
@@ -31,6 +31,23 @@ const PopOverTopMenu = ({
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
+    const [currentRoute, setCurrentRoute] = useState(routeState)
+    
+    const changeRoute = () => {
+        const array = Array.from(currentRoute)
+        let activePlaceIndex: number = 0 
+        array.map((place, index)  => {
+            if (place.state === 'active') {
+                place.state = 'finished'
+                activePlaceIndex = index
+                return
+            }
+        })
+        if (activePlaceIndex + 1 < array.length) {
+            array[activePlaceIndex + 1].state = 'active'
+        }
+        setCurrentRoute(array)
+    }
 
 
     const maxHeight = () => {
@@ -82,14 +99,43 @@ const PopOverTopMenu = ({
         minHeight: minHeight()
     })
 
+    const getBottomButton = () => {
+        let activePlaceIndex = currentRoute.findIndex(place => place.state === 'active')
+        if (activePlaceIndex === -1) {
+            activePlaceIndex = routeState.length - 1
+        }
+        switch (state) {
+            case 'preview':
+                return null;
+            case 'editable':
+                return (
+                    <Button 
+                        viewStyle='with_image'
+                        image={human}
+                        onClick={() => {}}
+                        text='Начать'
+                    />
+                );
+            case 'active':
+                return (
+                    <Button
+                        viewStyle='with_image'
+                        onClick={() => {}}
+                        text={`Маршрут до точки ${activePlaceIndex + 1}`}
+                    />
+                )
+        }
+    }
+
     const getPlaceState = (place: Place) => {
         switch (state) {
             case 'preview':
                 return "tourPreview";
             case 'editable':
                 return "default";
-            case 'active':
-                return routeState.find(placeState => placeState.placeId === place.id)!.state
+            case 'active': {
+                return currentRoute.find(placeState => placeState.placeId === place.id)!.state
+            }
         } 
     }
 
@@ -115,6 +161,7 @@ const PopOverTopMenu = ({
                             imageSrc={place.image}
                             state={getPlaceState(place)}
                             number={index + 1}
+                            onClickFunction={changeRoute}
                         />     
                     </div>
                 )}
@@ -144,6 +191,7 @@ const PopOverTopMenu = ({
                             imageSrc={place.image}
                             state='deleted'
                             number={index + 1}
+                            onClickFunction={() => {}}
                         />     
                     </div>
                 )}
@@ -152,7 +200,6 @@ const PopOverTopMenu = ({
     )
 
     const onDragEnd = (result: any) => {
-        console.log(result)
         if (!result.destination) {
             return;
         }
@@ -262,15 +309,10 @@ const PopOverTopMenu = ({
                             )}        
                         </Droppable>
                     </div>  
-                    {!dragging && state === 'editable' && currentStyle==='opened' && <div
+                    {!dragging && currentStyle==='opened' && <div
                         className={styles.main_button_bottom}
                     >
-                        <Button 
-                            viewStyle='with_image'
-                            image={human}
-                            onClick={() => {}}
-                            text='Начать'
-                        />
+                        {getBottomButton()}   
                     </div>}  
                 </div>    
             </DragDropContext>
@@ -278,10 +320,10 @@ const PopOverTopMenu = ({
     )
 }
 
-const mapStateToProps = (style: State) => {
-    const currentTourIndex = style.tours.findIndex(tour => tour.id === style.userData.selectedTourId)
-    const placesInfo = style.tours[currentTourIndex].places;
-    const routeStateInfo = style.userData.routeState
+const mapStateToProps = (state: State) => {
+    const currentTourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId)
+    const placesInfo = state.tours[currentTourIndex].places;
+    const routeStateInfo = state.userData.routeState
 
     return {
         places: placesInfo,
@@ -289,9 +331,6 @@ const mapStateToProps = (style: State) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatch) => {
-    return {
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PopOverTopMenu);
+
+export default connect(mapStateToProps)(PopOverTopMenu);
