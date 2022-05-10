@@ -97,12 +97,17 @@
 }
 
 .tour_image {
-    width: 69vw;
+    min-width: 69vw;
     height: 59.4vh;
 
     border-radius: 10px;
 
-    padding: 324px 82px 18px 82px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: 0 0 18px 0;
     margin: 0 15px;
 
     transition: .8s;

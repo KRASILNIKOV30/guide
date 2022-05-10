@@ -52,7 +52,8 @@
     height: 40px;
 
     display: flex;
-    justify-content: center;
+
+    padding-left: 119px;
 }
 
 .info_text {
@@ -65,8 +66,7 @@
 
     display: flex;
     align-items: center;
-
-    margin-right: 7px;
+    margin-right: 1px;
 }
 
 .background_image {
@@ -84,12 +84,12 @@
 }
 
 .button_look {
-    margin-top: 17px;
+    margin-top: 15px;
 }
 
 .button_back {
     position: absolute;
 
     top: 25px;
-    left: 20px;
+    left: 19px;
 }
