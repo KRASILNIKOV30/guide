@@ -71,8 +71,8 @@
 
 .main_button_top {
     width: 100%;
+    padding: 0 123px 0 123px;
     position: relative;
-    margin-bottom: 60px;
     display: flex;
     justify-content: center;
     z-index: 2;
@@ -80,6 +80,7 @@
 
 .main_button_bottom {
     width: 100%;
+    padding: 0 20px 0 20px;
     position: relative;
     bottom: 18px;
     display: flex;
