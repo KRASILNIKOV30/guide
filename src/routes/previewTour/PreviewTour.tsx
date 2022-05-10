@@ -38,7 +38,7 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
                     <Button viewStyle='info_white' className={styles.button_info} onClick={() => {}} />
                 </div>
 
-                <Button text="Посмотреть на карте" viewStyle="main" to="/map" onClick={() => {}} className={styles.button_look} />
+                <Button text="Посмотреть на карте" viewStyle="main" to="/previewmap" onClick={() => {}} className={styles.button_look} />
 
             </div>
 

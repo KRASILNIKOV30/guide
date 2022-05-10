@@ -86,7 +86,8 @@ const YandexMap = ({ routeState, started }: YandexMapProps) => {
                         (x !== undefined && y !== undefined) && <Placemark geometry={[x, y]} options={{
                             iconLayout: 'default#image',
                             iconImageHref: userLocation,
-                            iconImageSize: [18, 18]
+                            iconImageSize: [18, 18],
+                            pixelRendering: 'static'
                         }} />
                     }
                     {

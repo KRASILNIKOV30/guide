@@ -17,7 +17,7 @@ ReactDOM.render(
                 
                 <Route path="/" element={<TourSelect />} />
                 <Route path="previewtour" element={<PreviewTour />} />
-                <Route path="map" element={<PreviewMap />} />
+                <Route path="previewmap" element={<PreviewMap />} />
 
             </Routes>
         </BrowserRouter>
