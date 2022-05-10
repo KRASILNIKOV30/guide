@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button';
-import { Place, State, Tour } from '../../model/types';
+import { State, Tour } from '../../model/types';
 import styles from './PreviewTour.module.css';
 import PopOverTopMenu from '../../common/PopOverTopMenu/PopOverTopMenu';
 import { useState } from 'react';
@@ -38,7 +38,7 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
                     <Button viewStyle='info_white' className={styles.button_info} onClick={() => {}} />
                 </div>
 
-                <Button text="Посмотреть на карте" viewStyle="main" onClick={() => {}} className={styles.button_look} />
+                <Button text="Посмотреть на карте" viewStyle="main" to="/map" onClick={() => {}} className={styles.button_look} />
 
             </div>
 
