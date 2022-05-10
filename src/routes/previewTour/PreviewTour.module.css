@@ -47,7 +47,7 @@
     line-height: 30px;
 }
 
-.tour_info {
+.tour_info_click {
     width: 100%;
     height: 40px;
 
@@ -92,4 +92,122 @@
 
     top: 25px;
     left: 19px;
+}
+
+.info_places_list {
+    z-index: 3;
+    width: 100vw;
+    height: 97.27vh;
+
+    background-color: var(--primary_grey_color);
+
+    border-radius: 10px 10px 0 0;
+
+    position: absolute;
+    bottom: 0;
+
+    display: flex;
+    justify-content: center;
+
+    padding-top: 12%;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.info_places_list::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 0;
+    height: 0;
+
+    background-color: red;
+}
+
+.info_container {
+    width: 82.82%;
+    max-height: 100%;
+
+    display: flex; 
+    flex-direction: column;
+    overflow: auto;
+}
+
+.button_close {
+    position: absolute;
+    
+    top: 12px;
+    right: 8px;
+}
+
+.general_info {
+    width: 79.26%;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: flex-start;
+}
+
+.tour_info_header {
+    width: 100%;
+
+    font: var(--sb_18_text);
+    color: var(--main_text_color);
+}
+
+.description {
+    width: 100%;
+
+    font: var(--main_text);
+    color: var(--main_text_color);
+
+    margin-top: 12px;
+}
+
+.place_card {
+    width: 100%;
+    
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 33px;
+}
+
+.place_name {
+    color: var(--main_text_color);
+    font: var(--button_text);
+
+    display: flex;
+    align-items: center;
+}
+
+.place_number {
+    width: 18px;
+    height: 18px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    color: var(--white);
+
+    background-color: var(--main_text_color);
+    border-radius: 9px;
+
+    margin-right: 6px;
+}
+
+.place_image {
+    width: 100%;
+    height: 65.25vh;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    border-radius: 10px;
+
+    margin-top: 18px;
 }

@@ -72,7 +72,7 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                             style = {{"backgroundImage": `url(${tour.image})`}}
                             key = {tour.id}
                         >
-                            <Button text="Вперёд!" viewStyle="main" to="/spreviewtour" onClick={() => {
+                            <Button text="Вперёд!" viewStyle="main" to="/previewtour" onClick={() => {
                                 selectTour(tours[focusedTourIndex].id);
                             }} />
                         </div>
