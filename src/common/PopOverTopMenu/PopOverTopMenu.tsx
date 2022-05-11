@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
-import { PlacePanel } from '../PlacePanel/PlacePanel';
+import PlacePanel from '../PlacePanel/PlacePanel';
 import { AppDispatch } from '../../model/store';
 import { RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
@@ -11,6 +11,7 @@ import trashbin from './img/trashbin.svg'
 import trashbin_focused from './img/trashbin_focused.svg'
 import human from './img/human.svg'
 import Button from '../Button/Button';
+import { Popup } from '../Popup/Popup';
 
 
 interface PopOverTopMenuProps {
@@ -26,11 +27,31 @@ const PopOverTopMenu = ({
     routeState,
     state
 }: PopOverTopMenuProps) => {
+    console.log(document.visibilityState)
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
+    const [currentRoute, setCurrentRoute] = useState(routeState)
+    const [isPopup, setIsPopup] = useState(false);
+    const activePlaceNameRef = useRef<string>('места')
+    
+    const changeRoute = () => {
+        const array = Array.from(currentRoute)
+        let activePlaceIndex: number = 0 
+        array.map((place, index)  => {
+            if (place.state === 'active') {
+                place.state = 'finished'
+                activePlaceIndex = index
+                return
+            }
+        })
+        if (activePlaceIndex + 1 < array.length) {
+            array[activePlaceIndex + 1].state = 'active'
+        }
+        setCurrentRoute(array)
+    }
 
 
     const maxHeight = () => {
@@ -82,14 +103,64 @@ const PopOverTopMenu = ({
         minHeight: minHeight()
     })
 
+    const getBottomButton = () => {
+        let activePlaceIndex = currentRoute.findIndex(place => place.state === 'active')
+        if (activePlaceIndex === -1) {
+            activePlaceIndex = routeState.length - 1
+        }
+        activePlaceNameRef.current = places[activePlaceIndex].name
+        const activePlaceCoordinatesX = places[activePlaceIndex].coordinates.x;
+        const activePlaceCoordinatesY = places[activePlaceIndex].coordinates.y; 
+        let currentCoordinatesX: number;
+        let currentCoordinatesY: number;
+        navigator.geolocation.getCurrentPosition(
+            (crd) => {
+                currentCoordinatesX = crd.coords.latitude; 
+                currentCoordinatesY = crd.coords.longitude
+            }, 
+            (err) => {
+                console.log(err)
+            }, 
+            {
+                enableHighAccuracy: true, 
+                timeout: 5000, maximumAge: 0
+            }
+        )
+        switch (state) {
+            case 'preview':
+                return null;
+            case 'editable':
+                return (
+                    <Button 
+                        viewStyle='with_image'
+                        image={human}
+                        onClick={() => {}}
+                        text='Начать'
+                    />
+                );
+            case 'active':
+                return (
+                    <Button
+                        viewStyle='with_image'
+                        onClick={() => {
+                            window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)
+                            setIsPopup(true)
+                        }}
+                        text={`Маршрут до точки ${activePlaceIndex + 1}`}
+                    />
+                )
+        }
+    }
+
     const getPlaceState = (place: Place) => {
         switch (state) {
             case 'preview':
                 return "tourPreview";
             case 'editable':
                 return "default";
-            case 'active':
-                return routeState.find(placeState => placeState.placeId === place.id)!.state
+            case 'active': {
+                return currentRoute.find(placeState => placeState.placeId === place.id)!.state
+            }
         } 
     }
 
@@ -115,6 +186,7 @@ const PopOverTopMenu = ({
                             imageSrc={place.image}
                             state={getPlaceState(place)}
                             number={index + 1}
+                            onClickFunction={changeRoute}
                         />     
                     </div>
                 )}
@@ -144,6 +216,7 @@ const PopOverTopMenu = ({
                             imageSrc={place.image}
                             state='deleted'
                             number={index + 1}
+                            onClickFunction={() => {}}
                         />     
                     </div>
                 )}
@@ -152,7 +225,6 @@ const PopOverTopMenu = ({
     )
 
     const onDragEnd = (result: any) => {
-        console.log(result)
         if (!result.destination) {
             return;
         }
@@ -262,26 +334,28 @@ const PopOverTopMenu = ({
                             )}        
                         </Droppable>
                     </div>  
-                    {!dragging && state === 'editable' && currentStyle==='opened' && <div
+                    {!dragging && currentStyle==='opened' && <div
                         className={styles.main_button_bottom}
                     >
-                        <Button 
-                            viewStyle='with_image'
-                            image={human}
-                            onClick={() => {}}
-                            text='Начать'
-                        />
+                        {getBottomButton()}   
                     </div>}  
                 </div>    
             </DragDropContext>
+            {isPopup && <Popup 
+                placeName={activePlaceNameRef.current}
+                onClick={setIsPopup} 
+                onPositiveClick={changeRoute}
+            />}
         </div>
     )
 }
 
-const mapStateToProps = (style: State) => {
-    const currentTourIndex = style.tours.findIndex(tour => tour.id === style.userData.selectedTourId)
-    const placesInfo = style.tours[currentTourIndex].places;
-    const routeStateInfo = style.userData.routeState
+
+
+const mapStateToProps = (state: State) => {
+    const currentTourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId)
+    const placesInfo = state.tours[currentTourIndex].places;
+    const routeStateInfo = state.userData.routeState
 
     return {
         places: placesInfo,
@@ -289,9 +363,6 @@ const mapStateToProps = (style: State) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: AppDispatch) => {
-    return {
-    }
-}
 
-export default connect(mapStateToProps, mapDispatchToProps)(PopOverTopMenu);
+
+export default connect(mapStateToProps)(PopOverTopMenu);

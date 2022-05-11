@@ -3,22 +3,22 @@ import { useCallback, useEffect } from "react"
 interface useCheckBoxTouchProps {
     checkBoxRef: React.RefObject<HTMLDivElement>,
     state: "default" | "active" | "finished" | "deleted" | "tourPreview",
-    setState: React.Dispatch<React.SetStateAction<"default" | "active" | "finished" | "deleted" | "tourPreview">>
+    onClickFunction: Function,
+    changeModelFunction: () => void
 } 
 
 const useCheckBoxTouch = ({
     checkBoxRef,
     state,
-    setState
+    onClickFunction,
+    changeModelFunction
 }: useCheckBoxTouchProps) => {
     const onTouch = useCallback((e: TouchEvent) => {
         if (state === 'active') {
-            setState('finished')
-        } else if (state === 'finished') {
-            setState('active')
-        }
-            
-    }, [state, setState])
+            changeModelFunction()
+            onClickFunction()
+        }     
+    }, [state])
 
     useEffect(() => {
         let checkBoxRefValue: HTMLDivElement 
@@ -31,7 +31,7 @@ const useCheckBoxTouch = ({
                 checkBoxRefValue.removeEventListener('touchstart', onTouch)
             }
         }
-    }, [checkBoxRef, state, setState, onTouch])
+    }, [checkBoxRef, state, onTouch])
 }
 
 export {useCheckBoxTouch}
