@@ -36,7 +36,7 @@ const YandexMap = ({ routeState }: YandexMapProps) => {
                 mapRef.current.geoObjects.add(route);
             })
             return () => {}
-        }, [ymaps, ...route]);
+        }, [ymaps, route, x, y]);
         return ( <> </> )
     }
 
