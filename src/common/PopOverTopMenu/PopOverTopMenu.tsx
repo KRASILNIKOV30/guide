@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
 import PlacePanel from '../PlacePanel/PlacePanel';
@@ -29,7 +29,9 @@ const PopOverTopMenu = ({
     routeState,
     state
 }: PopOverTopMenuProps) => {
-    console.log(document.visibilityState)
+    if (!style) {
+        style = 'closed'
+    }
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
@@ -38,8 +40,15 @@ const PopOverTopMenu = ({
     const [currentRoute, setCurrentRoute] = useState(routeState)
     const [popupState, setPopupState] = useState<'none' | 'question' | 'final'>('none');
     const activePlaceNameRef = useRef<string>('места')
+    const [currentStyle, setCurrentStyle] = useState(style)
+    const popOverTopMenuRef = useRef(null)
 
-    
+    useEffect(() => {
+        if (currentStyle === 'closed') {
+            console.log('PopOverTopMenu was closed')
+        }
+    }, [currentStyle, setCurrentStyle])
+
     const changeRoute = () => {
         const array = Array.from(currentRoute)
         let activePlaceIndex: number = 0 
@@ -80,14 +89,9 @@ const PopOverTopMenu = ({
                 return 22;
         }
     };
-    if (!style) {
-        style = 'closed'
-    }
+    
     const minHeightInPx = document.documentElement.clientHeight * minHeight() / 100
-
-    const [currentStyle, setCurrentStyle] = useState(style)
-    const popOverTopMenuRef = useRef(null)
-
+    
     let height = '';
     switch (currentStyle) {
         case 'closed': {
@@ -101,7 +105,7 @@ const PopOverTopMenu = ({
 
     useHeightChange({
         elementRef: popOverTopMenuRef,
-        activeElementRef: popOverTopRef,
+        activeElementRef: state === 'editable' ? popOverTopRef : popOverTopMenuRef,
         setState: setCurrentStyle,
         avgHeight,
         maxHeight: maxHeight(),
@@ -269,6 +273,7 @@ const PopOverTopMenu = ({
     }
 
     const onDragStart = (result: any) => {
+        console.log(result)
         setDragging(result.source.droppableId === 'droppableActive')
     } 
 

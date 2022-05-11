@@ -13,7 +13,7 @@ ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
             <Routes>
-                <Route path="/tourselect" element={<TourSelect />} />
+                <Route path="/" element={<TourSelect />} />
                 <Route path="previewtour" element={<PreviewTour />} />
             </Routes>
         </BrowserRouter>

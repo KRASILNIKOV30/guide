@@ -52,7 +52,7 @@ const Popup = ({
                 {state === 'final' &&
                     <div className={styles.popup_button_wrap}>
                         <button className={styles.popup_button}>
-                            <Link to={'/tourselect'}>На главную</Link>
+                            <Link to={'/'}>На главную</Link>
                         </button>
                     </div>
                 }

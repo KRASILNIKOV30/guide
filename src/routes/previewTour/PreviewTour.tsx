@@ -42,7 +42,7 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
 
             </div>
 
-            <PopOverTopMenu tourName={tour.name} state='active' />
+            <PopOverTopMenu tourName={tour.name} state='editable' />
             {
                 isInfoOpened && <InfoPlacesList tour={tour} close={() => setIsInfoOpened(false)} />
             }
