@@ -15,7 +15,7 @@ import { Popup } from '../Popup/Popup';
 
 
 interface PopOverTopMenuProps {
-    tourName: string,
+    tourName?: string,
     style?: 'closed' | 'opened',
     places: Array<Place>,
     routeState: Array<RoutePoint>,
@@ -24,7 +24,7 @@ interface PopOverTopMenuProps {
 }
 
 const PopOverTopMenu = ({
-    tourName,
+    tourName = '',
     style,
     places,
     routeState,
