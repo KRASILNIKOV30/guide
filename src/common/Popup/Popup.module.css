@@ -25,12 +25,14 @@
     font: normal 300 17px Roboto;
     color: var(--main-text-color);
     display: flex;
+    text-align: center;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 0 30px;
 }
 
-.popup_answers {
+.popup_answers, .popup_button_wrap {
     position: relative;
     width: 100%;
     height: 44px;
@@ -39,6 +41,13 @@
 
 .positive_answer, .negative_answer {
     width: 50%;
+}
+
+.popup_button {
+    width: 100%;
+}
+
+.positive_answer, .negative_answer, .popup_button {
     height: 100%;
     font: normal 400 17px Roboto;
     display: flex;

@@ -15,6 +15,7 @@ import { Popup } from '../Popup/Popup';
 
 
 interface PopOverTopMenuProps {
+    tourName: string,
     style?: 'closed' | 'opened',
     places: Array<Place>,
     routeState: Array<RoutePoint>,
@@ -22,6 +23,7 @@ interface PopOverTopMenuProps {
 }
 
 const PopOverTopMenu = ({
+    tourName,
     style,
     places,
     routeState,
@@ -34,8 +36,9 @@ const PopOverTopMenu = ({
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
     const [currentRoute, setCurrentRoute] = useState(routeState)
-    const [isPopup, setIsPopup] = useState(false);
+    const [popupState, setPopupState] = useState<'none' | 'question' | 'final'>('none');
     const activePlaceNameRef = useRef<string>('места')
+
     
     const changeRoute = () => {
         const array = Array.from(currentRoute)
@@ -49,6 +52,8 @@ const PopOverTopMenu = ({
         })
         if (activePlaceIndex + 1 < array.length) {
             array[activePlaceIndex + 1].state = 'active'
+        } else {
+            setPopupState('final')
         }
         setCurrentRoute(array)
     }
@@ -144,7 +149,7 @@ const PopOverTopMenu = ({
                         viewStyle='with_image'
                         onClick={() => {
                             window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)
-                            setIsPopup(true)
+                            setPopupState('question')
                         }}
                         text={`Маршрут до точки ${activePlaceIndex + 1}`}
                     />
@@ -341,9 +346,10 @@ const PopOverTopMenu = ({
                     </div>}  
                 </div>    
             </DragDropContext>
-            {isPopup && <Popup 
-                placeName={activePlaceNameRef.current}
-                onClick={setIsPopup} 
+            {popupState !== 'none' && <Popup
+                state={popupState} 
+                name={popupState === 'question' ? activePlaceNameRef.current : tourName}
+                onClick={setPopupState} 
                 onPositiveClick={changeRoute}
             />}
         </div>
