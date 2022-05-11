@@ -15,6 +15,7 @@ import { Popup } from '../Popup/Popup';
 
 
 interface PopOverTopMenuProps {
+    tourName: string,
     style?: 'closed' | 'opened',
     places: Array<Place>,
     routeState: Array<RoutePoint>,
@@ -23,21 +24,33 @@ interface PopOverTopMenuProps {
 }
 
 const PopOverTopMenu = ({
+    tourName,
     style,
     places,
     routeState,
     state,
     getRoute
 }: PopOverTopMenuProps) => {
+    if (!style) {
+        style = 'closed'
+    }
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
     const [currentRoute, setCurrentRoute] = useState(routeState)
-    const [isPopup, setIsPopup] = useState(false);
+    const [popupState, setPopupState] = useState<'none' | 'question' | 'final'>('none');
     const activePlaceNameRef = useRef<string>('места')
-    
+    const [currentStyle, setCurrentStyle] = useState(style)
+    const popOverTopMenuRef = useRef(null)
+
+    useEffect(() => {
+        if (currentStyle === 'closed') {
+            console.log('PopOverTopMenu was closed')
+        }
+    }, [currentStyle, setCurrentStyle])
+
     const changeRoute = () => {
         const array = Array.from(currentRoute)
         let activePlaceIndex: number = 0 
@@ -50,6 +63,8 @@ const PopOverTopMenu = ({
         })
         if (activePlaceIndex + 1 < array.length) {
             array[activePlaceIndex + 1].state = 'active'
+        } else {
+            setPopupState('final')
         }
         setCurrentRoute(array)
     }
@@ -76,13 +91,8 @@ const PopOverTopMenu = ({
                 return 22;
         }
     };
-    if (!style) {
-        style = 'closed'
-    }
+    
     const minHeightInPx = document.documentElement.clientHeight * minHeight() / 100
-
-    const [currentStyle, setCurrentStyle] = useState(style)
-    const popOverTopMenuRef = useRef(null)
 
     useEffect(() => {
         if (currentStyle === 'closed' && state === 'editable' && getRoute !== undefined) {
@@ -107,7 +117,7 @@ const PopOverTopMenu = ({
 
     useHeightChange({
         elementRef: popOverTopMenuRef,
-        activeElementRef: popOverTopRef,
+        activeElementRef: state === 'editable' ? popOverTopRef : popOverTopMenuRef,
         setState: setCurrentStyle,
         avgHeight,
         maxHeight: maxHeight(),
@@ -155,7 +165,7 @@ const PopOverTopMenu = ({
                         viewStyle='with_image'
                         onClick={() => {
                             window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)
-                            setIsPopup(true)
+                            setPopupState('question')
                         }}
                         text={`Маршрут до точки ${activePlaceIndex + 1}`}
                     />
@@ -275,6 +285,7 @@ const PopOverTopMenu = ({
     }
 
     const onDragStart = (result: any) => {
+        console.log(result)
         setDragging(result.source.droppableId === 'droppableActive')
     } 
 
@@ -352,9 +363,10 @@ const PopOverTopMenu = ({
                     </div>}  
                 </div>    
             </DragDropContext>
-            {isPopup && <Popup 
-                placeName={activePlaceNameRef.current}
-                onClick={setIsPopup} 
+            {popupState !== 'none' && <Popup
+                state={popupState} 
+                name={popupState === 'question' ? activePlaceNameRef.current : tourName}
+                onClick={setPopupState} 
                 onPositiveClick={changeRoute}
             />}
         </div>
