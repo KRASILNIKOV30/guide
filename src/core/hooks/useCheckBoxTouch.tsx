@@ -4,7 +4,7 @@ interface useCheckBoxTouchProps {
     checkBoxRef: React.RefObject<HTMLDivElement>,
     state: "default" | "active" | "finished" | "deleted" | "tourPreview",
     onClickFunction: Function,
-    changeModelFunction: Function
+    changeModelFunction: () => void
 } 
 
 const useCheckBoxTouch = ({

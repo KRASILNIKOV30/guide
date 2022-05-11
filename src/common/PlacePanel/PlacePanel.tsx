@@ -11,7 +11,8 @@ interface PlacePanelProps {
     imageSrc: string,
     state: "default" | "active" | "finished" | "deleted" | "tourPreview",
     number: number,
-    onClickFunction: Function
+    onClickFunction: Function,
+    passRoutePoint: () => void
 }
 
 const PlacePanel = ({
@@ -20,7 +21,8 @@ const PlacePanel = ({
     imageSrc,
     state,
     number,
-    onClickFunction
+    onClickFunction,
+    passRoutePoint
 }: PlacePanelProps) => {
     
     let checkBoxRef = useRef(null)
@@ -30,7 +32,7 @@ const PlacePanel = ({
         checkBoxRef,
         state: state,
         onClickFunction,
-        changeModelFunction: passRoutePoint
+        changeModelFunction: () => passRoutePoint
     })
 
     let numberClassname = () => {

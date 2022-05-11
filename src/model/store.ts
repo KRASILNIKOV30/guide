@@ -16,11 +16,11 @@ let initialState: State = {
         routeState: [
             {
                 placeId: '1',
-                state: 'finished'
+                state: 'active'
             },
             {
                 placeId: '2',
-                state: 'active'
+                state: 'default'
             },
             {
                 placeId: '3',
@@ -66,7 +66,7 @@ let initialState: State = {
                     name: 'Дом Бабочка',
                     image: tour2place1,
                     description: 'Получаются кадры как с обложек “Molchat Doma”',
-                    coordinates: {x: 56.631929, y: 47.882962},
+                    coordinates: {x: 56.62744065291153, y: 47.913865970552685},
                     address: 'Ленинский проспект, 16'
                 },
                 {
@@ -74,7 +74,7 @@ let initialState: State = {
                     name: 'Дом Флакон',
                     image: tour2place2,
                     description: 'Один из флагманов йошкар-олинских фото-мест.',
-                    coordinates: {x: 56.634416, y: 47.899685},
+                    coordinates: {x: 56.62829352962311, y: 47.90562035707867},
                     address: 'Эшкинина, 2'
                 },
                 {
@@ -82,7 +82,7 @@ let initialState: State = {
                     name: 'iSpring',
                     image: tour2place3,
                     description: 'Ну красота какая ну ты посмотри.',
-                    coordinates: {x: 56.633800, y: 47.930336},
+                    coordinates: {x: 56.629823857993706, y: 47.894747136134015},
                     address: 'Вознесенская, 110'
                 },
                 {
@@ -90,7 +90,7 @@ let initialState: State = {
                     name: 'Набережная улица',
                     image: tour2place4,
                     description: 'Дух Царевокошайска спрятан где-то здесь!',
-                    coordinates: {x: 56.645720, y: 47.980040},
+                    coordinates: {x: 56.641243, y: 47.906103},
                     address: 'Набережная, 1',
                 },
                 {
@@ -98,7 +98,7 @@ let initialState: State = {
                     name: 'Вараксинский мост',
                     image: tour2place5,
                     description: 'Не самое романтичное место, но самый романтичый вид на Йошкар-Олу, с которого можно увидеть всю многоликость нашего города.',
-                    coordinates: {x: 56.645720, y: 47.980040},
+                    coordinates: {x: 56.644361, y: 47.911259},
                     address: 'Водопроводная'
                 }
             ]

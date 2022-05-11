@@ -11,6 +11,7 @@ import trashbin from './img/trashbin.svg'
 import trashbin_focused from './img/trashbin_focused.svg'
 import human from './img/human.svg'
 import Button from '../Button/Button';
+import { Popup } from '../Popup/Popup';
 
 
 interface PopOverTopMenuProps {
@@ -26,12 +27,15 @@ const PopOverTopMenu = ({
     routeState,
     state
 }: PopOverTopMenuProps) => {
+    console.log(document.visibilityState)
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
     const [currentRoute, setCurrentRoute] = useState(routeState)
+    const [isPopup, setIsPopup] = useState(false);
+    const activePlaceNameRef = useRef<string>('места')
     
     const changeRoute = () => {
         const array = Array.from(currentRoute)
@@ -104,6 +108,24 @@ const PopOverTopMenu = ({
         if (activePlaceIndex === -1) {
             activePlaceIndex = routeState.length - 1
         }
+        activePlaceNameRef.current = places[activePlaceIndex].name
+        const activePlaceCoordinatesX = places[activePlaceIndex].coordinates.x;
+        const activePlaceCoordinatesY = places[activePlaceIndex].coordinates.y; 
+        let currentCoordinatesX: number;
+        let currentCoordinatesY: number;
+        navigator.geolocation.getCurrentPosition(
+            (crd) => {
+                currentCoordinatesX = crd.coords.latitude; 
+                currentCoordinatesY = crd.coords.longitude
+            }, 
+            (err) => {
+                console.log(err)
+            }, 
+            {
+                enableHighAccuracy: true, 
+                timeout: 5000, maximumAge: 0
+            }
+        )
         switch (state) {
             case 'preview':
                 return null;
@@ -120,7 +142,10 @@ const PopOverTopMenu = ({
                 return (
                     <Button
                         viewStyle='with_image'
-                        onClick={() => {}}
+                        onClick={() => {
+                            window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)
+                            setIsPopup(true)
+                        }}
                         text={`Маршрут до точки ${activePlaceIndex + 1}`}
                     />
                 )
@@ -316,9 +341,16 @@ const PopOverTopMenu = ({
                     </div>}  
                 </div>    
             </DragDropContext>
+            {isPopup && <Popup 
+                placeName={activePlaceNameRef.current}
+                onClick={setIsPopup} 
+                onPositiveClick={changeRoute}
+            />}
         </div>
     )
 }
+
+
 
 const mapStateToProps = (state: State) => {
     const currentTourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId)
