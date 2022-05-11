@@ -12,7 +12,6 @@ type userData = {
     selectedTourId: string;
     routeState: Array<RoutePoint>
     completedTouresId: Array<string>;
-    started: boolean;
 }
 
 type RoutePoint = {

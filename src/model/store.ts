@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 import { State } from './types'
-import { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer } from './reducers';
+import { selectTourReducer, completeTourReducer, passRoutePointReducer } from './reducers';
 import tour1 from './images/1/image.svg';
 import tour2 from './images/2/image.svg';
 import tour3 from './images/3/image.svg';
@@ -36,7 +36,6 @@ let initialState: State = {
             },
         ],
         completedTouresId: [],
-        started: false
     },
     tours: [
         {
@@ -98,7 +97,7 @@ let initialState: State = {
                     name: 'Вараксинский мост',
                     image: tour2place5,
                     description: 'Не самое романтичное место, но самый романтичый вид на Йошкар-Олу, с которого можно увидеть всю многоликость нашего города.',
-                    coordinates: {x: 56.645720, y: 47.980040},
+                    coordinates: {x: 56.652313, y: 47.856048},
                     address: 'Водопроводная'
                 }
             ]
@@ -124,8 +123,7 @@ let initialState: State = {
 
 export type ActionType = {
     type: string,
-    id?: string,
-    started?: boolean,
+    id?: string
 }
 
 function mainReducer(state: State = initialState, action: ActionType): State {
@@ -136,9 +134,6 @@ function mainReducer(state: State = initialState, action: ActionType): State {
                 state.tours.find(tour => tour.id === action.id)?.places.forEach(place => pointIds.push(place.id));
                 state.userData = selectTourReducer(state.userData, action.id, pointIds);
             }; break;
-        case 'START_STOP_ROUTE': if (action.started !== undefined) {
-            state.userData = startStopRouteReducer(state.userData, action.started)
-        } break;
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
         case 'PASS_ROUTE_POINT':  state.userData = passRoutePointReducer(state.userData);
     }

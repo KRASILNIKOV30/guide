@@ -139,6 +139,9 @@
 }
 
 .plus, .minus, .back_to_location {
+    width: 40px;
+    height: 40px;
+
     background-color: var(--white);
     border-radius: 20px;
     

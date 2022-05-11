@@ -14,10 +14,9 @@ type PointInfo = {
 
 interface YandexMapProps {
     routeState: Array<PointInfo>
-    started: boolean;
 }
 
-const YandexMap = ({ routeState, started }: YandexMapProps) => {   
+const YandexMap = ({ routeState }: YandexMapProps) => {   
     const mapRef = useRef<any>(null);
 
     const { x, y, error } = useLocation();
@@ -26,7 +25,6 @@ const YandexMap = ({ routeState, started }: YandexMapProps) => {
         const pointsCoordsArray: Array<Array<number>> = [];
         useEffect(() => {
             route.forEach((point: any) => pointsCoordsArray.push(point.coordinates))
-            console.log('in ueh')
             ymaps.route(
                 pointsCoordsArray,
                 {
@@ -34,8 +32,8 @@ const YandexMap = ({ routeState, started }: YandexMapProps) => {
                     routingMode: "pedestrian"
                 }
             ).then((route: any) => {
-            route.options.set("mapStateAutoApply", true);
-            mapRef.current.geoObjects.add(route);
+                route.options.set("mapStateAutoApply", true);
+                mapRef.current.geoObjects.add(route);
             })
             return () => {}
         }, [ymaps, ...route]);
@@ -90,10 +88,8 @@ const YandexMap = ({ routeState, started }: YandexMapProps) => {
                             pixelRendering: 'static'
                         }} />
                     }
-                    {
-                        started && <ConnectedCreateRoute route = {routeState} />
-                    }
-                    
+
+                    <ConnectedCreateRoute route = {routeState} />      
                 </Map>
             </YMaps> 
         </div>
@@ -114,7 +110,6 @@ function mapStateToProps(state: State) {
     })
     return {
         routeState: routePoints,
-        started: state.userData.started
     }
 }
 

@@ -5,13 +5,6 @@ function selectTour(id: string) {
     }
 }
 
-function startStopRoute(started: boolean) {
-    return {
-        type: 'START_STOP_ROUTE',
-        started
-    }
-}
-
 function completeTour() {
     return {
         type: 'COMPLETE_TOUR'
@@ -24,12 +17,4 @@ function passRoutePoint() {
     }
 }
 
-/*function changeCurrentPosition(x: number, y: number) {
-    return {
-        type: 'CHANGE_CURRENT_POSITION',
-        x,
-        y
-    }
-}*/
-
-export { selectTour, startStopRoute, completeTour, passRoutePoint }
+export { selectTour, completeTour, passRoutePoint }

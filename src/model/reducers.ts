@@ -10,12 +10,6 @@ function selectTourReducer(userData: userData, tourId: string, pointIds: Array<s
     return newUserData
 }
 
-function startStopRouteReducer(userData: userData, started: boolean): userData {
-    const newUserData = deepClone(userData) as userData;
-    newUserData.started = started;
-    return newUserData
-}
-
 function completeTourReducer(userData: userData): userData {
     const newUserData = deepClone(userData) as userData;
     if(newUserData.selectedTourId !== undefined && !newUserData.completedTouresId.includes(newUserData.selectedTourId)) {
@@ -23,7 +17,6 @@ function completeTourReducer(userData: userData): userData {
     }
     newUserData.selectedTourId = '';
     newUserData.routeState = [];
-    newUserData.started = false;
     return newUserData
 }
 
@@ -37,4 +30,4 @@ function passRoutePointReducer(userData: userData): userData {
     return newUserData;
 }
 
-export { selectTourReducer, startStopRouteReducer, completeTourReducer, passRoutePointReducer }
+export { selectTourReducer, completeTourReducer, passRoutePointReducer }
