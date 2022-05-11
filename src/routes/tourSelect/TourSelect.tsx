@@ -12,6 +12,7 @@ type TourInfo = {
     name: string;
     description: string;
     image: string;
+    finished: boolean;
 }
 
 interface ToolBarProps {
@@ -72,9 +73,12 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                             style = {{"backgroundImage": `url(${tour.image})`}}
                             key = {tour.id}
                         >
-                            <Button text="Вперёд!" viewStyle="main" to="/previewtour" onClick={() => {
+                            <Button text={tour.finished? "Айда ещё!": "Вперёд!"} viewStyle="main" to="/previewtour" onClick={() => {
                                 selectTour(tours[focusedTourIndex].id);
                             }} />
+                            {
+                                tour.finished && <div className={styles.finished_mark}>Пройдено</div>
+                            }
                         </div>
                     )
                 }
@@ -96,7 +100,13 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
 
 const mapStateToProps = (state: State) => {
     const tourInfo: Array<TourInfo> = [];
-    state.tours.forEach(tour => tourInfo.push({id: tour.id, name: tour.name, description: tour.description, image: tour.image}))
+    state.tours.forEach(tour => tourInfo.push({
+        id: tour.id,
+        name: tour.name,
+        description: tour.description,
+        image: tour.image,
+        finished: state.userData.completedTouresId.includes(tour.id)
+    }))
     
     return {
         tours: tourInfo

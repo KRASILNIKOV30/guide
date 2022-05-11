@@ -5,7 +5,12 @@ import PopOverTopMenu from '../../common/PopOverTopMenu/PopOverTopMenu';
 import YandexMap from '../../common/YandexMap/YandexMap';
 import styles from './PreviewMap.module.css';
 
+import { PointInfo } from '../../model/types';
+import { useState } from 'react';
+
 const PreviewMap = () => {
+    const [route, setRoute] = useState<Array<PointInfo>>([]);
+
     const navigate = useNavigate();
 
     return (
@@ -16,12 +21,13 @@ const PreviewMap = () => {
                 <Button viewStyle='cancel' onClick={() => navigate("/previewtour")} className={styles.button_close} />
             </div>
             <div className={styles.map_container}>
-                <YandexMap />
+                <YandexMap routeState={route}/>
             </div>
 
-            <PopOverTopMenu state='editable' />
+            <PopOverTopMenu state='editable' getRoute={(newRoute) => {setRoute(newRoute)}}/>
         </div>
     )
 }
-
+//67.22306%
+//89.378%
 export default connect()(PreviewMap)

@@ -13,29 +13,8 @@ import tour2place5 from './images/2/5/image.svg'
 let initialState: State = {
     userData: {
         selectedTourId: '2',
-        routeState: [
-            {
-                placeId: '1',
-                state: 'active'
-            },
-            {
-                placeId: '2',
-                state: 'default'
-            },
-            {
-                placeId: '3',
-                state: 'default'
-            },
-            {
-                placeId: '4',
-                state: 'default'
-            },
-            {
-                placeId: '5',
-                state: 'default'
-            },
-        ],
-        completedTouresId: [],
+        routeState: [],
+        completedTouresId: ['3'],
     },
     tours: [
         {
@@ -130,9 +109,7 @@ function mainReducer(state: State = initialState, action: ActionType): State {
     switch (action.type) {
         case 'SELECT_TOUR': 
             if (action.id !== undefined) {
-                const pointIds: Array<string> = [];
-                state.tours.find(tour => tour.id === action.id)?.places.forEach(place => pointIds.push(place.id));
-                state.userData = selectTourReducer(state.userData, action.id, pointIds);
+                state.userData = selectTourReducer(state.userData, action.id);
             }; break;
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
         case 'PASS_ROUTE_POINT':  state.userData = passRoutePointReducer(state.userData);

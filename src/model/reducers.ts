@@ -1,13 +1,11 @@
 import { deepClone } from '../core/functions/deepClone';
 import { userData, RoutePoint } from './types'
 
-function selectTourReducer(userData: userData, tourId: string, pointIds: Array<string>): userData {
+function selectTourReducer(userData: userData, tourId: string): userData {
     console.log('selectTourReducer')
     const newUserData = deepClone(userData) as userData;
     newUserData.selectedTourId = tourId;
-    const newRouteState: Array<RoutePoint> = [];
-    pointIds.forEach(id => newRouteState.push({placeId: id, state: 'default'}))
-    newUserData.routeState = newRouteState;
+    newUserData.routeState = [];
     return newUserData
 }
 

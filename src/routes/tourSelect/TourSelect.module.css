@@ -97,8 +97,10 @@
 }
 
 .tour_image {
+    position: relative;
     min-width: 69vw;
     height: 59.4vh;
+    overflow: hidden;
 
     border-radius: 10px;
 
@@ -116,6 +118,28 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.finished_mark {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    width: 112.811%;
+    height: 23.195%;
+    left: -32.222%;
+    top: 4%;
+
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(19px);
+
+    transform: rotate(-41deg);
+
+    font: var(--sb_18_text);
+    color: var(--white);
+
 }
 
 .tour_image_active {

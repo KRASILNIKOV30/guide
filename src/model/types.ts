@@ -36,4 +36,9 @@ type Place = {
     address: string;
 }
 
-export type { State, userData, Tour, RoutePoint, Place }
+type PointInfo = {
+    coordinates: Array<number>;
+    state: "default" | "active" | "finished";
+}
+
+export type { State, userData, Tour, RoutePoint, Place, PointInfo }

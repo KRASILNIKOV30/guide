@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
 import PlacePanel from '../PlacePanel/PlacePanel';
 import { AppDispatch } from '../../model/store';
-import { RoutePoint, State } from '../../model/types';
+import { PointInfo, RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import trashbin from './img/trashbin.svg'
@@ -18,16 +18,17 @@ interface PopOverTopMenuProps {
     style?: 'closed' | 'opened',
     places: Array<Place>,
     routeState: Array<RoutePoint>,
-    state: 'preview' | 'editable' | 'active' 
+    state: 'preview' | 'editable' | 'active',
+    getRoute?: (route: Array<PointInfo>) => void
 }
 
 const PopOverTopMenu = ({
     style,
     places,
     routeState,
-    state
+    state,
+    getRoute
 }: PopOverTopMenuProps) => {
-    console.log(document.visibilityState)
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
@@ -83,6 +84,16 @@ const PopOverTopMenu = ({
     const [currentStyle, setCurrentStyle] = useState(style)
     const popOverTopMenuRef = useRef(null)
 
+    useEffect(() => {
+        if (currentStyle === 'closed' && state === 'editable' && getRoute !== undefined) {
+            const route: Array<PointInfo> = [];
+            currentPlaces.forEach(place => {route.push({coordinates: [place.coordinates.x, place.coordinates.y], state: "default"})})
+            getRoute(route);
+        }
+    
+        return () => { }
+    }, [currentStyle]);
+
     let height = '';
     switch (currentStyle) {
         case 'closed': {
@@ -90,7 +101,7 @@ const PopOverTopMenu = ({
             break;
         }
         case 'opened': {
-            height = `${maxHeight()}vh`
+            height = `${maxHeight()}vh`;
         }
     }
 
@@ -104,28 +115,7 @@ const PopOverTopMenu = ({
     })
 
     const getBottomButton = () => {
-        let activePlaceIndex = currentRoute.findIndex(place => place.state === 'active')
-        if (activePlaceIndex === -1) {
-            activePlaceIndex = routeState.length - 1
-        }
-        activePlaceNameRef.current = places[activePlaceIndex].name
-        const activePlaceCoordinatesX = places[activePlaceIndex].coordinates.x;
-        const activePlaceCoordinatesY = places[activePlaceIndex].coordinates.y; 
-        let currentCoordinatesX: number;
-        let currentCoordinatesY: number;
-        navigator.geolocation.getCurrentPosition(
-            (crd) => {
-                currentCoordinatesX = crd.coords.latitude; 
-                currentCoordinatesY = crd.coords.longitude
-            }, 
-            (err) => {
-                console.log(err)
-            }, 
-            {
-                enableHighAccuracy: true, 
-                timeout: 5000, maximumAge: 0
-            }
-        )
+      
         switch (state) {
             case 'preview':
                 return null;
@@ -139,6 +129,27 @@ const PopOverTopMenu = ({
                     />
                 );
             case 'active':
+                let activePlaceIndex = currentRoute.findIndex(place => place.state === 'active')
+                if (activePlaceIndex === -1) {
+                    activePlaceIndex = routeState.length - 1
+                }
+                activePlaceNameRef.current = places[activePlaceIndex].name
+                const activePlaceCoordinatesX = places[activePlaceIndex].coordinates.x;
+                const activePlaceCoordinatesY = places[activePlaceIndex].coordinates.y; 
+                let currentCoordinatesX: number;
+                let currentCoordinatesY: number;
+                navigator.geolocation.getCurrentPosition(
+                    (crd) => {
+                        currentCoordinatesX = crd.coords.latitude; 
+                        currentCoordinatesY = crd.coords.longitude
+                    }, 
+                    (err) => {
+                    }, 
+                    {
+                        enableHighAccuracy: true, 
+                        timeout: 5000, maximumAge: 0
+                    }
+                )
                 return (
                     <Button
                         viewStyle='with_image'
@@ -334,7 +345,7 @@ const PopOverTopMenu = ({
                             )}        
                         </Droppable>
                     </div>  
-                    {!dragging && currentStyle==='opened' && <div
+                    {(!dragging && currentStyle==='opened') && <div
                         className={styles.main_button_bottom}
                     >
                         {getBottomButton()}   

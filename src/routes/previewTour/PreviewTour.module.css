@@ -95,7 +95,7 @@
 }
 
 .info_places_list {
-    z-index: 3;
+    z-index: 15;
     width: 100vw;
     height: 97.27vh;
 
