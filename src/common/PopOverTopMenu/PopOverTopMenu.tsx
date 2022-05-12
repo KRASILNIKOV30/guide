@@ -54,7 +54,7 @@ const PopOverTopMenu = ({
     const [currentStyle, setCurrentStyle] = useState(style)
     const popOverTopMenuRef = useRef(null)
 
-    const changeRoute = () => {
+    /*const changeRoute = () => {
         const array = Array.from(currentRoute)
         let activePlaceIndex: number = 0 
         array.map((place, index)  => {
@@ -71,7 +71,7 @@ const PopOverTopMenu = ({
             completeTour()
         }
         setCurrentRoute(array)
-    }
+    }*/
 
 
     const maxHeight = () => {
@@ -192,7 +192,8 @@ const PopOverTopMenu = ({
             case 'editable':
                 return "default";
             case 'active': {
-                return currentRoute.find(placeState => placeState.placeId === place.id)?.state
+                console.log(currentRoute);
+                return currentRoute.find(placeState => placeState.placeId === place.id)!.state
             }
         } 
     }
@@ -217,9 +218,9 @@ const PopOverTopMenu = ({
                             name = {place.name}
                             address={place.address}
                             imageSrc={place.image}
-                            state={getPlaceState(place) !== undefined? getPlaceState(place)!: "tourPreview"}
+                            state={getPlaceState(place)}
                             number={index + 1}
-                            onClickFunction={changeRoute}
+                            onClickFunction={passRoutePoint}
                         />     
                     </div>
                 )}
@@ -389,7 +390,7 @@ const PopOverTopMenu = ({
                 state={popupState} 
                 name={popupState === 'question' ? activePlaceNameRef.current : tourName}
                 onClick={setPopupState} 
-                onPositiveClick={changeRoute}
+                onPositiveClick={passRoutePoint}
             />}
         </div>
     )
@@ -417,7 +418,8 @@ const mapStateToProps = (state: State) => {
 const mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
         loadRoute: (routePoints: Array<RoutePoint>) => dispatch(loadRoute(routePoints)),
-        completeTour: () => dispatch(completeTour())
+        completeTour: () => dispatch(completeTour()),
+        passRoutePoint: () => dispatch(passRoutePoint())
     }
 }
 

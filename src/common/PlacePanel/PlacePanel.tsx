@@ -32,7 +32,7 @@ const PlacePanel = ({
         checkBoxRef,
         state: state,
         onClickFunction,
-        changeModelFunction: () => passRoutePoint
+        changeModelFunction: passRoutePoint
     })
 
     let numberClassname = () => {
