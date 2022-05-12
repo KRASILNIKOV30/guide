@@ -93,6 +93,7 @@ const PopOverTopMenu = ({
     };
     
     const minHeightInPx = document.documentElement.clientHeight * minHeight() / 100
+    console.log(minHeightInPx)
 
     useEffect(() => {
         if (currentStyle === 'closed' && state === 'editable' && getRoute !== undefined) {

@@ -70,7 +70,8 @@
 .main_button_top {
     width: 100%;
     padding: 0 123px 0 123px;
-    position: relative;
+    bottom: 0;
+    position: fixed;
     display: flex;
     justify-content: center;
     z-index: 5;
