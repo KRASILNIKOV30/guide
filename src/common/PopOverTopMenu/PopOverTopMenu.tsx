@@ -45,12 +45,6 @@ const PopOverTopMenu = ({
     const [currentStyle, setCurrentStyle] = useState(style)
     const popOverTopMenuRef = useRef(null)
 
-    useEffect(() => {
-        if (currentStyle === 'closed') {
-            console.log('PopOverTopMenu was closed')
-        }
-    }, [currentStyle, setCurrentStyle])
-
     const changeRoute = () => {
         const array = Array.from(currentRoute)
         let activePlaceIndex: number = 0 
@@ -93,7 +87,7 @@ const PopOverTopMenu = ({
     };
     
     const minHeightInPx = document.documentElement.clientHeight * minHeight() / 100
-    console.log(minHeightInPx)
+    
 
     useEffect(() => {
         if (currentStyle === 'closed' && state === 'editable' && getRoute !== undefined) {
