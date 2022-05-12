@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import { State, Tour } from '../../model/types';
 import Button from '../Button/Button';
-import styles from './InfoPanel.module.css'
+import styles from './InfoPlacesList.module.css'
 
 interface InfoPlacesListProps {
     tour: Tour;
