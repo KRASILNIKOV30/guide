@@ -3,8 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useHeightChange } from '../../core/hooks/useHeightChange';
 import styles from './PopOverTopMenu.module.css';
 import PlacePanel from '../PlacePanel/PlacePanel';
-import { AppDispatch } from '../../model/store';
-import { PointInfo, RoutePoint, State } from '../../model/types';
+import type { PointInfo, RoutePoint, State } from '../../model/types';
 import type { Place } from '../../model/types';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 import trashbin from './img/trashbin.svg'
@@ -175,6 +174,7 @@ const PopOverTopMenu = ({
             case 'editable':
                 return "default";
             case 'active': {
+                console.log(currentRoute)
                 return currentRoute.find(placeState => placeState.placeId === place.id)!.state
             }
         } 
@@ -373,8 +373,12 @@ const PopOverTopMenu = ({
 const mapStateToProps = (state: State) => {
     const currentTourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId)
     const placesInfo = state.tours[currentTourIndex].places;
-    const routeStateInfo = state.userData.routeState
-
+    const routeStateInfo: Array<RoutePoint> = placesInfo.map((place, index) => {
+        return ({
+            placeId: place.id,
+            state: index === 0 ? 'active' : 'default'
+        })
+    })
     return {
         places: placesInfo,
         routeState: routeStateInfo
