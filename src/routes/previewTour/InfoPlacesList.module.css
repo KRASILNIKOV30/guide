@@ -1,0 +1,95 @@
+.preview_tour_container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    width: inherit;
+    height: 100vh;
+
+    position: relative;
+
+    display: flex; 
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.tour_image {
+    width: 196px;
+    height: 196px;
+    margin-top: 40px;
+
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.03), 0px 3px 105px 9px #BACFD4;
+    border-radius: 10px;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+}
+
+.tour_name {
+    width: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+
+    color: var(--white);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 30px;
+}
+
+.tour_info_click {
+    width: 100%;
+    height: 40px;
+
+    display: flex;
+
+    padding-left: 119px;
+}
+
+.info_text {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--white);
+
+    display: flex;
+    align-items: center;
+    margin-right: 1px;
+}
+
+.background_image {
+    width: 100%;
+    height: 100%;
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    filter: blur(50px);
+
+    position: absolute;
+
+    z-index: -1;
+}
+
+.button_look {
+    margin-top: 15px;
+}
+
+.button_back {
+    position: absolute;
+
+    top: 25px;
+    left: 19px;
+}

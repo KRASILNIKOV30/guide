@@ -5,6 +5,7 @@ import { State, Tour } from '../../model/types';
 import styles from './PreviewTour.module.css';
 import PopOverTopMenu from '../../common/PopOverTopMenu/PopOverTopMenu';
 import { useState } from 'react';
+import InfoPlacesList from '../../common/InfoPlacesList/InfoPlacesList';
 
 interface PreviewTourProps {
     tour: Tour;
@@ -44,46 +45,9 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
 
             <PopOverTopMenu state='preview' />
             {
-                isInfoOpened && <InfoPlacesList tour={tour} close={() => setIsInfoOpened(false)} />
+                isInfoOpened && <InfoPlacesList close={() => setIsInfoOpened(false)} />
             }
 
-        </div>
-    )
-}
-
-interface InfoPlacesListProps {
-    tour: Tour;
-    close: () => void;
-}
-
-const InfoPlacesList = ({ tour, close }: InfoPlacesListProps) => {
-
-    return (
-        <div className={styles.info_places_list}>
-            <Button viewStyle='delete' onClick={close} className={styles.button_close} />
-            <div className={styles.info_container}>
-                <div className={styles.general_info}>
-                    <div className={styles.tour_info_header}>Тур: {tour.name}</div>
-                    <div className={styles.description}>{tour.description}</div>
-                </div>
-
-                {
-                    tour.places.map(place => 
-                        <div className={styles.place_card} key={place.id}>
-                            <div className={styles.general_info}>
-                                <div className={styles.place_name}>
-                                    <div className={styles.place_number}>{tour.places.findIndex(placeFinding => placeFinding.id === place.id) + 1}</div>
-                                    {place.name}
-                                </div>
-                                <div className={styles.description}>{place.description}</div>
-                            </div>
-                            <div className={styles.place_image} style={{"backgroundImage": `url(${place.image})`}}>
-                            
-                            </div>
-                        </div>    
-                    )
-                }
-            </div>
         </div>
     )
 }

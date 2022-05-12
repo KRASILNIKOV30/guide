@@ -9,10 +9,11 @@ import { PointInfo } from '../../model/types';
 
 
 interface YandexMapProps {
-    routeState: Array<PointInfo>
+    routeState: Array<PointInfo>;
+    getMetrics?: (length: number, time: number) => void
 }
 
-const YandexMap = ({ routeState }: YandexMapProps) => {   
+const YandexMap = ({ routeState, getMetrics }: YandexMapProps) => {   
     const mapRef = useRef<any>(null);
 
     const { x, y, error } = useLocation();
@@ -37,6 +38,9 @@ const YandexMap = ({ routeState }: YandexMapProps) => {
                 mapRef.current.geoObjects.splice(indexOfRoute.current, 1);
                 mapRef.current.geoObjects.add(route);
                 indexOfRoute.current = mapRef.current.geoObjects.indexOf(route);
+                if (getMetrics) {
+                    getMetrics(route._jsonView._activeRoute.events.params.context.properties._data.distance.text, route._jsonView._activeRoute.events.params.context.properties._data.duration.text);
+                }
             })
             return () => {}
         }, [ymaps, route]);
