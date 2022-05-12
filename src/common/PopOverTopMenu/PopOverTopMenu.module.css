@@ -12,6 +12,13 @@
     overflow: auto;
 }
 
+.info_button {
+    position: relative;
+    z-index: 1;
+    margin-bottom: -44px;
+    margin-left: 330px;
+}
+
 .pop_over_top {
     position: fixed;
     height: 49px;

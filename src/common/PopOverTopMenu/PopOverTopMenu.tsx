@@ -307,6 +307,11 @@ const PopOverTopMenu = ({
                     }}
                 >   
                     <div>
+                        {state !== 'preview' && <div
+                            className={styles.info_button}
+                        >
+                            <Button viewStyle='info' onClick={() => {}}></Button>
+                        </div>}
                         <div
                             className = {styles.pop_over_top}
                             ref = {popOverTopRef}
