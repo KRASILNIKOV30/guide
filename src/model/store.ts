@@ -9,6 +9,15 @@ import tour2place2 from './images/2/2/image.svg'
 import tour2place3 from './images/2/3/image.svg'
 import tour2place4 from './images/2/4/image.svg'
 import tour2place5 from './images/2/5/image.svg'
+import tour1place1 from './images/1/1/image.svg'
+import tour1place2 from './images/1/2/image.svg'
+import tour1place3 from './images/1/3/image.svg'
+import tour1place4 from './images/1/4/image.svg'
+import tour1place5 from './images/1/5/image.svg'
+import tour1place6 from './images/1/6/image.svg'
+import tour1place7 from './images/1/7/image.svg'
+import tour1place8 from './images/1/8/image.svg'
+import tour1place9 from './images/1/9/image.svg'
 
 let initialState: State = {
     userData: {
@@ -25,8 +34,72 @@ let initialState: State = {
             places: [
                 {
                     id: '1',
-                    name: 'Место',
+                    name: 'Часы с Осликом',
+                    image: tour1place1,
+                    description: 'Каждый час под циферблатом ходит ослик и играет музыка, “для галочки” советуем посмотреть.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '2',
+                    name: 'Йошкин Кот',
+                    image: tour1place2,
+                    description: 'Пожалуй, талисман города! Фото с ним — один из обязательных пунтков.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '3',
+                    name: 'Проспект Гагарина',
+                    image: tour1place3,
+                    description: 'Описание.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '4',
+                    name: 'Театр Шкетана и Ленин',
+                    image: tour1place4,
+                    description: 'Описание.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '5',
+                    name: 'Вася из Гуанчжоу',
+                    image: tour1place5,
+                    description: 'Одно из лучших заведений города, которое объединяет под собой рестораны восточной, грузинской, итальянской кухни, а так же пекарню.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '6',
+                    name: 'Набережная',
+                    image: tour1place6,
+                    description: 'Воскресенская набережная, Амстердам и Брюгге — те самые сахарные домики! Относиться к ним по-разному, но прогуляться определнно стоит.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '7',
+                    name: '“Башня”',
+                    image: tour1place7,
+                    description: 'Описание.',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '8',
+                    name: 'Старая Набережная',
                     image: '',
+                    description: 'Первая набережная Йошкар-Олы, здесь витает дух Царевококшайска, просто стоит внимательнее приглядется!',
+                    coordinates: {x: 0, y: 0},
+                    address: ''
+                },
+                {
+                    id: '9',
+                    name: 'Парк Культуры',
+                    image: tour1place9,
                     description: 'Описание.',
                     coordinates: {x: 0, y: 0},
                     address: ''
