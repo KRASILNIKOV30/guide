@@ -3,17 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../common/Button/Button';
 import PopOverTopMenu from '../../common/PopOverTopMenu/PopOverTopMenu';
 import YandexMap from '../../common/YandexMap/YandexMap';
-import styles from './PreviewMap.module.css';
+import styles from './Map.module.css';
 
 import { PointInfo } from '../../model/types';
 import { useState } from 'react';
 
 import InfoPlacesList from '../../common/InfoPlacesList/InfoPlacesList';
 
-const PreviewMap = () => {
+const Map = () => {
     const [length, setLength] = useState<number>();
     const [time, setTime] = useState<number>();
     const [isInfoOpened, setIsInfoOpened] = useState(false);
+    const [isRouteStarted, setIsRouteStarted] = useState(false);
 
     const [route, setRoute] = useState<Array<PointInfo>>([]);
 
@@ -30,7 +31,20 @@ const PreviewMap = () => {
                 <YandexMap routeState={route} getMetrics={(length, time) => {setLength(length); setTime(time)}} />
             </div>
 
-            <PopOverTopMenu state='editable' getRoute={(newRoute) => {setRoute(newRoute)}}/>
+            {
+                isRouteStarted
+                    ? <PopOverTopMenu 
+                        state='active'
+                        openInfo={() => setIsInfoOpened(true)}
+                    />
+                    : <PopOverTopMenu 
+                        state='editable' 
+                        getRoute={(newRoute) => {setRoute(newRoute)}} 
+                        openInfo={() => setIsInfoOpened(true)}
+                        startRoute={() => setIsRouteStarted(true)} 
+                    />
+            }
+            
 
             {
                 isInfoOpened && <InfoPlacesList close={() => setIsInfoOpened(false)}/>
@@ -39,4 +53,4 @@ const PreviewMap = () => {
     )
 }
 
-export default connect()(PreviewMap)
+export default connect()(Map)

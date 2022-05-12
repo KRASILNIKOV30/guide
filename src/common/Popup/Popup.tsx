@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import styles from './Popup.module.css'
 
@@ -62,4 +63,4 @@ const Popup = ({
     )
 }
 
-export {Popup}
+export default connect()(Popup)

@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
-import { State } from './types'
-import { selectTourReducer, completeTourReducer, passRoutePointReducer } from './reducers';
+import { RoutePoint, State } from './types'
+import { selectTourReducer, completeTourReducer, passRoutePointReducer, loadRouteReducer } from './reducers';
 import tour1 from './images/1/image.svg';
 import tour2 from './images/2/image.svg';
 import tour3 from './images/3/image.svg';
@@ -18,6 +18,7 @@ import tour1place6 from './images/1/6/image.svg'
 import tour1place7 from './images/1/7/image.svg'
 import tour1place8 from './images/1/8/image.svg'
 import tour1place9 from './images/1/9/image.svg'
+import { loadRoute } from './actionCreators';
 
 let initialState: State = {
     userData: {
@@ -175,7 +176,8 @@ let initialState: State = {
 
 export type ActionType = {
     type: string,
-    id?: string
+    id?: string,
+    routePoints?: Array<RoutePoint>
 }
 
 function mainReducer(state: State = initialState, action: ActionType): State {
@@ -185,9 +187,14 @@ function mainReducer(state: State = initialState, action: ActionType): State {
                 state.userData = selectTourReducer(state.userData, action.id);
             }; break;
         case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
+        case 'LOAD_ROUTE': 
+        if (action.routePoints !== undefined) {
+            state.userData = loadRouteReducer(state.userData, action.routePoints);
+        }; break;
         case 'PASS_ROUTE_POINT':  state.userData = passRoutePointReducer(state.userData);
     }
     //localStorage.setItem("savedUserData", JSON.stringify(state.userData))
+    console.log(state)
     return state
 }
 

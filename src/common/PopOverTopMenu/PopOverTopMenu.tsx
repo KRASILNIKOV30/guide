@@ -10,7 +10,9 @@ import trashbin from './img/trashbin.svg'
 import trashbin_focused from './img/trashbin_focused.svg'
 import human from './img/human.svg'
 import Button from '../Button/Button';
-import { Popup } from '../Popup/Popup';
+import Popup from '../Popup/Popup';
+import { AppDispatch } from '../../model/store';
+import { completeTour, loadRoute, passRoutePoint } from '../../model/actionCreators';
 
 
 interface PopOverTopMenuProps {
@@ -19,7 +21,11 @@ interface PopOverTopMenuProps {
     places: Array<Place>,
     routeState: Array<RoutePoint>,
     state: 'preview' | 'editable' | 'active',
-    getRoute?: (route: Array<PointInfo>) => void
+    getRoute?: (route: Array<PointInfo>) => void,
+    openInfo?: () => void,
+    startRoute?: () => void,
+    loadRoute: (routePoints: Array<RoutePoint>) => void,
+    completeTour: () => void
 }
 
 const PopOverTopMenu = ({
@@ -28,7 +34,11 @@ const PopOverTopMenu = ({
     places,
     routeState,
     state,
-    getRoute
+    getRoute,
+    openInfo = () => {},
+    startRoute = () => {},
+    loadRoute,
+    completeTour
 }: PopOverTopMenuProps) => {
     if (!style) {
         style = 'closed'
@@ -57,7 +67,8 @@ const PopOverTopMenu = ({
         if (activePlaceIndex + 1 < array.length) {
             array[activePlaceIndex + 1].state = 'active'
         } else {
-            setPopupState('final')
+            setPopupState('final');
+            completeTour()
         }
         setCurrentRoute(array)
     }
@@ -128,7 +139,12 @@ const PopOverTopMenu = ({
                     <Button 
                         viewStyle='with_image'
                         image={human}
-                        onClick={() => {}}
+                        onClick={() => {
+                            const pointsArray: Array<RoutePoint> = [];
+                            currentPlaces.forEach(place => {pointsArray.push({placeId: place.id, state: "default"})});
+                            loadRoute(pointsArray);
+                            startRoute();
+                        }}
                         text='Начать'
                     />
                 );
@@ -176,7 +192,7 @@ const PopOverTopMenu = ({
             case 'editable':
                 return "default";
             case 'active': {
-                return currentRoute.find(placeState => placeState.placeId === place.id)!.state
+                return currentRoute.find(placeState => placeState.placeId === place.id)?.state
             }
         } 
     }
@@ -201,7 +217,7 @@ const PopOverTopMenu = ({
                             name = {place.name}
                             address={place.address}
                             imageSrc={place.image}
-                            state={getPlaceState(place)}
+                            state={getPlaceState(place) !== undefined? getPlaceState(place)!: "tourPreview"}
                             number={index + 1}
                             onClickFunction={changeRoute}
                         />     
@@ -295,7 +311,12 @@ const PopOverTopMenu = ({
                     viewStyle='with_image'
                     image={human}
                     text='Начать'
-                    onClick={() => {}}
+                    onClick={() => {
+                        const pointsArray: Array<RoutePoint> = [];
+                        currentPlaces.forEach(place => {pointsArray.push({placeId: place.id, state: "default"})});
+                        loadRoute(pointsArray);
+                        startRoute();
+                    }}
                 />
             </div>}
             <DragDropContext onDragEnd={onDragEnd} onDragStart={onDragStart}>
@@ -310,7 +331,7 @@ const PopOverTopMenu = ({
                         {state !== 'preview' && <div
                             className={styles.info_button}
                         >
-                            <Button viewStyle='info' onClick={() => {}}></Button>
+                            <Button viewStyle='info' onClick={openInfo}></Button>
                         </div>}
                         <div
                             className = {styles.pop_over_top}
@@ -379,18 +400,25 @@ const PopOverTopMenu = ({
 const mapStateToProps = (state: State) => {
     const currentTourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId)
     const placesInfo = state.tours[currentTourIndex].places;
-    const routeStateInfo: Array<RoutePoint> = placesInfo.map((place, index) => {
+    console.log(state.userData.routeState);
+    const routeStateInfo = state.userData.routeState;
+    /*const routeStateInfo: Array<RoutePoint> = placesInfo.map((place, index) => {
         return ({
             placeId: place.id,
             state: index === 0 ? 'active' : 'default'
         })
-    })
+    })*/
     return {
         places: placesInfo,
         routeState: routeStateInfo
     }
 }
 
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        loadRoute: (routePoints: Array<RoutePoint>) => dispatch(loadRoute(routePoints)),
+        completeTour: () => dispatch(completeTour())
+    }
+}
 
-
-export default connect(mapStateToProps)(PopOverTopMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(PopOverTopMenu);

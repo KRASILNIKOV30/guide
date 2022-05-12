@@ -6,7 +6,7 @@ import { store } from './model/store';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TourSelect from './routes/tourSelect/TourSelect';
 import PreviewTour from './routes/previewTour/PreviewTour';
-import PreviewMap from './routes/previewMap/PreviewMap';
+import Map from './routes/previewMap/Map';
 
 const rootElement = document.getElementById('root')
 
@@ -17,7 +17,7 @@ ReactDOM.render(
                 
                 <Route path="/" element={<TourSelect />} />
                 <Route path="previewtour" element={<PreviewTour />} />
-                <Route path="previewmap" element={<PreviewMap />} />
+                <Route path="mappage" element={<Map />} />
 
             </Routes>
         </BrowserRouter>

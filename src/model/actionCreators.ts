@@ -1,3 +1,5 @@
+import { RoutePoint } from "./types"
+
 function selectTour(id: string) {
     return {
         type: 'SELECT_TOUR',
@@ -17,4 +19,12 @@ function passRoutePoint() {
     }
 }
 
-export { selectTour, completeTour, passRoutePoint }
+function loadRoute(routePoints: Array<RoutePoint>) {
+    return {
+        type: 'LOAD_ROUTE',
+        routePoints
+    }
+}
+
+
+export { selectTour, completeTour, passRoutePoint, loadRoute }
