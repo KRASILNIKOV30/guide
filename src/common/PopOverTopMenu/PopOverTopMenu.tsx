@@ -111,7 +111,7 @@ const PopOverTopMenu = ({
 
     useHeightChange({
         elementRef: popOverTopMenuRef,
-        activeElementRef: state === 'editable' ? popOverTopRef : popOverTopMenuRef,
+        activeElementRef: popOverTopRef,
         setState: setCurrentStyle,
         avgHeight,
         maxHeight: maxHeight(),
