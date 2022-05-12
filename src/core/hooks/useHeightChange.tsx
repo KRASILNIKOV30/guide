@@ -56,7 +56,6 @@ export function useHeightChange({
     }, [onTouchMove, setState, avgHeight, elementRef])
 
     const onTouchStart = useCallback((e: TouchEvent) => {
-        e.preventDefault()
         if (activeElementRef.current && elementRef.current) {
             elementRef.current.style.transition = '0s'
             startObjectPositionY.current = document.documentElement.clientHeight - elementRef.current?.getBoundingClientRect().top

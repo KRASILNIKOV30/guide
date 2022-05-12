@@ -154,10 +154,12 @@ const PopOverTopMenu = ({
                         timeout: 5000, maximumAge: 0
                     }
                 )
+                
                 return (
                     <Button
                         viewStyle='with_image'
                         onClick={() => {
+                            console.log('ffff')
                             window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)
                             setPopupState('question')
                         }}
@@ -174,7 +176,6 @@ const PopOverTopMenu = ({
             case 'editable':
                 return "default";
             case 'active': {
-                console.log(currentRoute)
                 return currentRoute.find(placeState => placeState.placeId === place.id)!.state
             }
         } 
