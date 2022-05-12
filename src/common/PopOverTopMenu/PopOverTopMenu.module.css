@@ -14,7 +14,7 @@
 
 .info_button {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     margin-bottom: -44px;
     margin-left: 330px;
 }
@@ -60,7 +60,7 @@
     right: 0;
     bottom: 0;
     margin-bottom: 10px;
-    z-index: 20;
+    z-index: 2;
 }
 
 .delete_button {
