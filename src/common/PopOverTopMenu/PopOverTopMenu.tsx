@@ -289,7 +289,7 @@ const PopOverTopMenu = ({
         <div>
             {state === 'editable' && <div 
                 className={styles.main_button_top}
-                style={{'transform': `translateY(${-minHeightInPx-13}px)`}}
+                style={{'transform': `translateY(${-minHeightInPx-26}px)`}}
             >
                 <Button
                     viewStyle='with_image'
@@ -330,18 +330,20 @@ const PopOverTopMenu = ({
                                 </ul>
                             )}
                         </Droppable>
-                        <Droppable droppableId='droppableDeleted'>
-                            {(provided, snapshot) => (
-                                <div
-                                    className={styles.delete_button}
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                    style={{'background': `url(${getTrashBinImage(snapshot.isDraggingOver)}) no-repeat center center`}}
-                                >
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
+                        <div className={styles.delete_button_wrap}>
+                            <Droppable droppableId='droppableDeleted'>
+                                {(provided, snapshot) => (
+                                    <div
+                                        className={styles.delete_button}
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        style={{'background': `url(${getTrashBinImage(snapshot.isDraggingOver)}) no-repeat center center`}}
+                                    >
+                                        {provided.placeholder}
+                                    </div>
+                                )}
+                            </Droppable>
+                        </div>
                         
                         {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
                         <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>

@@ -25,6 +25,7 @@
     width: 100vw;
     background-color: var(--primary_grey_color);
     border-radius: 10px 10px 0px 0px;
+    z-index: 1;
 }
 
 .pop_over_top::after {
@@ -52,13 +53,19 @@
     margin-top: 49px;
 }
 
-.delete_button {
+.delete_button_wrap {
     width: 70px;
     height: 70px;
     position: fixed;
     right: 0;
-    bottom: 10px;
-    z-index: -2;
+    bottom: 0;
+    margin-bottom: 10px;
+    z-index: 20;
+}
+
+.delete_button {
+    width: 70px;
+    height: 70px;
 }
 
 .draggable_element {
