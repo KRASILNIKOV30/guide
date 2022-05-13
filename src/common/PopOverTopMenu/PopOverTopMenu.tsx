@@ -23,9 +23,8 @@ interface PopOverTopMenuProps {
     state: 'preview' | 'editable' | 'active',
     getRoute?: (route: Array<PointInfo>) => void,
     openInfo?: () => void,
-    startRoute?: () => void,
     loadRoute: (routePoints: Array<RoutePoint>) => void,
-    completeTour: () => void
+    passRoutePoint: () => void
 }
 
 const PopOverTopMenu = ({
@@ -36,9 +35,8 @@ const PopOverTopMenu = ({
     state,
     getRoute,
     openInfo = () => {},
-    startRoute = () => {},
     loadRoute,
-    completeTour
+    passRoutePoint
 }: PopOverTopMenuProps) => {
     if (!style) {
         style = 'closed'
@@ -48,30 +46,16 @@ const PopOverTopMenu = ({
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
-    const [currentRoute, setCurrentRoute] = useState(routeState)
     const [popupState, setPopupState] = useState<'none' | 'question' | 'final'>('none');
+    useEffect(() => {
+        if(state === 'active' && routeState[routeState.length - 1].state === 'finished') {
+            setPopupState('final')
+        }
+        return () => {}
+    }, [routeState])
     const activePlaceNameRef = useRef<string>('места')
     const [currentStyle, setCurrentStyle] = useState(style)
     const popOverTopMenuRef = useRef(null)
-
-    /*const changeRoute = () => {
-        const array = Array.from(currentRoute)
-        let activePlaceIndex: number = 0 
-        array.map((place, index)  => {
-            if (place.state === 'active') {
-                place.state = 'finished'
-                activePlaceIndex = index
-                return
-            }
-        })
-        if (activePlaceIndex + 1 < array.length) {
-            array[activePlaceIndex + 1].state = 'active'
-        } else {
-            setPopupState('final');
-            completeTour()
-        }
-        setCurrentRoute(array)
-    }*/
 
 
     const maxHeight = () => {
@@ -143,19 +127,24 @@ const PopOverTopMenu = ({
                             const pointsArray: Array<RoutePoint> = [];
                             currentPlaces.forEach(place => {pointsArray.push({placeId: place.id, state: "default"})});
                             loadRoute(pointsArray);
-                            startRoute();
+                            if (getRoute) {
+                                const route: Array<PointInfo> = [];
+                                currentPlaces.forEach(place => {route.push({coordinates: [place.coordinates.x, place.coordinates.y], state: "default"})})
+                                getRoute(route);
+                            }
                         }}
                         text='Начать'
                     />
                 );
             case 'active':
-                let activePlaceIndex = currentRoute.findIndex(place => place.state === 'active')
+                let activePlaceIndex = routeState.findIndex(place => place.state === 'active')
                 if (activePlaceIndex === -1) {
                     activePlaceIndex = routeState.length - 1
                 }
-                activePlaceNameRef.current = places[activePlaceIndex].name
-                const activePlaceCoordinatesX = places[activePlaceIndex].coordinates.x;
-                const activePlaceCoordinatesY = places[activePlaceIndex].coordinates.y; 
+                const indexPlaceInData = places.findIndex(place => place.id === routeState[activePlaceIndex].placeId)
+                activePlaceNameRef.current = places[indexPlaceInData].name
+                const activePlaceCoordinatesX = places[indexPlaceInData].coordinates.x;
+                const activePlaceCoordinatesY = places[indexPlaceInData].coordinates.y; 
                 let currentCoordinatesX: number;
                 let currentCoordinatesY: number;
                 navigator.geolocation.getCurrentPosition(
@@ -175,7 +164,6 @@ const PopOverTopMenu = ({
                     <Button
                         viewStyle='with_image'
                         onClick={() => {
-                            console.log('ffff')
                             window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)
                             setPopupState('question')
                         }}
@@ -192,8 +180,7 @@ const PopOverTopMenu = ({
             case 'editable':
                 return "default";
             case 'active': {
-                console.log(currentRoute);
-                return currentRoute.find(placeState => placeState.placeId === place.id)!.state
+                return routeState.find(placeState => placeState.placeId === place.id)!.state
             }
         } 
     }
@@ -220,7 +207,6 @@ const PopOverTopMenu = ({
                             imageSrc={place.image}
                             state={getPlaceState(place)}
                             number={index + 1}
-                            onClickFunction={passRoutePoint}
                         />     
                     </div>
                 )}
@@ -250,7 +236,6 @@ const PopOverTopMenu = ({
                             imageSrc={place.image}
                             state='deleted'
                             number={index + 1}
-                            onClickFunction={() => {}}
                         />     
                     </div>
                 )}
@@ -316,7 +301,6 @@ const PopOverTopMenu = ({
                         const pointsArray: Array<RoutePoint> = [];
                         currentPlaces.forEach(place => {pointsArray.push({placeId: place.id, state: "default"})});
                         loadRoute(pointsArray);
-                        startRoute();
                     }}
                 />
             </div>}
@@ -401,14 +385,7 @@ const PopOverTopMenu = ({
 const mapStateToProps = (state: State) => {
     const currentTourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId)
     const placesInfo = state.tours[currentTourIndex].places;
-    console.log(state.userData.routeState);
     const routeStateInfo = state.userData.routeState;
-    /*const routeStateInfo: Array<RoutePoint> = placesInfo.map((place, index) => {
-        return ({
-            placeId: place.id,
-            state: index === 0 ? 'active' : 'default'
-        })
-    })*/
     return {
         places: placesInfo,
         routeState: routeStateInfo
@@ -418,7 +395,6 @@ const mapStateToProps = (state: State) => {
 const mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
         loadRoute: (routePoints: Array<RoutePoint>) => dispatch(loadRoute(routePoints)),
-        completeTour: () => dispatch(completeTour()),
         passRoutePoint: () => dispatch(passRoutePoint())
     }
 }

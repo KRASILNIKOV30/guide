@@ -19,6 +19,7 @@ import tour1place7 from './images/1/7/image.svg'
 import tour1place8 from './images/1/8/image.svg'
 import tour1place9 from './images/1/9/image.svg'
 import { loadRoute } from './actionCreators';
+import { deepClone } from '../core/functions/deepClone';
 
 let initialState: State = {
     userData: {
@@ -181,21 +182,21 @@ export type ActionType = {
 }
 
 function mainReducer(state: State = initialState, action: ActionType): State {
+    const newState = deepClone(state) as State;
     switch (action.type) {
         case 'SELECT_TOUR': 
             if (action.id !== undefined) {
-                state.userData = selectTourReducer(state.userData, action.id);
+                newState.userData = selectTourReducer(newState.userData, action.id);
             }; break;
-        case 'COMPLETE_TOUR': state.userData = completeTourReducer(state.userData); break;
+        case 'COMPLETE_TOUR': newState.userData = completeTourReducer(newState.userData); break;
         case 'LOAD_ROUTE': 
         if (action.routePoints !== undefined) {
-            state.userData = loadRouteReducer(state.userData, action.routePoints);
+            newState.userData = loadRouteReducer(newState.userData, action.routePoints);
         }; break;
-        case 'PASS_ROUTE_POINT':  state.userData = passRoutePointReducer(state.userData);
+        case 'PASS_ROUTE_POINT':  newState.userData = passRoutePointReducer(newState.userData);
     }
     //localStorage.setItem("savedUserData", JSON.stringify(state.userData))
-    console.log(state)
-    return state
+    return newState
 }
 
 

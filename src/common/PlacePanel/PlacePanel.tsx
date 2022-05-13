@@ -11,7 +11,6 @@ interface PlacePanelProps {
     imageSrc: string,
     state: "default" | "active" | "finished" | "deleted" | "tourPreview",
     number: number,
-    onClickFunction: Function,
     passRoutePoint: () => void
 }
 
@@ -21,7 +20,6 @@ const PlacePanel = ({
     imageSrc,
     state,
     number,
-    onClickFunction,
     passRoutePoint
 }: PlacePanelProps) => {
     
@@ -31,8 +29,7 @@ const PlacePanel = ({
     useCheckBoxTouch({
         checkBoxRef,
         state: state,
-        onClickFunction,
-        changeModelFunction: passRoutePoint
+        onClick: passRoutePoint
     })
 
     let numberClassname = () => {
@@ -104,4 +101,4 @@ const mapDispatchToProps = (dispatch: AppDispatch) => {
     }
 }
 
-export default connect(mapDispatchToProps)(PlacePanel)
+export default connect(null, mapDispatchToProps)(PlacePanel)

@@ -1,5 +1,7 @@
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { completeTour } from '../../model/actionCreators'
+import { AppDispatch } from '../../model/store'
 import styles from './Popup.module.css'
 
 interface PopupProps {
@@ -7,7 +9,8 @@ interface PopupProps {
     name: string,
     onClick: React.Dispatch<React.SetStateAction<'none' | 'question' | 'final'>>
     onPositiveClick?: Function,
-    onNegativeClick?: Function
+    onNegativeClick?: Function,
+    completeTour: () => void
 }
 
 const Popup = ({
@@ -15,8 +18,11 @@ const Popup = ({
     name,
     onClick,
     onPositiveClick,
-    onNegativeClick
+    onNegativeClick,
+    completeTour
 }: PopupProps) => {
+    const navigate = useNavigate();
+
     if (!onPositiveClick) {
         onPositiveClick = () => {}
     }
@@ -52,8 +58,14 @@ const Popup = ({
                 }
                 {state === 'final' &&
                     <div className={styles.popup_button_wrap}>
-                        <button className={styles.popup_button}>
-                            <Link to={'/'}>На главную</Link>
+                        <button 
+                            className={styles.popup_button}
+                            onClick={() => {
+                                navigate('/');
+                                completeTour()
+                            }}
+                        >
+                            На главную
                         </button>
                     </div>
                 }
@@ -63,4 +75,10 @@ const Popup = ({
     )
 }
 
-export default connect()(Popup)
+const mapDispatchToProps = (dispatch: AppDispatch) => {
+    return {
+        completeTour: () => dispatch(completeTour()),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Popup)

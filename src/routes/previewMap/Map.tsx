@@ -5,16 +5,19 @@ import PopOverTopMenu from '../../common/PopOverTopMenu/PopOverTopMenu';
 import YandexMap from '../../common/YandexMap/YandexMap';
 import styles from './Map.module.css';
 
-import { PointInfo } from '../../model/types';
+import { PointInfo, State } from '../../model/types';
 import { useState } from 'react';
 
 import InfoPlacesList from '../../common/InfoPlacesList/InfoPlacesList';
 
-const Map = () => {
+interface MapProps {
+    isTourStarted: boolean
+}
+
+const Map = ({ isTourStarted }: MapProps) => {
     const [length, setLength] = useState<number>();
     const [time, setTime] = useState<number>();
     const [isInfoOpened, setIsInfoOpened] = useState(false);
-    const [isRouteStarted, setIsRouteStarted] = useState(false);
 
     const [route, setRoute] = useState<Array<PointInfo>>([]);
 
@@ -32,7 +35,7 @@ const Map = () => {
             </div>
 
             {
-                isRouteStarted
+                isTourStarted
                     ? <PopOverTopMenu 
                         state='active'
                         openInfo={() => setIsInfoOpened(true)}
@@ -41,7 +44,6 @@ const Map = () => {
                         state='editable' 
                         getRoute={(newRoute) => {setRoute(newRoute)}} 
                         openInfo={() => setIsInfoOpened(true)}
-                        startRoute={() => setIsRouteStarted(true)} 
                     />
             }
             
@@ -53,4 +55,10 @@ const Map = () => {
     )
 }
 
-export default connect()(Map)
+const mapStateToProps = (state: State) => {
+    return {
+        isTourStarted: state.userData.routeState.length > 0
+    }
+}
+
+export default connect(mapStateToProps)(Map)

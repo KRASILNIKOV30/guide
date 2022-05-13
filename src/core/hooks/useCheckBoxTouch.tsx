@@ -3,20 +3,17 @@ import { useCallback, useEffect } from "react"
 interface useCheckBoxTouchProps {
     checkBoxRef: React.RefObject<HTMLDivElement>,
     state: "default" | "active" | "finished" | "deleted" | "tourPreview",
-    onClickFunction: Function,
-    changeModelFunction: () => void
+    onClick: () => void,
 } 
 
 const useCheckBoxTouch = ({
     checkBoxRef,
     state,
-    onClickFunction,
-    changeModelFunction
+    onClick
 }: useCheckBoxTouchProps) => {
     const onTouch = useCallback((e: TouchEvent) => {
         if (state === 'active') {
-            changeModelFunction()
-            onClickFunction()
+            onClick()
         }     
     }, [state])
 
