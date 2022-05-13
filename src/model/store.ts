@@ -39,72 +39,72 @@ let initialState: State = {
                     name: 'Часы с Осликом',
                     image: tour1place1,
                     description: 'Каждый час под циферблатом ходит ослик и играет музыка, “для галочки” советуем посмотреть.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63181981, y: 47.88693666},
+                    address: 'площадь Воеводы И.А. Оболенского-Ноготкова'
                 },
                 {
                     id: '2',
                     name: 'Йошкин Кот',
                     image: tour1place2,
                     description: 'Пожалуй, талисман города! Фото с ним — один из обязательных пунтков.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63121298, y: 47.88863003},
+                    address: 'Йошкин кот'
                 },
                 {
                     id: '3',
                     name: 'Проспект Гагарина',
                     image: tour1place3,
                     description: 'Описание.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.6245628, y: 47.88500369},
+                    address: 'Проспект Гагарина'
                 },
                 {
                     id: '4',
                     name: 'Театр Шкетана и Ленин',
                     image: tour1place4,
                     description: 'Описание.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63168114, y: 47.89149284},
+                    address: 'площадь имени В.И. Ленина, 2'
                 },
                 {
                     id: '5',
                     name: 'Вася из Гуанчжоу',
                     image: tour1place5,
                     description: 'Одно из лучших заведений города, которое объединяет под собой рестораны восточной, грузинской, итальянской кухни, а так же пекарню.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63404641, y: 47.89992034},
+                    address: 'бульвар Чавайна, 31к1'
                 },
                 {
                     id: '6',
                     name: 'Набережная',
                     image: tour1place6,
                     description: 'Воскресенская набережная, Амстердам и Брюгге — те самые сахарные домики! Относиться к ним по-разному, но прогуляться определнно стоит.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63014978, y: 47.90436923},
+                    address: 'набережная Брюгге'
                 },
                 {
                     id: '7',
                     name: '“Башня”',
                     image: tour1place7,
                     description: 'Описание.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63376907, y: 47.90287256},
+                    address: 'площадь Республики Пресвятой Девы Марии'
                 },
                 {
                     id: '8',
                     name: 'Старая Набережная',
-                    image: '',
+                    image: tour1place8,
                     description: 'Первая набережная Йошкар-Олы, здесь витает дух Царевококшайска, просто стоит внимательнее приглядется!',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.64132224, y: 47.90623426},
+                    address: 'Набережная улица'
                 },
                 {
                     id: '9',
                     name: 'Парк Культуры',
                     image: tour1place9,
                     description: 'Описание.',
-                    coordinates: {x: 0, y: 0},
-                    address: ''
+                    coordinates: {x: 56.63590115, y: 47.89273918},
+                    address: 'Комсомольская улица, 124'
                 }
             ]
         },

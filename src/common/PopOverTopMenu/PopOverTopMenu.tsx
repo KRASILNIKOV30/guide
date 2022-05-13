@@ -282,6 +282,12 @@ const PopOverTopMenu = ({
         return isDraggingOver ? trashbin_focused : trashbin
     }
 
+    const getOverflow = () => {
+        if (currentStyle === 'opened')
+            return 'scroll'
+        return 'hidden'
+    }
+
     const onDragStart = (result: any) => {
         console.log(result)
         setDragging(result.source.droppableId === 'droppableActive')
@@ -309,7 +315,8 @@ const PopOverTopMenu = ({
                     ref = {popOverTopMenuRef}
                     className = {styles.pop_over_menu}
                     style = {{
-                        'height': `${height}`
+                        'height': `${height}`,
+                        'overflow': `${getOverflow()}`
                     }}
                 >   
                     <div>
