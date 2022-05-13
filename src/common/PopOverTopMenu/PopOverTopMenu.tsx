@@ -348,20 +348,21 @@ const PopOverTopMenu = ({
                                 </div>
                             )}
                         </Droppable>
-                        
-                        {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
-                        <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>
-                            {(provided, snapshot) => (
-                                <ul
-                                    {...provided.droppableProps}
-                                    ref={provided.innerRef}
-                                    className={styles.deleted_place_list}
-                                >
-                                    {deletedPlaceList}
-                                    {provided.placeholder}
-                                </ul>
-                            )}        
-                        </Droppable>
+                        {state ===  'editable' && <div> 
+                            {deletedPlaceList.length !== 0 && <h2 className={styles.deleted_place_list_header}>Убрано из тура</h2>}
+                            <Droppable droppableId='droppableDeletedPlaces' isDropDisabled={true}>
+                                {(provided, snapshot) => (
+                                    <ul
+                                        {...provided.droppableProps}
+                                        ref={provided.innerRef}
+                                        className={styles.deleted_place_list}
+                                    >
+                                        {deletedPlaceList}
+                                        {provided.placeholder}
+                                    </ul>
+                                )}        
+                            </Droppable>
+                        </div>}
                     </div>  
                     {(!dragging && currentStyle==='opened') && <div
                         className={styles.main_button_bottom}
