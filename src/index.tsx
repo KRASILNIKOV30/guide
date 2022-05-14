@@ -19,6 +19,7 @@ ReactDOM.render(
                 <Route path="/" element={<TourSelect />} />
                 <Route path="previewtour" element={<PreviewTour />} />
                 <Route path="mappage" element={<Map />} />
+                <Route path="*" element={<Page404/>} />
 
             </Routes>
         </BrowserRouter>
