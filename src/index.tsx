@@ -7,11 +7,18 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TourSelect from './routes/tourSelect/TourSelect';
 import PreviewTour from './routes/previewTour/PreviewTour';
 import Map from './routes/previewMap/Map';
+import Page404 from './common/Page404/Page404';
 
 const rootElement = document.getElementById('root')
 
 ReactDOM.render(
     <Provider store={store}>
+        <Page404/>
+    </Provider>,
+    rootElement
+)
+
+{/* <Provider store={store}>
         <BrowserRouter>
             <Routes>
                 
@@ -21,6 +28,4 @@ ReactDOM.render(
 
             </Routes>
         </BrowserRouter>
-    </Provider>,
-    rootElement
-)
+    </Provider> */}

@@ -1,0 +1,33 @@
+.main_container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.info_container {
+    display: flex;
+}
+
+.error_code {
+    font: normal 700 62px Roboto;
+    background: linear-gradient(90deg,#d66950 10.26%,#819928 88.62%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 54px 65px 0 41px;
+}
+
+.message {
+    font: normal 400 20px Roboto;
+    width: 145px;
+    color: #151515;
+    margin-top: 68px;
+}
+
+.button_wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 54px;
+}
