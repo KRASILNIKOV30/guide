@@ -70,7 +70,7 @@ const PopOverTopMenu = ({
                 return 86.5;
         };
     }    
-    const avgHeight = 60;
+    const avgHeight = 45;
     const minHeight = () => {
         switch (state) {
             case 'preview':
@@ -323,7 +323,7 @@ const PopOverTopMenu = ({
         <div>
             {state === 'editable' && <div 
                 className={styles.main_button_top}
-                style={{'transform': `translateY(${-minHeightInPx-13}px)`}}
+                style={{'transform': `translateY(${-minHeightInPx-26}px)`}}
             >
                 <Button
                     viewStyle='with_image'
