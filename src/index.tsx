@@ -13,12 +13,6 @@ const rootElement = document.getElementById('root')
 
 ReactDOM.render(
     <Provider store={store}>
-        <Page404/>
-    </Provider>,
-    rootElement
-)
-
-{/* <Provider store={store}>
         <BrowserRouter>
             <Routes>
                 
@@ -28,4 +22,6 @@ ReactDOM.render(
 
             </Routes>
         </BrowserRouter>
-    </Provider> */}
+    </Provider>,
+    rootElement
+)
