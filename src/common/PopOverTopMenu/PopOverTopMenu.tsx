@@ -13,6 +13,7 @@ import Button from '../Button/Button';
 import Popup from '../Popup/Popup';
 import { AppDispatch } from '../../model/store';
 import { completeTour, loadRoute, passRoutePoint } from '../../model/actionCreators';
+import PushLikeMenu from '../PushLikeMenu/PushLikeMenu';
 
 
 interface PopOverTopMenuProps {
@@ -44,6 +45,7 @@ const PopOverTopMenu = ({
 
     const [currentPlaces, setCurrentPlaces] = useState(places)
     const [deletedPlaces, setDeletedPlaces] = useState<Array<Place>>([])
+    const [isPushLikeMenuOpened, setIsPushLikeMenuOpened] = useState(false);
     const popOverTopRef = useRef(null)
     const [dragging, setDragging] = useState(false)
     const [popupState, setPopupState] = useState<'none' | 'question' | 'final'>('none');
@@ -120,21 +122,7 @@ const PopOverTopMenu = ({
                 return null;
             case 'editable':
                 return (
-                    <Button 
-                        viewStyle='with_image'
-                        image={human}
-                        onClick={() => {
-                            const pointsArray: Array<RoutePoint> = [];
-                            currentPlaces.forEach(place => {pointsArray.push({placeId: place.id, state: "default"})});
-                            loadRoute(pointsArray);
-                            if (getRoute) {
-                                const route: Array<PointInfo> = [];
-                                currentPlaces.forEach(place => {route.push({coordinates: [place.coordinates.x, place.coordinates.y], state: "default"})})
-                                getRoute(route);
-                            }
-                        }}
-                        text='Начать'
-                    />
+                    <></>
                 );
             case 'active':
                 let activePlaceIndex = routeState.findIndex(place => place.state === 'active')
@@ -170,6 +158,44 @@ const PopOverTopMenu = ({
                         text={`Маршрут до точки ${activePlaceIndex + 1}`}
                     />
                 )
+        }
+    }
+
+    const getPushLikeMenu = () => {
+        if (isPushLikeMenuOpened) {
+
+            let activePlaceIndex = routeState.findIndex(place => place.state === 'active')
+            if (activePlaceIndex === -1) {
+                activePlaceIndex = routeState.length - 1
+            }
+            const indexPlaceInData = places.findIndex(place => place.id === routeState[activePlaceIndex].placeId)
+            activePlaceNameRef.current = places[indexPlaceInData].name
+            const activePlaceCoordinatesX = places[indexPlaceInData].coordinates.x;
+            const activePlaceCoordinatesY = places[indexPlaceInData].coordinates.y; 
+            let currentCoordinatesX: number;
+            let currentCoordinatesY: number;
+            navigator.geolocation.getCurrentPosition(
+                (crd) => {
+                    currentCoordinatesX = crd.coords.latitude; 
+                    currentCoordinatesY = crd.coords.longitude
+                }, 
+                (err) => {
+                }, 
+                {
+                    enableHighAccuracy: true, 
+                    timeout: 5000, maximumAge: 0
+                }
+            )
+
+            return <PushLikeMenu 
+                yandexClicked={() => window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)}
+                appleClicked={() => window.open(`http://maps.apple.com?t=m$daddr=${activePlaceCoordinatesX},${activePlaceCoordinatesY}&dirflg=w`)}
+                googleClicked={() => window.open(`https://www.google.com/maps/dir/?api=1&origin=${currentCoordinatesX},${currentCoordinatesY}&destination=${activePlaceCoordinatesX},${activePlaceCoordinatesY}&travelmode=walking&dir_action=navigate`)}
+                onClick={() => {setIsPushLikeMenuOpened(false); setPopupState('question')}}
+            />
+        }
+        else {
+            return null
         }
     }
 
@@ -374,7 +400,33 @@ const PopOverTopMenu = ({
                     {(!dragging && currentStyle==='opened') && <div
                         className={styles.main_button_bottom}
                     >
-                        {getBottomButton()}   
+                        {/*getBottomButton()*/}
+                        {
+                            state === "editable" && 
+                            <Button 
+                                viewStyle='with_image'
+                                image={human}
+                                onClick={() => {
+                                    const pointsArray: Array<RoutePoint> = [];
+                                    currentPlaces.forEach(place => {pointsArray.push({placeId: place.id, state: "default"})});
+                                    loadRoute(pointsArray);
+                                    if (getRoute) {
+                                        const route: Array<PointInfo> = [];
+                                        currentPlaces.forEach(place => {route.push({coordinates: [place.coordinates.x, place.coordinates.y], state: "default"})})
+                                        getRoute(route);
+                                    }
+                                }}
+                                text='Начать'
+                            />
+                        }
+                        {
+                            state === "active" && 
+                            <Button
+                                viewStyle='with_image'
+                                onClick={() => setIsPushLikeMenuOpened(true)}
+                                text={`Маршрут до точки ${routeState.findIndex(place => place.state === 'active') + 1}`}
+                            />
+                        }
                     </div>}  
                 </div>    
             </DragDropContext>
@@ -384,6 +436,9 @@ const PopOverTopMenu = ({
                 onClick={setPopupState} 
                 onPositiveClick={passRoutePoint}
             />}
+            {
+                getPushLikeMenu()
+            }
         </div>
     )
 }

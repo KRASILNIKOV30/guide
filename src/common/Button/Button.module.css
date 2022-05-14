@@ -31,6 +31,8 @@
 
     width: 350px;
     height: 53px;
+
+    border-radius: 27px;
 }
 
 .text_container {
@@ -52,6 +54,7 @@
 
     width: 100%;
     height: 53px;
+    border-radius: 27px;
 
     padding: 0 26.5px
 }

@@ -22,6 +22,11 @@
     color: var(--main_text_color);
 }
 
+.top_menu_started {
+    padding-top: 0;
+    justify-content: center;
+}
+
 .button_close {
     position: absolute;
 
@@ -41,4 +46,17 @@
 .map_container {
     width: 100%;
     height: 67.22306%
+}
+
+.tour_name {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 21px;
+
+    background: linear-gradient(90deg, #D66950 10.26%, #819928 88.62%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }

@@ -44,13 +44,17 @@
     right: 8px;
 }
 
-.general_info {
+.general_info, .general_tour_info {
     width: 79.26%;
 
     display: flex;
     flex-direction: column;
 
     align-items: flex-start;
+}
+
+.general_tour_info {
+    margin-bottom: 33px;
 }
 
 .tour_info_header {
@@ -75,7 +79,7 @@
     display: flex;
     flex-direction: column;
 
-    margin-top: 33px;
+    margin-bottom: 33px;
 }
 
 .place_name {

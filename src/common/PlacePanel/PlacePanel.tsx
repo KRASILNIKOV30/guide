@@ -22,6 +22,7 @@ const PlacePanel = ({
     number,
     passRoutePoint
 }: PlacePanelProps) => {
+    const symbols: Array<string> = ['A', 'B', "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     let checkBoxRef = useRef(null)
     const swipeElementRef = useRef<HTMLDivElement>(null)
@@ -73,7 +74,7 @@ const PlacePanel = ({
             <div 
                 className={numberClassname()} 
             >
-                {state === 'deleted' ? '' : number}
+                {state === 'deleted' ? '' : symbols[number - 1]}
             </div>}
             {state === 'active' && <div className={styles.blackout}></div>}
             <div className={imgClassname()}></div>

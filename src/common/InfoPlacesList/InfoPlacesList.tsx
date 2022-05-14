@@ -14,11 +14,10 @@ const InfoPlacesList = ({ tour, close }: InfoPlacesListProps) => {
         <div className={styles.info_places_list}>
             <Button viewStyle='delete' onClick={close} className={styles.button_close} />
             <div className={styles.info_container}>
-                <div className={styles.general_info}>
+                <div className={styles.general_tour_info}>
                     <div className={styles.tour_info_header}>Тур: {tour.name}</div>
                     <div className={styles.description}>{tour.description}</div>
                 </div>
-
                 {
                     tour.places.map(place => 
                         <div className={styles.place_card} key={place.id}>

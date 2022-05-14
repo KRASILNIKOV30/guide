@@ -6,6 +6,7 @@ import { selectTour } from '../../model/actionCreators';
 import { State } from '../../model/types';
 import { useRef, useState } from 'react';
 import { useSwipe } from '../../core/hooks/useSwipe';
+import { useNavigate } from 'react-router-dom';
 
 type TourInfo = {
     id: string;
@@ -21,6 +22,8 @@ interface ToolBarProps {
 }
 
 const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
+    const navigate = useNavigate();
+
     const [focusedTourIndex, setFocusedTourIndex] = useState(0);
 
     const silderRef = useRef<HTMLDivElement>(null);
@@ -62,8 +65,8 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                 className={styles.tour_images_container}
                 ref = {silderRef}
                 style = {{
+                    "width": `${390 + focusedTourIndex * 300}px`,
                     "transform": `translate(${focusedTourIndex * -300}px, 0)`,
-                    "width": `${390 + focusedTourIndex * 300}px`
                 }}
             >
                 {
@@ -72,6 +75,12 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                             className={`${styles.tour_image} ${(tours.findIndex(tourI => tourI.id === tour.id) === focusedTourIndex) && styles.tour_image_active}`}
                             style = {{"backgroundImage": `url(${tour.image})`}}
                             key = {tour.id}
+                            onClick = {() => {
+                                if (tour.id === tours[focusedTourIndex].id) {
+                                    selectTour(tours[focusedTourIndex].id);
+                                    navigate('/previewtour')
+                                }
+                            }}
                         >
                             <Button text={tour.finished? "Айда ещё!": "Вперёд!"} viewStyle="main" to="/previewtour" onClick={() => {
                                 selectTour(tours[focusedTourIndex].id);

@@ -111,8 +111,6 @@
 
     padding: 0 0 18px 0;
     margin: 0 15px;
-
-    transition: .8s;
     box-shadow: none;
 
     background-size: cover;
@@ -140,11 +138,6 @@
     font: var(--sb_18_text);
     color: var(--white);
 
-}
-
-.tour_image_active {
-    transition: .8s;
-    box-shadow: 0px 20px 40px 10px rgba(196, 202, 172, 0.6);
 }
 
 .slider_container {

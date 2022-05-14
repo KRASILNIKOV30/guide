@@ -5,7 +5,7 @@ import { AppDispatch } from '../../model/store'
 import styles from './Popup.module.css'
 
 interface PopupProps {
-    state: 'question' | 'final'
+    state: 'question' | 'final' | 'quit'
     name: string,
     onClick: React.Dispatch<React.SetStateAction<'none' | 'question' | 'final'>>
     onPositiveClick?: Function,
@@ -17,31 +17,26 @@ const Popup = ({
     state,
     name,
     onClick,
-    onPositiveClick,
-    onNegativeClick,
+    onPositiveClick = () => {},
+    onNegativeClick = () => {},
     completeTour
 }: PopupProps) => {
     const navigate = useNavigate();
 
-    if (!onPositiveClick) {
-        onPositiveClick = () => {}
-    }
-    if (!onNegativeClick) {
-        onNegativeClick = () => {}
-    }
     const onPositive = () => {
         onClick('none');
-        onPositiveClick!()
+        onPositiveClick()
     }
     const onNegative = () => {
         onClick('none');
-        onNegativeClick!()
+        onNegativeClick()
     }
     const getMessage = () => {
-        if (state === 'question') {
-            return `Вы дошли до ${name}?`
+        switch (state) {
+            case 'question':{ return `Вы дошли до ${name}?`}; break;
+            case 'final':{ return `Вы прошли тур ${name}`}; break;
+            case 'quit':{ return `Вы уверены что хотите закрыть тур? Пройденные места не сохранятся.`}; break;
         }
-        return `Вы прошли тур ${name}`
     }
 
     return(
@@ -69,7 +64,12 @@ const Popup = ({
                         </button>
                     </div>
                 }
-                
+                {state === 'quit' &&
+                    <div className={styles.popup_answers}>
+                        <button onClick={onPositive} className={styles.positive_answer}>Отмена</button>
+                        <button onClick={onNegative} className={styles.negative_answer}>Закрыть</button>
+                    </div> 
+                }
             </div>
         </div>
     )
