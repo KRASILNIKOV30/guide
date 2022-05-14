@@ -23,6 +23,10 @@ const YandexMap = ({ routeState, getMetrics }: YandexMapProps) => {
         const pointsCoordsArray: Array<Array<number>> = [];
 
         useEffect(() => {
+            if (error) {
+                x = 56.64;
+                y = 47.89;
+            }
             if (x !== undefined && y !== undefined) {
                 pointsCoordsArray.push([x, y]);
             }
