@@ -14,6 +14,7 @@ import Popup from '../Popup/Popup';
 import { AppDispatch } from '../../model/store';
 import { completeTour, loadRoute, passRoutePoint } from '../../model/actionCreators';
 import PushLikeMenu from '../PushLikeMenu/PushLikeMenu';
+import { useLocation } from '../../core/hooks/useLocation';
 
 
 interface PopOverTopMenuProps {
@@ -58,6 +59,8 @@ const PopOverTopMenu = ({
     const activePlaceNameRef = useRef<string>('места')
     const [currentStyle, setCurrentStyle] = useState(style)
     const popOverTopMenuRef = useRef(null)
+
+    const { x, y, error } = useLocation();
 
 
     const maxHeight = () => {
@@ -172,24 +175,12 @@ const PopOverTopMenu = ({
             activePlaceNameRef.current = places[indexPlaceInData].name
             const activePlaceCoordinatesX = places[indexPlaceInData].coordinates.x;
             const activePlaceCoordinatesY = places[indexPlaceInData].coordinates.y; 
-            let currentCoordinatesX: number;
-            let currentCoordinatesY: number;
-            navigator.geolocation.getCurrentPosition(
-                (crd) => {
-                    currentCoordinatesX = crd.coords.latitude; 
-                    currentCoordinatesY = crd.coords.longitude
-                }, 
-                (err) => {
-                }, 
-                {
-                    enableHighAccuracy: true, 
-                    timeout: 5000, maximumAge: 0
-                }
-            )
+            let currentCoordinatesX: number = x? x: 56.64;
+            let currentCoordinatesY: number = y? y: 47.89;
 
             return <PushLikeMenu 
                 yandexClicked={() => window.open(`https://yandex.ru/maps/?rtext=${currentCoordinatesX},${currentCoordinatesY}~${activePlaceCoordinatesX},${activePlaceCoordinatesY}&rtt=pd`)}
-                appleClicked={() => window.open(`http://maps.apple.com?t=m$daddr=${activePlaceCoordinatesX},${activePlaceCoordinatesY}&dirflg=w`)}
+                appleClicked={() => window.open(`http://maps.apple.com/?t=m$saddr=${currentCoordinatesX},${currentCoordinatesY}$daddr=${activePlaceCoordinatesX},${activePlaceCoordinatesY}&dirflg=w`)}
                 googleClicked={() => window.open(`https://www.google.com/maps/dir/?api=1&origin=${currentCoordinatesX},${currentCoordinatesY}&destination=${activePlaceCoordinatesX},${activePlaceCoordinatesY}&travelmode=walking&dir_action=navigate`)}
                 onClick={() => {setIsPushLikeMenuOpened(false); setPopupState('question')}}
             />

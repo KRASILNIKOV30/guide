@@ -32,9 +32,6 @@ const YandexMap = ({ routeState, getMetrics }: YandexMapProps) => {
                 {
                     multiRoute: true,
                     routingMode: "pedestrian",
-                    routeActiveStrokeWidth: 4,
-                    routeActiveStrokeStyle: 'solid',
-                    routeActiveStrokeColor: '#287EFF'
                 }
             ).then((route: any) => {
                 route.options.set("mapStateAutoApply", true);
