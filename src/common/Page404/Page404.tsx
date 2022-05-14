@@ -15,10 +15,10 @@ const Page404 = ({}: Page404Props) => {
         >
             <div className={styles.info_container}>
                 <div className={styles.error_code}>404</div>
-                <div className={styles.message}>Что-то пошло не так</div>
+                <div className={styles.message}>Что-то пошло не так...</div>
             </div>
             <div className={styles.button_wrap}>
-                <Button text='На главную' viewStyle='main' onClick={() => {document.location.replace('guide-by-tums.ru')}}></Button>
+                <Button text='На главную' viewStyle='main' onClick={() => {document.location.replace('/')}}></Button>
             </div>
         </div>
     )
