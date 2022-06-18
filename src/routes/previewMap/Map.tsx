@@ -54,7 +54,7 @@ const Map = ({ isTourStarted, selectedTourId, tourName, selectTour }: MapProps) 
                     />
                     : <PopOverTopMenu 
                         state='editable' 
-                        getRoute={(newRoute) => {setRoute(newRoute)}} 
+                        getRoute={(newRoute) => {setRoute(newRoute); console.log(newRoute)}} 
                         openInfo={() => setIsInfoOpened(true)}
                     />
             }

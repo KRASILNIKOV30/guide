@@ -53,7 +53,6 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
 }
 
 const mapStateToProps = (state: State) => {
-    console.log('mapStateToPRops PreviewTour ', state)
     const tourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId);
     return {
         tour: state.tours[tourIndex]

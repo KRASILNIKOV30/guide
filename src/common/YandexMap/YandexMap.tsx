@@ -23,41 +23,14 @@ const YandexMap = ({ routeState, getMetrics }: YandexMapProps) => {
         const pointsCoordsArray: Array<Array<number>> = [];
 
         useEffect(() => {
-            /*if (error) {
+            if (error) {
                 x = 56.64;
                 y = 47.89;
             }
             if (x !== undefined && y !== undefined) {
                 pointsCoordsArray.push([x, y]);
-            }*/
-            navigator.geolocation.getCurrentPosition(
-                (crd) => {
-                    pointsCoordsArray.push([crd.coords.latitude, crd.coords.longitude]);
-                    route.forEach((point: any) => pointsCoordsArray.push(point.coordinates))
-                    ymaps.route(
-                        pointsCoordsArray,
-                        {
-                            multiRoute: true,
-                            routingMode: "pedestrian",
-                        }
-                    ).then((route: any) => {
-                        route.options.set("mapStateAutoApply", true);
-                        mapRef.current.geoObjects.splice(indexOfRoute.current, 1);
-                        mapRef.current.geoObjects.add(route);
-                        indexOfRoute.current = mapRef.current.geoObjects.indexOf(route);
-                        if (getMetrics) {
-                            getMetrics(route._jsonView._activeRoute.events.params.context.properties._data.distance.text, route._jsonView._activeRoute.events.params.context.properties._data.duration.text);
-                        }
-                    })
-                }, 
-                (err) => {
-                }, 
-                {
-                    enableHighAccuracy: true, 
-                    timeout: 5000, maximumAge: 0
-                }
-            )
-            /*route.forEach((point: any) => pointsCoordsArray.push(point.coordinates))
+            }
+            route.forEach((point: any) => pointsCoordsArray.push(point.coordinates))
             ymaps.route(
                 pointsCoordsArray,
                 {
@@ -72,7 +45,7 @@ const YandexMap = ({ routeState, getMetrics }: YandexMapProps) => {
                 if (getMetrics) {
                     getMetrics(route._jsonView._activeRoute.events.params.context.properties._data.distance.text, route._jsonView._activeRoute.events.params.context.properties._data.duration.text);
                 }
-            })*/
+            })
             return () => {}
         }, [ymaps, route]);
         return ( <> </> )
