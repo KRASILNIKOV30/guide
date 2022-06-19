@@ -306,7 +306,6 @@ const PopOverTopMenu = ({
     }
 
     const onDragStart = (result: any) => {
-        console.log(result)
         setDragging(result.source.droppableId === 'droppableActive')
     } 
 

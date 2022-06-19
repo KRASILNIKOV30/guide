@@ -38,3 +38,7 @@
   --reg_16_text: normal 400 16px/19px 'Roboto';
   --tour_name_text: normal 700 26px/30px 'Roboto';
 }
+
+.body {
+  overflow: hidden;
+}

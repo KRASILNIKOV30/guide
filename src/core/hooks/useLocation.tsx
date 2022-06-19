@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const useLocation = () => {
     const [position, setPosition] = useState<Position>();
-    const [error, setError] = useState<string>();
+    const [error, setError] = useState<boolean>(false);
 
     useEffect(() => {
         const geo = window.navigator.geolocation;
@@ -13,11 +13,11 @@ const useLocation = () => {
         }
 
         const onError = () => {
-            setError('Error in getting geolocation')
+            setError(true)
         }
         
         if (!geo) {
-            setError('Geolocation is not supported by browser')
+            setError(true)
             return;
         }
 
