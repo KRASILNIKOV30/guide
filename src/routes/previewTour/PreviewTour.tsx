@@ -9,13 +9,29 @@ import InfoPlacesList from '../../common/InfoPlacesList/InfoPlacesList';
 
 interface PreviewTourProps {
     tour: Tour;
+    tourIndex: number;
 }
 
-const PreviewTour = ({ tour }: PreviewTourProps) => {
+const PreviewTour = ({ tour, tourIndex }: PreviewTourProps) => {
 
     const [isInfoOpened, setIsInfoOpened] = useState(false);
 
     const navigate = useNavigate();
+
+    const getBgColor = () => {
+        switch (tourIndex) {
+            case 0: {
+                return('#B5D77E')
+            }
+            case 1: {
+                return('#659BD2')
+            }
+            case 2: {
+                return('#FF8E7E')
+            }
+        }
+    }
+    console.log(getBgColor())
 
     return (
         <div className={styles.preview_tour_container}>
@@ -23,7 +39,7 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
             <div className={styles.header}>
                 <div 
                     className = {styles.background_image}
-                    style = {{"backgroundImage": `url(${tour.image})`}}
+                    style = {{backgroundColor: getBgColor()}}
                 > </div>
                 <Button viewStyle='back' className={styles.button_back} onClick={() => {navigate("/")}}/>
 
@@ -55,7 +71,8 @@ const PreviewTour = ({ tour }: PreviewTourProps) => {
 const mapStateToProps = (state: State) => {
     const tourIndex = state.tours.findIndex(tour => tour.id === state.userData.selectedTourId);
     return {
-        tour: state.tours[tourIndex]
+        tour: state.tours[tourIndex],
+        tourIndex
     }
 }
 
