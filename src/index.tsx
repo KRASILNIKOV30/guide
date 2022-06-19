@@ -11,6 +11,18 @@ import Page404 from './common/Page404/Page404';
 
 const rootElement = document.getElementById('root')
 
+const express = require('express');
+const path = require('path');
+const app = express();
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', function (req: any, res: { sendFile: (arg0: any) => void; }) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+app.listen(9000);
+
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
