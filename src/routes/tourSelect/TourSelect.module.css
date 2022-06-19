@@ -85,7 +85,7 @@
 
 .tour_images_container {
     
-    height: 64.5%;
+    height: 64.5vh;
 
     display: flex;
     flex-flow: row nowrap;
