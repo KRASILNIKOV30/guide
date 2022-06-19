@@ -21,11 +21,16 @@ interface ToolBarProps {
     selectTour: (id: string) => void
 }
 
+
+
+
 const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
     const navigate = useNavigate();
 
     const [focusedTourIndex, setFocusedTourIndex] = useState(0);
 
+    const documentWidthRef = useRef(document.documentElement.clientWidth)
+    
     const silderRef = useRef<HTMLDivElement>(null);
 
     useSwipe({
@@ -65,8 +70,8 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
                 className={styles.tour_images_container}
                 ref = {silderRef}
                 style = {{
-                    "width": `${390 + focusedTourIndex * 300}px`,
-                    "transform": `translate(${focusedTourIndex * -300}px, 0)`,
+                    "width": `${documentWidthRef.current * tours.length}px`,
+                    "transform": `translate(${focusedTourIndex * -78}vw, 0)`,
                 }}
             >
                 {
