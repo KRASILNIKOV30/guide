@@ -1,6 +1,6 @@
 import styles from './Page404.module.css'
 import { connect } from 'react-redux';
-import image from './images/image.svg'
+import image from './images/image.jpg'
 import Button from '../Button/Button';
 
 interface Page404Props {

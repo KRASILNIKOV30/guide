@@ -53,8 +53,7 @@
     height: 40px;
 
     display: flex;
-
-    padding-left: 119px;
+    justify-content: center;
 }
 
 .info_text {

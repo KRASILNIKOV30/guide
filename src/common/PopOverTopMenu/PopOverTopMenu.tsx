@@ -66,7 +66,7 @@ const PopOverTopMenu = ({
     const maxHeight = () => {
         switch (state) {
             case 'preview':
-                return 97.27;
+                return 90;
             case 'editable':
                 return 86.5;
             case 'active':
@@ -77,7 +77,7 @@ const PopOverTopMenu = ({
     const minHeight = () => {
         switch (state) {
             case 'preview':
-                return 37.94;
+                return 35;
             case 'editable':
                 return 22;
             case 'active':

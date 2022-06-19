@@ -1,29 +1,30 @@
 import { createStore } from 'redux';
 import { RoutePoint, State } from './types'
 import { selectTourReducer, completeTourReducer, passRoutePointReducer, loadRouteReducer } from './reducers';
-import tour1 from './images/1/image.svg';
-import tour2 from './images/2/image.svg';
-import tour3 from './images/3/image.svg';
-import tour2place1 from './images/2/1/image.svg'
-import tour2place2 from './images/2/2/image.svg'
-import tour2place3 from './images/2/3/image.svg'
-import tour2place4 from './images/2/4/image.svg'
-import tour2place5 from './images/2/5/image.svg'
-import tour1place1 from './images/1/1/image.svg'
-import tour1place2 from './images/1/2/image.svg'
-import tour1place3 from './images/1/3/image.svg'
-import tour1place4 from './images/1/4/image.svg'
-import tour1place5 from './images/1/5/image.svg'
-import tour1place6 from './images/1/6/image.svg'
-import tour1place7 from './images/1/7/image.svg'
-import tour1place8 from './images/1/8/image.svg'
+import tour1 from './images/1/image.jpg';
+import tour2 from './images/2/image.jpg';
+import tour3 from './images/3/image.jpg';
+import tour2place1 from './images/2/1/image.jpg'
+import tour2place2 from './images/2/2/image.jpg'
+import tour2place3 from './images/2/3/image.jpg'
+import tour2place4 from './images/2/4/image.jpg'
+import tour2place5 from './images/2/5/image.jpg'
+import tour1place1 from './images/1/1/image.jpg'
+import tour1place2 from './images/1/2/image.jpg'
+import tour1place3 from './images/1/3/image.jpg'
+import tour1place4 from './images/1/4/image.jpg'
+import tour1place5 from './images/1/5/image.jpg'
+import tour1place6 from './images/1/6/image.jpg'
+import tour1place7 from './images/1/7/image.jpg'
+import tour1place8 from './images/1/8/image.jpg'
 
-import tour3place1 from './images/3/1/image.svg'
-import tour3place2 from './images/3/2/image.svg'
-import tour3place3 from './images/3/3/image.svg'
-import tour3place4 from './images/3/4/image.svg'
-import tour3place5 from './images/3/5/image.svg'
-import tour3place6 from './images/3/6/image.svg'
+import tour3place1 from './images/3/1/image.jpg'
+import tour3place2 from './images/3/2/image.jpg'
+import tour3place3 from './images/3/3/image.jpg'
+import tour3place4 from './images/3/4/image.jpg'
+import tour3place5 from './images/3/5/image.jpg'
+
+import tour3place6 from './images/3/6/image.jpg'
 
 
 
