@@ -22,7 +22,7 @@ const PlacePanel = ({
     number,
     passRoutePoint
 }: PlacePanelProps) => {
-    const symbols: Array<string> = ['B', "C", "D", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
+    const symbols: Array<string> = ['B', "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
     
     let checkBoxRef = useRef(null)
     const swipeElementRef = useRef<HTMLDivElement>(null)
