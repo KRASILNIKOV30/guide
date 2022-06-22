@@ -3,6 +3,7 @@
     height: 100vh;
 
     position: fixed;
+    padding-bottom: 70px;
     top: 0;
 
     display: flex;
@@ -12,7 +13,7 @@
 
     background: rgba(0, 0, 0, 0.3);
 
-    z-index: 50;
+    z-index: 15;
 }
 
 .links_container {
@@ -20,7 +21,7 @@
     flex-direction: column;
     width: 87.948%;
 
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 1);
 
     border-radius: 14px;
 }

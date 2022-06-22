@@ -59,11 +59,9 @@ const TourSelect = ({ tours, selectTour }: ToolBarProps) => {
 
     return (
         <div className={styles.tour_select}>
-
             <div className={styles.header_container}>
                 <div className={styles.header_top}>
                     <h1 className={styles.header_text}> Туры от Гида </h1>
-                    <Button viewStyle='info' onClick={() => { }} />
                 </div>
                 <div className={styles.header_bot}>
                     <div className={styles.placemark_image}></div>

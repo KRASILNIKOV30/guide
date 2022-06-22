@@ -21,15 +21,6 @@ const PushLikeMenu = ({ yandexClicked, appleClicked, googleClicked, onClick }: P
                         }}
                     >
                         Яндекс.Карты
-                    </div>
-                    <div 
-                        className={styles.link}
-                        onClick={() => {
-                            appleClicked();
-                            onClick()
-                        }}
-                    >
-                        Apple Карты
                     </div>  
                     <div 
                         className={styles.link}
@@ -41,7 +32,7 @@ const PushLikeMenu = ({ yandexClicked, appleClicked, googleClicked, onClick }: P
                         Google Карты
                     </div>    
             </div>
-            <div className={styles.cancel}>Cancel</div>
+            <div className={styles.cancel} onClick = {() => {onClick()}}>Отмена</div>
         </div>
     )
 }

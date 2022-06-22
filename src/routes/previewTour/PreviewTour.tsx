@@ -31,7 +31,6 @@ const PreviewTour = ({ tour, tourIndex }: PreviewTourProps) => {
             }
         }
     }
-    console.log(getBgColor())
 
     return (
         <div className={styles.preview_tour_container}>
