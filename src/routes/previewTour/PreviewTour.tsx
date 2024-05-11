@@ -42,25 +42,29 @@ const PreviewTour = ({ tour, tourIndex }: PreviewTourProps) => {
                 > </div>
                 <Button viewStyle='back' className={styles.button_back} onClick={() => {navigate("/")}}/>
 
-                <div 
-                    className = {styles.tour_image}
-                    style = {{"backgroundImage": `url(${tour.image})`}}
-                > </div>
+                <div className={styles.header_content}>
+                    <div
+                        className={styles.tour_image}
+                        style={{"backgroundImage": `url(${tour.image})`}}
+                    ></div>
 
-                <div className={styles.tour_name} >{tour.name}</div>
+                    <div className={styles.tour_name}>{tour.name}</div>
 
-                <div className = {styles.tour_info_click} onClick={() => setIsInfoOpened(true)} >
-                    <div className={styles.info_text}>Прочитать описание</div>
-                    <Button viewStyle='info_white' className={styles.button_info} onClick={() => {}} />
+                    <div className={styles.tour_info_click} onClick={() => setIsInfoOpened(true)}>
+                        <div className={styles.info_text}>Прочитать описание</div>
+                        <Button viewStyle='info_white' className={styles.button_info} onClick={() => {
+                        }}/>
+                    </div>
+
+                    <Button text="Посмотреть на карте" viewStyle="main" to="/mappage" onClick={() => {
+                    }} className={styles.button_look}/>
                 </div>
-
-                <Button text="Посмотреть на карте" viewStyle="main" to="/mappage" onClick={() => {}} className={styles.button_look} />
 
             </div>
 
-            <PopOverTopMenu state='preview' />
+            <PopOverTopMenu state='preview'/>
             {
-                isInfoOpened && <InfoPlacesList close={() => setIsInfoOpened(false)} />
+                isInfoOpened && <InfoPlacesList close={() => setIsInfoOpened(false)}/>
             }
 
         </div>

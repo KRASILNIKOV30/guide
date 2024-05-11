@@ -12,7 +12,7 @@ const PushLikeMenu = ({ yandexClicked, appleClicked, googleClicked, onClick }: P
     return (
         <div className={styles.push_like_menu}>
             <div className={styles.links_container}>
-                <div className={styles.links_header}>Построить маршрут в</div>
+                <div className={styles.links_header}>Построить маршрут</div>
                     <div 
                         className={styles.link}
                         onClick={() => {
